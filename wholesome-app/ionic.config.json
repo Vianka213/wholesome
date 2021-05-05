@@ -1,0 +1,7 @@
+{
+  "name": "wholesome-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
