@@ -1,0 +1,7 @@
+{
+    "development":{
+        "MONGODB_URI" : "mongodb+srv://admin:mongo730@cluster0.em9k9.mongodb.net/test?retryWrites=true&w=majority",
+        "JWT_SECRET" : "COS730wholesome2021",
+        "JWT_EXP" : "24h"
+    }
+}
