@@ -1,8 +1,19 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
 
+
+
 /** Ionic CSS Variables **/
 :root {
+  // Wholesome colours
+  --color-purple: #988CFF;
+  --color-green: #8EE7A8;
+  --color-blue: #439BFF;
+  --color-lavendar: #E6E2FF;
+  --color-white: #FFFFFF;
+  --color-dark: #36415C;
+  --color-light: #F5F6FA;
+
   /** primary **/
   --ion-color-primary: #3880ff;
   --ion-color-primary-rgb: 56, 128, 255;
