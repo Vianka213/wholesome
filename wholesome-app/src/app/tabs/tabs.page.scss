@@ -1,1 +1,45 @@
+$color-purple: #988CFF;
+$color-green: #8EE7A8;
+$color-blue: #439BFF;
+$color-lavendar: #E6E2FF;
+$color-white: #FFFFFF;
+$color-dark: #36415C;
+$color-light: #F5F6FA;
 
+
+ion-tab-button {
+    color: $color-dark;
+
+    &:hover {
+        ion-icon, ion-label {
+            color: $color-purple;
+            transition: all 0.5s;
+        }
+    }
+
+    &[aria-selected="true"] {
+        color: $color-purple;
+    }
+
+    &.custom {
+        overflow: visible !important;
+
+        ion-icon {
+            -webkit-transform: translate3d(0, 0px, 0);
+            transform: translate3d(0, 0px, 0);
+            background: $color-purple;
+            padding: 0.5em !important;
+            border-radius: 50% !important;
+            width: 1em !important;
+            height: 1em !important;
+            box-shadow: 0 0 0 0.1em $color-lavendar;
+            transition: all 0.5s;
+        }
+
+        &:hover ion-icon {
+            color: $color-dark !important;
+            box-shadow: 0 0 0 0.3em $color-lavendar;
+            transition: all 0.5s;
+        }
+    }
+}
