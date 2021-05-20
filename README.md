@@ -1,12 +1,7 @@
-<h1 align="center"> Wholesome </h1> <br>
-<p align="center">
-    <img alt="Wholesome Logo" src="![favicon](https://user-images.githubusercontent.com/62074573/118970643-be966300-b96e-11eb-9576-5a1073402ff0.png)" width="300">
-</p>
-
+<div align="center"> <h3>Wholesome</h3> <img alt="Wholesome Logo" src="media/logo.png" width="75"></div> <br>
 <hr>
-
 <p>
-    Languages <br>
+    <b>Languages</b> <br>
     <img alt="html badge" src="https://img.shields.io/badge/html-%2051.7%25-e34c26.svg">
     <img alt="javascript badge" src="https://img.shields.io/badge/javascript-%2031.5%25-f1e05a.svg">
   <img alt="typescript badge" src="https://img.shields.io/badge/typescript-%202.5%25-2b7489.svg">
