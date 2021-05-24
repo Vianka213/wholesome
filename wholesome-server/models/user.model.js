@@ -29,15 +29,8 @@ var UserSchema = new mongoose.Schema({
         type: Array,
         required : "Role required.",
     },
-    Projects:[
-        { 
-            type: mongoose.Schema.Types.ObjectId, 
-            ref: 'Team' 
-        }
-    ],
-    Authenticate:{
-        type: Boolean,  
-        required : "Authentication required."
+    Verified:{
+        type: Boolean
     },
     Removed:{
         type: Boolean
