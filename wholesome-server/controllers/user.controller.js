@@ -174,7 +174,7 @@ const RoleHelper =require('../helpers/role.helper');
  * @param {HTTP Response} res 
  */
  module.exports.isVerified = (req, res) => {
-    UserModel.findOne({ _id: req.ID},{Authenticate: 1},(err, result) => {
+    UserModel.findOne({ _id: req.ID},{Verified: 1},(err, result) => {
         if (err) 
             return res.status(500).send({message: 'Internal Server Error: ' + err});
         else if (!result)

@@ -4,6 +4,7 @@ const router = asyncify(express.Router());
 const user = require('../controllers/user.controller');
 const role = require('../controllers/role.controller');
 const userHelper = require('../helpers/user.helper');
+const jwtHelper = require('../config/jwtHelper');
 
 //user
 router.post("/user/register", user.register);
