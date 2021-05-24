@@ -1,1 +1,36 @@
+ion-tab-button {
+    color: var(--color-dark);
 
+    &:hover {
+        ion-icon, ion-label {
+            color: var(--color-purple);
+            transition: all 0.5s;
+        }
+    }
+
+    &[aria-selected="true"] {
+        color: var(--color-purple);
+    }
+
+    &.custom {
+        overflow: visible !important;
+
+        ion-icon {
+            -webkit-transform: translate3d(0, 0px, 0);
+            transform: translate3d(0, 0px, 0);
+            background: var(--color-purple);
+            padding: 0.5em !important;
+            border-radius: 50% !important;
+            width: 1em !important;
+            height: 1em !important;
+            box-shadow: 0 0 0 0.1em var(--color-lavendar);
+            transition: all 0.5s;
+        }
+
+        &:hover ion-icon {
+            color: var(--color-dark) !important;
+            box-shadow: 0 0 0 0.3em var(--color-lavendar);
+            transition: all 0.5s;
+        }
+    }
+}
