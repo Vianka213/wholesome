@@ -48,7 +48,7 @@ export class SignInPage implements OnInit {
         //this.headerService.isUserLoggedIn.next(true);
         //this.router.navigate(['main']);
       });
-      this.router.navigate(['home']);
+      this.router.navigate(['tabs/home']);
     },
     error => {
 

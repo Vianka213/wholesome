@@ -70,7 +70,7 @@ export class SignUpPage implements OnInit {
         localStorage.setItem('surname', res['surname']);
         localStorage.setItem('profilePic', res['profilePicture'])
         //this.headerService.isUserLoggedIn.next(true);
-        //this.router.navigate(['main']);
+        this.router.navigate(['tabs/home']);
       });
     },
     error => {
