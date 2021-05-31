@@ -1,3 +1,4 @@
+import { MbscModule } from '@mobiscroll/angular';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -13,7 +14,8 @@ import { AppComponent } from './app.component';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [
+  imports: [ 
+    MbscModule, 
     BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule, 
