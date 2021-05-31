@@ -1,6 +1,5 @@
 require('./config/config');
 require('./models/db');
-require('./models/user.model');
 require('./config/passportConfig');
 const port = process.env.PORT || 3000
 
