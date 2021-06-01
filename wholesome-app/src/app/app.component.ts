@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { AddFoodPageModule } from '../app/add-food/add-food.module';
+import { AddFoodPage } from '../app/add-food/add-food.page';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,12 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+  constructor(public modalController: ModalController) {}
+
+  async openAddFoodModal() {
+    const modal = await this.modalController.create({
+    component: AddFoodPage
+    });
+    return await modal.present();
+   }
 }
