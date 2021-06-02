@@ -8,6 +8,8 @@ import { TrackerService } from '../shared/services/tracker.service';
   styleUrls: ['./add-food.page.scss'],
 })
 export class AddFoodPage implements OnInit {
+  searchQuery : string
+  searchResults = []
 
   constructor(public viewCtrl: ModalController, public trackerService : TrackerService) { }
 
@@ -19,8 +21,11 @@ export class AddFoodPage implements OnInit {
   }
 
   searchFood(query) {
+    console.log(query)
     this.trackerService.naturalSearch(query).subscribe( data => {
       console.log(data)
+      this.searchResults = data['foods']
+      console.log(this.searchResults)
     })
   }
 
