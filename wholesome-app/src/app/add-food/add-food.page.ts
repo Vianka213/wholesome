@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { IonItemSliding, ModalController } from '@ionic/angular';
 import { TrackerService } from '../shared/services/tracker.service';
 
 @Component({
@@ -10,6 +10,8 @@ import { TrackerService } from '../shared/services/tracker.service';
 export class AddFoodPage implements OnInit {
   searchQuery : string
   searchResults : Object[] = []
+  //addedFood : Object[] = [{'food_name': 'Chicken Noodle Soup'}, {'food_name': 'apple'}]
+  addedFood : Object[] = []
   test = [{
     "food_name": "chicken noodle soup",
     "brand_name": null,
@@ -429,6 +431,18 @@ export class AddFoodPage implements OnInit {
     })*/
 
     this.searchResults = this.test
+  }
+
+  addFood(food, sliding?: IonItemSliding) {
+    let index = this.addedFood.indexOf(food)
+    if (index == -1) {
+        this.addedFood.push(food)
+    }
+    else
+        this.addedFood.splice(index, 1)
+
+    if (sliding)
+        sliding.close()
   }
 
 }

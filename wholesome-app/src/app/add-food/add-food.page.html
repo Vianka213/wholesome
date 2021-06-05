@@ -9,8 +9,14 @@
 
 <ion-content>
   <ion-searchbar [(ngModel)]="searchQuery" (search)="searchFood(searchQuery)" animated placeholder="What did you eat today?" autocorrect autocomplete></ion-searchbar>
-  <ion-list *ngIf="searchResults.length > 0">
-    <ion-item *ngFor="let r of searchResults">
+  <ion-chip (click)="addFood(a)" *ngFor="let a of addedFood">
+    <ion-label>{{a.food_name}}</ion-label>
+    <ion-icon icon="close"></ion-icon>
+  </ion-chip>
+  <ion-list id="resultsList" *ngIf="searchResults.length > 0">
+    <h2>Search Results ({{searchResults.length}})</h2>
+    <ion-item-sliding *ngFor="let r of searchResults" #slidingItem>
+      <ion-item>
       <ion-label>
         <h2>{{r.food_name}} | {{r.serving_qty}} {{r.serving_unit}}</h2>
         <p>
@@ -19,11 +25,15 @@
           Carbs<ion-badge color="tertiary">{{r.nf_total_carbohydrate}}</ion-badge>
         </p>
       </ion-label>
-      <ion-checkbox slot="start"></ion-checkbox>
       <ion-avatar slot="start">
         <img [src]="r.photo.thumb">
       </ion-avatar>
       <ion-note slot="end">{{r.nf_calories}}</ion-note>
-    </ion-item>
+      </ion-item>
+
+      <ion-item-options (ionSwipe)="addFood(r, slidingItem)" side="start">
+        <ion-item-option expandable (click)="addFood(r, slidingItem)" color="success">Add</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 </ion-content>

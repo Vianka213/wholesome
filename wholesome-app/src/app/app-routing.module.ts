@@ -36,6 +36,14 @@ const routes: Routes = [
   {
     path: 'add-food',
     loadChildren: () => import('./add-food/add-food.module').then( m => m.AddFoodPageModule)
+  },
+  {
+    path: 'add-water',
+    loadChildren: () => import('./add-water/add-water.module').then( m => m.AddWaterPageModule)
+  },
+  {
+    path: 'add-exercise',
+    loadChildren: () => import('./add-exercise/add-exercise.module').then( m => m.AddExercisePageModule)
   }
 
 ];

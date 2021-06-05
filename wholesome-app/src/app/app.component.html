@@ -5,7 +5,7 @@
       <ion-icon name="add-outline"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="top">
-      <ion-fab-button><ion-icon name="water-outline"></ion-icon></ion-fab-button>
+      <ion-fab-button (click)="openAddWaterModal()"><ion-icon name="water-outline"></ion-icon></ion-fab-button>
     </ion-fab-list>
     <ion-fab-list side="bottom">
       <ion-fab-button><ion-icon name="logo-facebook"></ion-icon></ion-fab-button>
@@ -14,7 +14,7 @@
       <ion-fab-button (click)="openAddFoodModal()"><ion-icon name="fast-food-outline"></ion-icon></ion-fab-button>
     </ion-fab-list>
     <ion-fab-list side="end">
-      <ion-fab-button><ion-icon name="barbell-outline"></ion-icon></ion-fab-button>
+      <ion-fab-button (click)="openAddExerciseModal()"><ion-icon name="barbell-outline"></ion-icon></ion-fab-button>
     </ion-fab-list>
   </ion-fab>
 </ion-app>
