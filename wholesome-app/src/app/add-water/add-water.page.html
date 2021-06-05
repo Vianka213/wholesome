@@ -1,9 +1,28 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>addWater</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Add Water</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismissModal()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <div class="ion-padding">
+    <ion-card>
+      <ion-card-header>
+        Today
+      </ion-card-header>
+      <ion-card-content>
+        <canvas id="waterCanvas" style="height:20vh; width:40vw"></canvas>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>
