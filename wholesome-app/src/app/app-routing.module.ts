@@ -44,6 +44,10 @@ const routes: Routes = [
   {
     path: 'add-exercise',
     loadChildren: () => import('./add-exercise/add-exercise.module').then( m => m.AddExercisePageModule)
+  },
+  {
+    path: 'edit-food',
+    loadChildren: () => import('./edit-food/edit-food.module').then( m => m.EditFoodPageModule)
   }
 
 ];

@@ -15,21 +15,24 @@ export class AppComponent {
 
   async openAddFoodModal() {
     const modal = await this.modalController.create({
-    component: AddFoodPage
+    component: AddFoodPage,
+    swipeToClose: true
     });
     return await modal.present();
    }
 
   async openAddWaterModal() {
     const modal = await this.modalController.create({
-    component: AddWaterPage
+    component: AddWaterPage,
+    swipeToClose: true
     });
     return await modal.present();
    }
 
   async openAddExerciseModal() {
     const modal = await this.modalController.create({
-    component: AddExercisePage
+    component: AddExercisePage,
+    swipeToClose: true
     });
     return await modal.present();
    }

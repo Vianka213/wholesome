@@ -32,8 +32,8 @@
     <ion-icon icon="close"></ion-icon>
   </ion-chip>
   <ion-list id="resultsList" *ngIf="searchResults.length > 0">
-    <h2>Search Results ({{searchResults.length}})</h2>
-    <ion-item-sliding *ngFor="let r of searchResults" #slidingItem>
+    <h4>Search Results ({{searchResults.length}})</h4>
+    <ion-item-sliding (click)="openEditFoodModal(r)" *ngFor="let r of searchResults" #slidingItem>
       <ion-item>
       <ion-label>
         <h2>{{r.food_name}} | {{r.serving_qty}} {{r.serving_unit}}</h2>

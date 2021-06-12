@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonItemSliding, ModalController } from '@ionic/angular';
+import { EditFoodPage } from '../edit-food/edit-food.page';
 import { TrackerService } from '../shared/services/tracker.service';
 
 @Component({
@@ -446,5 +447,16 @@ export class AddFoodPage implements OnInit {
     if (sliding)
         sliding.close()
   }
+
+  async openEditFoodModal(food) {
+    const modal = await this.viewCtrl.create({
+    component: EditFoodPage,
+    swipeToClose: true,
+    componentProps: {
+        'food': food
+    }
+    });
+    return await modal.present();
+   }
 
 }
