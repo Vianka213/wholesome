@@ -15,6 +15,7 @@ export class AddWaterPage implements OnInit {
   amountWater : number = 2
   maxWater : number = 8
   percentWater : any = 0
+  amountToAdd : number = 0
 
   ngOnInit() {    
     this.createChart()
@@ -49,4 +50,12 @@ export class AddWaterPage implements OnInit {
   }
 
 
+  addWater(amount) {
+    this.amountToAdd += amount
+  }
+
+  logWater() {
+    // create log for amountToAdd
+    console.log(this.amountToAdd)
+  }
 }

@@ -4,13 +4,16 @@
     margin: 0 auto;
 }
 
-.absolute-center {
+#chart {
     position: relative;
-  margin: 0 auto;
-  top: 50% !important;
-  transform: translateY(-75%);
-  width: 100%;
-  text-align: center;
+}
+
+.absolute-center {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 20%; 
+    text-align: center;
 }
   
 .text-center{
@@ -22,8 +25,15 @@ p {
 }
 
 #percent {
-    text-transform: uppercase;
-    font-size: medium;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--color-purple);
+    margin-bottom: 0;
+}
+
+#drank {
+    color: var(--color-grey);
+    margin-top: 0;
 }
 
 ion-input {
@@ -38,6 +48,14 @@ ion-input {
 ion-icon {
     font-size: 1.5em;
     vertical-align: middle;
+
+    &:hover {
+        color: var(--color-purple);
+    }
+}
+
+.no-minus {
+    visibility: hidden;
 }
 
 #water-input {
