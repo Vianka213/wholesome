@@ -456,6 +456,13 @@ export class AddFoodPage implements OnInit {
         'food': food
     }
     });
+
+    modal.onDidDismiss()
+      .then((data) => {
+        const food = data['data']; // get food back
+        console.log(food)
+    });
+
     return await modal.present();
    }
 

@@ -16,7 +16,7 @@ export class EditFoodPage implements OnInit {
   }
 
   dismissModal() {
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss(this.food);
   }
 
 }
