@@ -1,13 +1,31 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>addFood</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="dismissModal()">Done</ion-button>
+      <ion-button (click)="dismissModal()">
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
+    <ion-title>Log Food</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismissModal()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="segment">
+      <ion-segment-button value="all">
+        <ion-label>All</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="recipes">
+        <ion-label>My Recipes</ion-label>
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [ngSwitch]="segment">
+  <div *ngSwitchCase="'all'">
   <ion-searchbar [(ngModel)]="searchQuery" (search)="searchFood(searchQuery)" animated placeholder="What did you eat today?" autocorrect autocomplete></ion-searchbar>
   <ion-chip (click)="addFood(a)" *ngFor="let a of addedFood">
     <ion-label>{{a.food_name}}</ion-label>
@@ -36,4 +54,14 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
+  </div>
+
+  <div *ngSwitchCase="'recipes'">
+    <ion-searchbar [(ngModel)]="searchRecipe" (search)="searchRecipes(searchRecipes)" animated placeholder="What did you eat today?" autocorrect autocomplete></ion-searchbar>
+  </div>
 </ion-content>
+
+
+<ion-footer>
+  <ion-button (click)="dismissModal()" expand="full" color="secondary">Done</ion-button>
+</ion-footer>

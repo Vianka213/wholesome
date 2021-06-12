@@ -413,6 +413,8 @@ export class AddFoodPage implements OnInit {
     }
 }]
 
+    segment : string = "all"
+
   constructor(public viewCtrl: ModalController, public trackerService : TrackerService) { }
 
   ngOnInit() {
