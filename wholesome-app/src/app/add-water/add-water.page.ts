@@ -12,11 +12,13 @@ export class AddWaterPage implements OnInit {
   constructor(public viewCtrl: ModalController) { }
 
   private chart : Chart
-  amountWater : 2
-  maxWater : 8
+  amountWater : number = 2
+  maxWater : number = 8
+  percentWater : any = 0
 
-  ngOnInit() {
+  ngOnInit() {    
     this.createChart()
+    this.percentWater = ((this.amountWater/this.maxWater)*100).toFixed(0)
   }
 
   dismissModal() {
@@ -37,8 +39,14 @@ export class AddWaterPage implements OnInit {
             hoverBackgroundColor: ["#439BFF", "#F5F6FA"]
           }
         ]
+      },
+      options: {
+        showTooltips : true,
+        animation: true,
+        cutout : 60
       }
     });
   }
+
 
 }
