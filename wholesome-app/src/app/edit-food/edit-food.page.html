@@ -16,19 +16,36 @@
 
 <ion-content>
   <ion-card>
-    <ion-img [src]="food.photo.thumb"></ion-img>
+    <ion-img [src]="food.photo.highres"></ion-img>
     <ion-card-header>
       <ion-card-title>{{food.food_name}}</ion-card-title>
       <ion-card-subtitle>{{food.nf_calories}} calories</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-      Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.
-      Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.
-      Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.
-      Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.
-      Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.
-      Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.
-      Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.
+      <div>
+        <h6>Macros</h6>
+        <div id="proteinChart" class="charts" style="width: 33%; height: 33%;">
+          <canvas id="proteinCanvas" width="1" height="1"></canvas>
+          Protein
+          <div class="absolute-center text-center">
+            <p id="percent">{{percentProtein}}%</p>
+          </div>
+        </div>
+        <div id="fatChart" class="charts" style="width: 33%; height: 33%;">
+          <canvas id="fatCanvas" width="1" height="1"></canvas>
+          Fat
+          <div class="absolute-center text-center">
+            <p id="percent">{{percentFat}}%</p>
+          </div>
+        </div>
+        <div id="carbsChart" class="charts" style="width: 33%; height: 33%;">
+          <canvas id="carbsCanvas" width="1" height="1"></canvas>
+          Carbs
+          <div class="absolute-center text-center">
+            <p id="percent">{{percentCarbs}}%</p>
+          </div>
+        </div>
+      </div>
     </ion-card-content>
   </ion-card>
 </ion-content>

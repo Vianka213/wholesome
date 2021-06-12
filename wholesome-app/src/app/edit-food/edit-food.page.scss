@@ -15,3 +15,22 @@ ion-card-content {
       display: none;
     }
   }
+
+.charts {
+    display: inline-block;
+    text-align: center;
+    position: relative;
+}
+
+canvas {
+    width: 100% !important;
+    height: 100% !important;
+    border: 1px solid red
+}
+
+.absolute-center {
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

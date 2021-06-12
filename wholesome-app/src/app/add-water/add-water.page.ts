@@ -12,6 +12,7 @@ export class AddWaterPage implements OnInit {
   constructor(public viewCtrl: ModalController) { }
 
   private chart : Chart
+  
   amountWater : number = 2
   maxWater : number = 8
   percentWater : any = 0
@@ -45,7 +46,8 @@ export class AddWaterPage implements OnInit {
         showTooltips : true,
         animation: true,
         cutout : 60
-      }
+      },
+      
     });
   }
 
