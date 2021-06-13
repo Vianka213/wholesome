@@ -26,3 +26,13 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 @import "~@mobiscroll/angular/dist/css/mobiscroll.scss";
+
+:root {
+    .select-popover {
+        text-transform: capitalize;
+    }
+}
+
+.select-popover {
+    text-transform: capitalize;
+}

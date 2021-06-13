@@ -18,12 +18,23 @@
   <ion-card>
     <ion-img [src]="food.photo.highres"></ion-img>
     <ion-card-header>
+      <ion-card-subtitle><ion-icon name="flash-outline"></ion-icon>{{cals}} calories</ion-card-subtitle>
       <ion-card-title>{{food.food_name}}</ion-card-title>
-      <ion-card-subtitle>{{food.nf_calories}} calories</ion-card-subtitle>
+      <div id="quantity-input">
+        <ion-icon (click)="addQuantity(1)" name="add-circle-outline"></ion-icon>
+        <ion-input [(ngModel)]="quantity" type="number" placeholder="Enter Quantity"></ion-input>
+        <ion-icon (click)="addQuantity(-1)" name="remove-circle-outline" min="0" [ngClass]="{'no-minus': quantity === 0}"></ion-icon>
+      </div>
+      <ion-item id="serving-input">
+        <ion-label>Serving</ion-label>
+        <ion-select (ionChange)="editServing()" [(ngModel)]="serving" [value]="serving">
+          <ion-select-option class="popover" *ngFor="let a of food.alt_measures" [value]="a.measure">{{a.measure}} ({{a.serving_weight}}g)</ion-select-option>
+        </ion-select>
+      </ion-item>
     </ion-card-header>
     <ion-card-content>
       <div>
-        <h6>Macros</h6>
+        <h6>Nutritional Information</h6>
         <div id="proteinChart" class="charts" style="width: 33%; height: 33%;">
           <canvas id="proteinCanvas" width="1" height="1"></canvas>
           Protein
@@ -33,7 +44,7 @@
         </div>
         <div id="fatChart" class="charts" style="width: 33%; height: 33%;">
           <canvas id="fatCanvas" width="1" height="1"></canvas>
-          Fat
+          Fats
           <div class="absolute-center text-center">
             <p id="percent">{{percentFat}}%</p>
           </div>
@@ -45,6 +56,63 @@
             <p id="percent">{{percentCarbs}}%</p>
           </div>
         </div>
+        <br><br>
+        <!-- nutritional info list -->
+        <ion-list>
+          <ion-item *ngFor="let n of nutrition">
+            <ion-note *ngIf="n.name == 'Protein' || n.name == 'Total Fat' || n.name == 'Total Carbohydrate'" slot="start"><ion-icon name="stop"></ion-icon></ion-note>
+            <ion-label>{{n.name}}</ion-label>
+            <ion-note slot="end">{{n.value}}{{n.unit}}</ion-note>
+          </ion-item>
+        
+          <!--<ion-item>
+            <ion-note slot="start"><ion-icon name="stop"></ion-icon></ion-note>
+            <ion-label>Total Fats</ion-label>
+            <ion-note slot="end">{{food.nf_total_fat}}</ion-note>
+          </ion-item>
+
+          <ion-item>
+            <ion-note slot="start"></ion-note>
+            <ion-label>Saturated Fat</ion-label>
+            <ion-note slot="end">{{food.nf_saturated_fat}}</ion-note>
+          </ion-item>
+
+          <ion-item>
+            <ion-note slot="start"></ion-note>
+            <ion-label>Trans Fat</ion-label>
+            <ion-note slot="end">{{food.nf_trans_fatty_acid}}</ion-note>
+          </ion-item>
+
+          <ion-item>
+            <ion-note slot="start"><ion-icon name="stop"></ion-icon></ion-note>
+            <ion-label>Total Carbohydrates</ion-label>
+            <ion-note slot="end">{{food.nf_total_carbohydrate}}</ion-note>
+          </ion-item>
+
+          <ion-item>
+            <ion-note slot="start"></ion-note>
+            <ion-label>Dietary Fiber</ion-label>
+            <ion-note slot="end">{{food.nf_dietary_fiber}}</ion-note>
+          </ion-item>
+
+          <ion-item>
+            <ion-note slot="start"></ion-note>
+            <ion-label>Sugars</ion-label>
+            <ion-note slot="end">{{food.nf_sugars}}</ion-note>
+          </ion-item>
+
+          <ion-item>
+            <ion-note slot="start"><ion-icon name="stop"></ion-icon></ion-note>
+            <ion-label>Cholesterol</ion-label>
+            <ion-note slot="end">{{food.nf_cholesterol}}</ion-note>
+          </ion-item>
+
+          <ion-item>
+            <ion-note slot="start"><ion-icon name="stop"></ion-icon></ion-note>
+            <ion-label>Sodium</ion-label>
+            <ion-note slot="end">{{food.full_nutrients['203']}}</ion-note>
+          </ion-item>-->
+        </ion-list>
       </div>
     </ion-card-content>
   </ion-card>

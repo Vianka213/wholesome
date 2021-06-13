@@ -34,3 +34,53 @@ canvas {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+ion-select-option, ion-select, .alert-radio-label {
+    text-transform: capitalize !important;
+}
+
+.my-custom-interface .select-interface-option {
+    color: red;
+  }
+
+  .popover {
+    text-transform: capitalize !important;
+}
+
+ion-header ion-label {
+    width: 30% !important;
+}
+
+ion-input {
+    display: inline-block !important;
+    width: 1.5em !important;
+    border: 1px solid var(--color-dark);
+    border-radius: 1em;
+    margin: 0 0.5em;
+    text-align: center;
+}
+
+.no-minus {
+    visibility: hidden;
+}
+
+#serving-input {
+    width: 60%;
+    display: inline-block;
+}
+
+#quantity-input {
+    width: 30%;
+    display: inline-flex;
+    align-items: center;
+    margin-top: 3em !important;
+
+    ion-icon {
+        font-size: 1.5em;
+        vertical-align: middle;
+    
+        &:hover {
+            color: var(--color-purple);
+        }
+    }
+}
