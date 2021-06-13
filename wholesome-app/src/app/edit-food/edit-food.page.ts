@@ -131,7 +131,30 @@ export class EditFoodPage implements OnInit {
     this.nutrition.forEach(element => {
       element['value'] += ((element['value']/this.quantity)*quan)
     });
+    this.servingWeight += (this.food.serving_weight_grams*quan)
+    this.cals += (this.food.nf_calories*quan)
     this.quantity += quan
+  }
+
+  saveEdits() {
+    this.food.nf_calories = this.cals
+    this.food.serving_qty = this.quantity
+    this.food.serving_unit = this.serving
+    this.food.serving_weight_grams = this.servingWeight
+
+    // info
+    this.food.full_nutrients.find(x => x.attr_id == 203).value = this.nutrition[0]['value']
+    this.food.nf_protein = this.nutrition[0]['value']
+    this.food.full_nutrients.find(x => x.attr_id == 204).value = this.nutrition[1]['value']
+    this.food.nf_total_fat = this.nutrition[1]['value']
+    this.food.full_nutrients.find(x => x.attr_id == 606).value = this.nutrition[2]['value']
+    this.food.full_nutrients.find(x => x.attr_id == 605).value = this.nutrition[3]['value']
+    this.food.full_nutrients.find(x => x.attr_id == 205).value = this.nutrition[4]['value']
+    this.food.nf_total_carbohydrate = this.nutrition[4]['value']
+    this.food.full_nutrients.find(x => x.attr_id == 291).value = this.nutrition[5]['value']
+    this.food.full_nutrients.find(x => x.attr_id == 269).value = this.nutrition[6]['value']
+    this.food.full_nutrients.find(x => x.attr_id == 601).value = this.nutrition[7]['value']
+    this.food.full_nutrients.find(x => x.attr_id == 307).value = this.nutrition[8]['value']
   }
 
   createCharts() {
