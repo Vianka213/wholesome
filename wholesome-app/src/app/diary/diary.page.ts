@@ -436,10 +436,11 @@ export class DiaryPage implements OnInit {
 
   ngOnInit() {
 
-    this.myEvents.push({"recurring":{"repeat":"daily"}, "title": "Breakfast", "color": "#988CFF", "text": "hi"})
-    this.myEvents.push({"recurring":{"repeat":"daily"}, "title": "Lunch", "color": "#8EE7A8"})
-    this.myEvents.push({"recurring":{"repeat":"daily"}, "title": "Dinner", "color": "#439BFF"})
-    this.myEvents.push({"recurring":{"repeat":"daily"}, "title": "Snacks", "color": "#E6E2FF"})
+    this.myEvents.push({"recurring":{"repeat":"daily"}, "title": "Breakfast", "color": "#988CFF", "start": "08:00"})
+    this.myEvents.push({"recurring":{"repeat":"daily"}, "title": "Lunch", "color": "#8EE7A8", "start": "12:00"})
+    this.myEvents.push({"recurring":{"repeat":"daily"}, "title": "Dinner", "color": "#439BFF", "start": "18:00"})
+    this.myEvents.push({"recurring":{"repeat":"daily"}, "title": "Snacks", "color": "#E6E2FF", "start": "19:00"})
+    this.myEvents.push({"recurring":{"repeat":"daily"}, "title": "Exercise", "color": "#E6E2FF", "start": "20:00"})
     this.foodEntries = this.test
     console.log(this.foodEntries)
     //this.http.get<any>('https://api.spoonacular.com/recipes/complexSearch?query=burger&apiKey=' + this.apiKey).subscribe(data => {
