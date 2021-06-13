@@ -36,3 +36,23 @@
 .select-popover {
     text-transform: capitalize;
 }
+
+:root {
+    mbsc-event-list-item {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        width: 100%;
+    }
+
+    div.md-full-event {
+        width: 100%;
+    }
+
+    div.md-full-event-title {
+        padding-left: 1em;        
+        padding-bottom: 0.7em;
+        text-transform: uppercase;
+        font-size: 0.8em;
+        color: #36415C;
+    }
+}
