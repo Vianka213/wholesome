@@ -48,6 +48,10 @@ const routes: Routes = [
   {
     path: 'edit-food',
     loadChildren: () => import('./edit-food/edit-food.module').then( m => m.EditFoodPageModule)
+  },
+  {
+    path: 'my-recipes',
+    loadChildren: () => import('./my-recipes/my-recipes.module').then( m => m.MyRecipesPageModule)
   }
 
 ];
