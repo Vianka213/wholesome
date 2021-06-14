@@ -434,6 +434,10 @@ export class AddFoodPage implements OnInit {
     })*/
 
     this.searchResults = this.test
+
+    this.searchResults.forEach(element => {
+        this.calcCalories(element)
+    });
   }
 
   addFood(food, sliding?: IonItemSliding) {
@@ -446,6 +450,22 @@ export class AddFoodPage implements OnInit {
 
     if (sliding)
         sliding.close()
+  }
+
+  calcCalories(food : Object) {
+    let p = food['nf_protein']*4
+    let f = food['nf_total_fat']*9
+    let c = food['nf_total_carbohydrate']*4
+
+    let cals = food['nf_calories']
+
+    food['calsP'] = p
+    food['calsF'] = f
+    food['calsC'] = c
+
+    food['percentP'] = p * 100 / cals
+    food['percentF'] = f * 100 / cals
+    food['percentC'] = c * 100 / cals
   }
 
   async openEditFoodModal(food) {

@@ -32,9 +32,9 @@ export class EditFoodPage implements OnInit {
     this.serving = this.food.serving_unit
     this.servingWeight = this.food.serving_weight_grams
     console.log(this.serving)
-    this.percentProtein = ((this.food.nf_protein/this.food.nf_calories)*100).toFixed(0)
-    this.percentFat = ((this.food.nf_total_fat/this.food.nf_calories)*100).toFixed(0)
-    this.percentCarbs = ((this.food.nf_total_carbohydrate/this.food.nf_calories)*100).toFixed(0)
+    this.percentProtein = ((this.food.calsP/this.food.nf_calories)*100).toFixed(0)
+    this.percentFat = ((this.food.calsF/this.food.nf_calories)*100).toFixed(0)
+    this.percentCarbs = ((this.food.calsC/this.food.nf_calories)*100).toFixed(0)
     this.getNutritionalInfo()
     this.createCharts()
   }
@@ -164,7 +164,7 @@ export class EditFoodPage implements OnInit {
       data: {
         datasets: [
           {
-            data: [this.food.nf_protein, this.food.nf_calories],
+            data: [this.food.calsP, this.food.nf_calories],
             backgroundColor: [
               "#439BFF",
               "#F5F6FA",
@@ -188,7 +188,7 @@ export class EditFoodPage implements OnInit {
       data: {
         datasets: [
           {
-            data: [this.food.nf_total_fat, this.food.nf_calories],
+            data: [this.food.calsF, this.food.nf_calories],
             backgroundColor: [
               "#439BFF",
               "#F5F6FA",
@@ -211,7 +211,7 @@ export class EditFoodPage implements OnInit {
       data: {
         datasets: [
           {
-            data: [this.food.nf_total_carbohydrate, this.food.nf_calories],
+            data: [this.food.calsC, this.food.nf_calories],
             backgroundColor: [
               "#439BFF",
               "#F5F6FA",
