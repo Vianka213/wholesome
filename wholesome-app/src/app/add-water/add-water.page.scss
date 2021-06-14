@@ -1,0 +1,70 @@
+#waterCanvas{
+    width: 50% !important;
+    height: 50% !important;
+    margin: 0 auto;
+}
+
+#chart {
+    position: relative;
+}
+
+.absolute-center {
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+  
+.text-center{
+    text-align: center;
+}
+
+p {
+    text-align: center;
+}
+
+#percent {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--color-purple);
+    margin-bottom: 0;
+}
+
+#drank {
+    color: var(--color-grey);
+    margin-top: 0;
+}
+
+ion-input {
+    display: inline-block !important;
+    width: 5em !important;
+    border: 1px solid var(--color-dark);
+    border-radius: 1em;
+    margin: 0 0.5em;
+    text-align: center;
+}
+
+ion-icon {
+    font-size: 1.5em;
+    vertical-align: middle;
+
+    &:hover {
+        color: var(--color-purple);
+    }
+}
+
+.no-minus {
+    visibility: hidden;
+}
+
+#water-input {
+    display: flex;
+    align-items: center;
+    margin-top: 3em !important;
+}
+
+#chips {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5em;
+}

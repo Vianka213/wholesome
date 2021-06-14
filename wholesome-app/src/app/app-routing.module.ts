@@ -32,6 +32,22 @@ const routes: Routes = [
   {
     path: 'sign-up',
     loadChildren: () => import('./sign-up/sign-up.module').then( m => m.SignUpPageModule)
+  },
+  {
+    path: 'add-food',
+    loadChildren: () => import('./add-food/add-food.module').then( m => m.AddFoodPageModule)
+  },
+  {
+    path: 'add-water',
+    loadChildren: () => import('./add-water/add-water.module').then( m => m.AddWaterPageModule)
+  },
+  {
+    path: 'add-exercise',
+    loadChildren: () => import('./add-exercise/add-exercise.module').then( m => m.AddExercisePageModule)
+  },
+  {
+    path: 'edit-food',
+    loadChildren: () => import('./edit-food/edit-food.module').then( m => m.EditFoodPageModule)
   }
 
 ];

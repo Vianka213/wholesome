@@ -1,9 +1,58 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>diary</ion-title>
+    <ion-title>Diary</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content>  
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>200 calories remaining</ion-card-subtitle>
+      <ion-card-title>493/693 kcal</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-item>
+        <ion-icon name="fast-food-outline" slot="start"></ion-icon>
+        <ion-label>Food</ion-label>
+        <ion-note slot="end" color="primary">500kcal</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="barbell-outline" slot="start"></ion-icon>
+        <ion-label>Exercise</ion-label>
+        <ion-note slot="end" color="primary">7kcal</ion-note>
+      </ion-item>
+      <ion-button id="nutri" slot="end" color="primary" size="small">View Nutrition</ion-button>
+      <ion-button slot="end" color="success" size="small">Complete Log</ion-button>
+    </ion-card-content>
+  </ion-card>
+  <mbsc-eventcalendar [eventTemplate]="eventTemplate" [data]="myEvents" [options]="eventSettings"></mbsc-eventcalendar>
 </ion-content>
+
+<ng-template #eventTemplate let-data>
+  <div class="md-full-event">
+      <div class="md-full-event-details">
+          <div class="md-full-event-title">{{data.title}}
+            <ion-note slot="end"><ion-icon name="flash-outline"></ion-icon> 234 calories</ion-note>
+          </div>
+      </div>
+      <ion-list id="resultsList" *ngIf="foodEntries.length > 0">
+        <ion-item-sliding (click)="openEditFoodModal(r)" *ngFor="let r of foodEntries" #slidingItem>
+          <ion-item>
+          <ion-label>
+            <h2>{{r.food_name}} | {{r.serving_qty}} {{r.serving_unit}}</h2>
+          </ion-label>
+          <ion-avatar slot="start">
+            <img [src]="r.photo.thumb">
+          </ion-avatar>
+          <ion-note slot="end">{{r.nf_calories}}</ion-note>
+          </ion-item>
+    
+          <ion-item-options (ionSwipe)="addFood(r, slidingItem)" side="end">
+            <ion-item-option expandable (click)="addFood(r, slidingItem)" color="danger">Remove</ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+  </div>
+  
+</ng-template>

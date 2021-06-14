@@ -1,19 +1,18 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { IonItemSliding, ModalController } from '@ionic/angular';
+import { EditFoodPage } from '../edit-food/edit-food.page';
 import { TrackerService } from '../shared/services/tracker.service';
-import { MbscEventcalendarOptions, Notifications, MbscCalendarEvent  } from '@mobiscroll/angular';
-
-
 
 @Component({
-  selector: 'app-diary',
-  templateUrl: './diary.page.html',
-  styleUrls: ['./diary.page.scss'],
-  providers: [Notifications]
+  selector: 'app-add-food',
+  templateUrl: './add-food.page.html',
+  styleUrls: ['./add-food.page.scss'],
 })
-export class DiaryPage implements OnInit {
-  apiKey = '09030db3ec2a4ebf8220bcd0fa7c5944'
-
+export class AddFoodPage implements OnInit {
+  searchQuery : string
+  searchResults : Object[] = []
+  //addedFood : Object[] = [{'food_name': 'Chicken Noodle Soup'}, {'food_name': 'apple'}]
+  addedFood : Object[] = []
   test = [{
     "food_name": "chicken noodle soup",
     "brand_name": null,
@@ -413,47 +412,58 @@ export class DiaryPage implements OnInit {
         "thumb": "https://d2xdmhkmkbyw75.cloudfront.net/256_thumb.jpg",
         "highres": "https://d2xdmhkmkbyw75.cloudfront.net/256_highres.jpg"
     }
-  }]
+}]
 
-  constructor(private http : HttpClient, public trackerService : TrackerService, private notify : Notifications) { }
+    segment : string = "all"
 
-  myEvents: MbscCalendarEvent[] = [];
-  foodEntries : Object[] = []
-
-  eventSettings: MbscEventcalendarOptions = {
-    theme: 'ios',
-    themeVariant: 'light',
-    view: {
-        calendar: { type: 'week' },
-        agenda: { type: 'day' }
-    },
-    onEventClick: (event) => {
-        this.notify.toast({
-            message: event.event.title
-        });
-    }
-};
+  constructor(public viewCtrl: ModalController, public trackerService : TrackerService) { }
 
   ngOnInit() {
+  }
 
-    this.myEvents.push({"recurring":{"repeat":"daily"}, "title": "Breakfast", "color": "#988CFF", "start": "08:00"})
-    this.myEvents.push({"recurring":{"repeat":"daily"}, "title": "Lunch", "color": "#8EE7A8", "start": "12:00"})
-    this.myEvents.push({"recurring":{"repeat":"daily"}, "title": "Dinner", "color": "#439BFF", "start": "18:00"})
-    this.myEvents.push({"recurring":{"repeat":"daily"}, "title": "Snacks", "color": "#E6E2FF", "start": "19:00"})
-    this.myEvents.push({"recurring":{"repeat":"daily"}, "title": "Exercise", "color": "#E6E2FF", "start": "20:00"})
-    this.foodEntries = this.test
-    console.log(this.foodEntries)
-    //this.http.get<any>('https://api.spoonacular.com/recipes/complexSearch?query=burger&apiKey=' + this.apiKey).subscribe(data => {
-      //  console.log(data)
-  //})
+  dismissModal() {
+    this.viewCtrl.dismiss();
+  }
 
-  //this.trackerService.naturalSearch('big mac and fries').subscribe( data => {
-  //  console.log(data)
-  //})
+  searchFood(query) {
+    console.log(query)
+    /*this.trackerService.naturalSearch(query).subscribe( data => {
+      console.log(data)
+      this.searchResults = this.test
+      console.log(this.searchResults)
+    })*/
 
-  //this.http.jsonp<MbscCalendarEvent[]>('https://trial.mobiscroll.com/events/?vers=5', 'callback').subscribe((resp) => {
-  //          this.myEvents = resp;
-  //      });
-}
+    this.searchResults = this.test
+  }
+
+  addFood(food, sliding?: IonItemSliding) {
+    let index = this.addedFood.indexOf(food)
+    if (index == -1) {
+        this.addedFood.push(food)
+    }
+    else
+        this.addedFood.splice(index, 1)
+
+    if (sliding)
+        sliding.close()
+  }
+
+  async openEditFoodModal(food) {
+    const modal = await this.viewCtrl.create({
+    component: EditFoodPage,
+    swipeToClose: true,
+    componentProps: {
+        'food': food
+    }
+    });
+
+    modal.onDidDismiss()
+      .then((data) => {
+        const food = data['data']; // get food back
+        console.log(food)
+    });
+
+    return await modal.present();
+   }
 
 }

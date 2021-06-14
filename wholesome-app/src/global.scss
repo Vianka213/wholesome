@@ -24,3 +24,59 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+@import "~@mobiscroll/angular/dist/css/mobiscroll.scss";
+
+:root {
+    .select-popover {
+        text-transform: capitalize;
+    }
+}
+
+.select-popover {
+    text-transform: capitalize;
+}
+
+:root {
+    mbsc-event-list-item {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        width: 100%;
+    }
+
+    div.md-full-event {
+        width: 100%;
+    }
+
+    div.md-full-event-title {
+        padding-left: 1em;        
+        padding-bottom: 0.7em;
+        text-transform: uppercase;
+        font-size: 0.8em;
+        color: #36415C;
+    }
+
+    /*div.mbsc-calendar-wrapper{
+        position: fixed;
+        top: 5%;
+        z-index: 50;
+    }
+
+    div.mbsc-schedule-date-header-text {
+        position: fixed;
+        top: 19%;
+        z-index: 55 !important;
+        width: 100vw;
+        background-color: #eee;
+        border: 0;
+    }
+
+    div.mbsc-schedule-date-header {
+        border: 0;
+    }
+
+    mbsc-list {
+        position: relative;
+        top: 16vh;
+    }*/
+}

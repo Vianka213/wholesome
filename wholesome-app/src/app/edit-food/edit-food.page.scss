@@ -1,0 +1,94 @@
+h4, h6 {
+    margin-left: 0.5em;
+}
+
+ion-card {
+    max-height: 95%;
+    display: flex;
+    flex-direction: column;
+}
+
+ion-card-content {
+    overflow: hidden;
+    overflow-y: auto;
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+.charts {
+    display: inline-block;
+    text-align: center;
+    position: relative;
+}
+
+canvas {
+    width: 100% !important;
+    height: 100% !important;
+    border: 1px solid red
+}
+
+.absolute-center {
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+ion-select-option, ion-select, .alert-radio-label {
+    text-transform: capitalize !important;
+}
+
+.my-custom-interface .select-interface-option {
+    color: red;
+  }
+
+  .popover {
+    text-transform: capitalize !important;
+}
+
+ion-header ion-label {
+    width: 30% !important;
+}
+
+ion-input {
+    display: inline-block !important;
+    width: 1.5em !important;
+    border: 1px solid var(--color-dark);
+    border-radius: 1em;
+    margin: 0 0.5em;
+    text-align: center;
+}
+
+.no-minus {
+    visibility: hidden;
+}
+
+#serving-input {
+    width: 70%;
+    display: inline-block;
+}
+
+#quantity-input {
+    width: 30%;
+    display: inline-flex;
+    align-items: center;
+    text-align: center;
+
+    ion-icon {
+        font-size: 1.5em;
+        vertical-align: middle;
+    
+        &:hover {
+            color: var(--color-purple);
+        }
+    }
+}
+
+#inputs {
+    margin-top: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+}

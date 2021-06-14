@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MbscModule } from '@mobiscroll/angular';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -11,9 +13,13 @@ import { DiaryPage } from './diary.page';
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     IonicModule,
-    DiaryPageRoutingModule
+    DiaryPageRoutingModule,
+    MbscModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    HttpClientJsonpModule
   ],
   declarations: [DiaryPage]
 })

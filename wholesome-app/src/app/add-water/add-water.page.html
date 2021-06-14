@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="logWater(); dismissModal()">
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Log Water</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismissModal()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding">
+    <div id="chart">
+      <canvas id="waterCanvas" style="width: 10vw;"></canvas>
+      <div class="absolute-center text-center">
+        <p id="percent">{{percentWater}}%</p>
+        <p id="drank">{{amountWater}}ml</p>
+      </div>
+    </div>
+
+    <!--<p id="drank">You have drank {{amountWater}}ml of water today.</p>
+    <p id="percent"> of goal achieved!</p>-->
+
+    <div id="water-input">
+      <ion-icon (click)="addWater(1)" name="add-circle-outline"></ion-icon>
+      <ion-input [(ngModel)]="amountToAdd" type="number" placeholder="Enter Amount (ml)"></ion-input>
+      <ion-icon (click)="addWater(-1)" name="remove-circle-outline" min="0" [ngClass]="{'no-minus': amountToAdd === 0}"></ion-icon>
+    </div>
+    <div id="chips">
+      <ion-chip (click)="addWater(250)">+250ml</ion-chip>
+      <ion-chip (click)="addWater(500)">+500ml</ion-chip>
+      <ion-chip (click)="addWater(1000)">+1000ml</ion-chip>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-button (click)="logWater(); dismissModal()" expand="full" color="secondary">Done</ion-button>
+</ion-footer>

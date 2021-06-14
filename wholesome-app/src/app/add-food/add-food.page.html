@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Log Food</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismissModal()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="segment">
+      <ion-segment-button value="all">
+        <ion-label>All</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="recipes">
+        <ion-label>My Recipes</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [ngSwitch]="segment">
+  <div *ngSwitchCase="'all'">
+  <ion-searchbar [(ngModel)]="searchQuery" (search)="searchFood(searchQuery)" animated placeholder="What did you eat today?" autocorrect autocomplete></ion-searchbar>
+  <ion-chip (click)="addFood(a)" *ngFor="let a of addedFood">
+    <ion-label>{{a.food_name}}</ion-label>
+    <ion-icon icon="close"></ion-icon>
+  </ion-chip>
+  <ion-list id="resultsList" *ngIf="searchResults.length > 0">
+    <h4>Search Results ({{searchResults.length}})</h4>
+    <ion-item-sliding (click)="openEditFoodModal(r)" *ngFor="let r of searchResults" #slidingItem>
+      <ion-item>
+      <ion-label>
+        <h2>{{r.food_name}} | {{r.serving_qty}} {{r.serving_unit}}</h2>
+        <p>
+          Protein<ion-badge color="primary">{{r.nf_protein}}</ion-badge>
+          Fat<ion-badge color="secondary">{{r.nf_total_fat}}</ion-badge>
+          Carbs<ion-badge color="tertiary">{{r.nf_total_carbohydrate}}</ion-badge>
+        </p>
+      </ion-label>
+      <ion-avatar slot="start">
+        <img [src]="r.photo.thumb">
+      </ion-avatar>
+      <ion-note slot="end">{{r.nf_calories}}</ion-note>
+      </ion-item>
+
+      <ion-item-options (ionSwipe)="addFood(r, slidingItem)" side="start">
+        <ion-item-option expandable (click)="addFood(r, slidingItem)" color="success">Add</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  </div>
+
+  <div *ngSwitchCase="'recipes'">
+    <ion-searchbar [(ngModel)]="searchRecipe" (search)="searchRecipes(searchRecipes)" animated placeholder="What did you eat today?" autocorrect autocomplete></ion-searchbar>
+  </div>
+</ion-content>
+
+
+<ion-footer>
+  <ion-button (click)="dismissModal()" expand="full" color="secondary">Done</ion-button>
+</ion-footer>
