@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Create Recipe</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismissModal()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="floating">Recipe Name</ion-label>
+    <ion-input required="true" autocomplete autocorrect></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Tags (optional)</ion-label>
+    <ion-input autocomplete autocorrect></ion-input>
+  </ion-item>
+  <p>
+    <ion-item>
+    <ion-label>Meal</ion-label>
+    <ion-chip color="primary">
+      <ion-label>Breakfast</ion-label>
+    </ion-chip>
+    <ion-chip color="secondary">
+      <ion-label>Lunch</ion-label>
+    </ion-chip>
+    <ion-chip color="tertiary">
+      <ion-label>Dinner</ion-label>
+    </ion-chip>
+  </ion-item>
+  </p>
+</ion-content>
