@@ -463,9 +463,9 @@ export class AddFoodPage implements OnInit {
     food['calsF'] = f
     food['calsC'] = c
 
-    food['percentP'] = p * 100 / cals
-    food['percentF'] = f * 100 / cals
-    food['percentC'] = c * 100 / cals
+    food['percentP'] = (p * 100 / cals).toFixed(2)
+    food['percentF'] = (f * 100 / cals).toFixed(2)
+    food['percentC'] = (c * 100 / cals).toFixed(2)
   }
 
   async openEditFoodModal(food) {

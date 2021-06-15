@@ -36,6 +36,7 @@ export class EditFoodPage implements OnInit {
     this.percentFat = ((this.food.calsF/this.food.nf_calories)*100).toFixed(0)
     this.percentCarbs = ((this.food.calsC/this.food.nf_calories)*100).toFixed(0)
     this.getNutritionalInfo()
+    this.setMeal()
     this.createCharts()
   }
 
@@ -136,6 +137,28 @@ export class EditFoodPage implements OnInit {
     this.quantity += quan
   }
 
+  setMeal() {
+    var time = new Date().getHours();
+    console.log(time)
+    if (time >= 5 && time <= 10) {
+      this.food.meal = 'Breakfast'
+    } else if (time >= 10 && time < 12) {
+      this.food.meal = 'Snack'
+    } else if (time >= 12 && time < 14) {
+      this.food.meal = 'Lunch'
+    } else if (time >= 14 && time < 18) {
+      this.food.meal = 'Snack'
+    } else if (time >= 18 && time < 20) {
+      this.food.meal = 'Dinner'
+    } else {
+      this.food.meal = 'Snack'
+    }
+  }
+
+  changeMeal(meal) {
+    this.food.meal = meal
+  }
+
   saveEdits() {
     this.food.nf_calories = this.cals
     this.food.serving_qty = this.quantity
@@ -164,12 +187,13 @@ export class EditFoodPage implements OnInit {
       data: {
         datasets: [
           {
-            data: [this.food.calsP, this.food.nf_calories],
+            data: [this.food.calsP, this.food.calsF, this.food.calsC],
             backgroundColor: [
-              "#439BFF",
-              "#F5F6FA",
+              "#988CFF",
+              "#8EE7A8",
+              "#439BFF"
             ],
-            hoverBackgroundColor: ["#439BFF", "#F5F6FA"]
+            hoverBackgroundColor: ["#988CFF", "#8EE7A8", "#439BFF"]
           }
         ]
       },
@@ -178,12 +202,12 @@ export class EditFoodPage implements OnInit {
         animation: true,
         responsive: true,
         maintainAspectRatio: true,
-        cutout : 70
+        cutout : 35
       }
     });
 
     // fat 
-    this.chartF = new Chart('fatCanvas', {
+    /*this.chartF = new Chart('fatCanvas', {
       type: "doughnut",
       data: {
         datasets: [
@@ -226,7 +250,7 @@ export class EditFoodPage implements OnInit {
         responsive: true,
         cutout : 70
       }
-    });
+    });*/
   }
 
 }

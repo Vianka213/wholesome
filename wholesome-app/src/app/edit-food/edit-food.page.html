@@ -33,42 +33,56 @@
         </ion-select>
       </ion-item>
       </div>
+      <p>
+        <ion-item>
+        <ion-chip (click)="changeMeal('Breakfast')" color="primary">
+          <ion-label>Breakfast</ion-label>
+          <ion-icon *ngIf="food.meal == 'Breakfast'" name="checkmark-circle"></ion-icon>
+        </ion-chip>
+        <ion-chip (click)="changeMeal('Lunch')" color="secondary">
+          <ion-label>Lunch</ion-label>
+          <ion-icon *ngIf="food.meal == 'Lunch'" name="checkmark-circle"></ion-icon>
+        </ion-chip>
+        <ion-chip (click)="changeMeal('Dinner')" color="tertiary">
+          <ion-label>Dinner</ion-label>
+          <ion-icon *ngIf="food.meal == 'Dinner'" name="checkmark-circle"></ion-icon>
+        </ion-chip>
+        <ion-chip (click)="changeMeal('Snack')" color="success">
+          <ion-label>Snack</ion-label>
+          <ion-icon *ngIf="food.meal == 'Snack'" name="checkmark-circle"></ion-icon>
+        </ion-chip>
+      </ion-item>
+      </p>
     </ion-card-header>
     <ion-card-content>
       <div>
-        <h6>Nutritional Information</h6>
-        <div id="proteinChart" class="charts" style="width: 33%; height: 33%;">
-          <canvas id="proteinCanvas" width="1" height="1"></canvas>
-          Protein
+        <h5>Nutritional Information</h5>
+        <div id="nutri">
+        <div id="proteinChart" class="charts" style="position: relative; height:16vh; width:32vw">
+          <canvas id="proteinCanvas"></canvas>
           <div class="absolute-center text-center">
-            <p id="percent">{{percentProtein}}%</p>
+            <p id="percent"><span>{{food.nf_calories}}</span><br>kcal</p>
           </div>
         </div>
-        <div id="fatChart" class="charts" style="width: 33%; height: 33%;">
-          <canvas id="fatCanvas" width="1" height="1"></canvas>
-          Fats
-          <div class="absolute-center text-center">
-            <p id="percent">{{percentFat}}%</p>
-          </div>
+        <div id="key" style="position: relative;">
+          <ion-note slot="start"><ion-icon name="ellipse"></ion-icon></ion-note>
+          <ion-label>{{food.percentP}}% PROTEIN</ion-label><br>
+          <ion-note slot="start"><ion-icon name="ellipse"></ion-icon></ion-note>
+          <ion-label>{{food.percentF}}% FAT</ion-label><br>
+          <ion-note slot="start"><ion-icon name="ellipse"></ion-icon></ion-note>
+          <ion-label>{{food.percentC}}% CARBS</ion-label>
         </div>
-        <div id="carbsChart" class="charts" style="width: 33%; height: 33%;">
-          <canvas id="carbsCanvas" width="1" height="1"></canvas>
-          Carbs
-          <div class="absolute-center text-center">
-            <p id="percent">{{percentCarbs}}%</p>
-          </div>
         </div>
-        <br><br>
         <!-- nutritional info list -->
         <ion-list>
           <ion-item *ngFor="let n of nutrition">
-            <ion-note *ngIf="n.name == 'Protein' || n.name == 'Total Fat' || n.name == 'Total Carbohydrate'" slot="start"><ion-icon name="stop"></ion-icon></ion-note>
+            <ion-note *ngIf="n.name == 'Protein' || n.name == 'Total Fat' || n.name == 'Total Carbohydrate'" slot="start"><ion-icon name="ellipse"></ion-icon></ion-note>
             <ion-label>{{n.name}}</ion-label>
             <ion-note slot="end">{{n.value}}{{n.unit}}</ion-note>
           </ion-item>
         
           <!--<ion-item>
-            <ion-note slot="start"><ion-icon name="stop"></ion-icon></ion-note>
+            <ion-note slot="start"><ion-icon name="ellipse"></ion-icon></ion-note>
             <ion-label>Total Fats</ion-label>
             <ion-note slot="end">{{food.nf_total_fat}}</ion-note>
           </ion-item>
@@ -86,7 +100,7 @@
           </ion-item>
 
           <ion-item>
-            <ion-note slot="start"><ion-icon name="stop"></ion-icon></ion-note>
+            <ion-note slot="start"><ion-icon name="ellipse"></ion-icon></ion-note>
             <ion-label>Total Carbohydrates</ion-label>
             <ion-note slot="end">{{food.nf_total_carbohydrate}}</ion-note>
           </ion-item>
@@ -104,13 +118,13 @@
           </ion-item>
 
           <ion-item>
-            <ion-note slot="start"><ion-icon name="stop"></ion-icon></ion-note>
+            <ion-note slot="start"><ion-icon name="ellipse"></ion-icon></ion-note>
             <ion-label>Cholesterol</ion-label>
             <ion-note slot="end">{{food.nf_cholesterol}}</ion-note>
           </ion-item>
 
           <ion-item>
-            <ion-note slot="start"><ion-icon name="stop"></ion-icon></ion-note>
+            <ion-note slot="start"><ion-icon name="ellipse"></ion-icon></ion-note>
             <ion-label>Sodium</ion-label>
             <ion-note slot="end">{{food.full_nutrients['203']}}</ion-note>
           </ion-item>-->
