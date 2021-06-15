@@ -60,6 +60,22 @@ const routes: Routes = [
   {
     path: 'add-recipe',
     loadChildren: () => import('./add-recipe/add-recipe.module').then( m => m.AddRecipePageModule)
+  },
+  {
+    path: 'my-workouts',
+    loadChildren: () => import('./my-workouts/my-workouts.module').then( m => m.MyWorkoutsPageModule)
+  },
+  {
+    path: 'my-info',
+    loadChildren: () => import('./my-info/my-info.module').then( m => m.MyInfoPageModule)
+  },
+  {
+    path: 'my-preferences',
+    loadChildren: () => import('./my-preferences/my-preferences.module').then( m => m.MyPreferencesPageModule)
+  },
+  {
+    path: 'my-goals',
+    loadChildren: () => import('./my-goals/my-goals.module').then( m => m.MyGoalsPageModule)
   }
 
 ];
