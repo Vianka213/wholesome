@@ -27,7 +27,7 @@
 <ion-content [ngSwitch]="segment">
   <div *ngSwitchCase="'all'">
   <ion-searchbar [(ngModel)]="searchQuery" (search)="searchFood(searchQuery)" animated placeholder="What did you eat today?" autocorrect autocomplete></ion-searchbar>
-  <ion-chip (click)="addFood(a)" *ngFor="let a of addedFood">
+  <ion-chip color="primary" (click)="addFood(a)" *ngFor="let a of addedFood">
     <ion-label>{{a.food_name}}</ion-label>
     <ion-icon icon="close"></ion-icon>
   </ion-chip>

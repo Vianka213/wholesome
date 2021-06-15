@@ -68,6 +68,11 @@ ion-input {
 #key {
     margin-left: 2em;
     font-size: 0.9em;
+    vertical-align: middle;
+
+    ion-label {
+        padding-left: 0.2em;
+    }
 }
 
 #serving-input {
@@ -116,9 +121,13 @@ ion-chip {
     padding: 0.2em 0.6em;
 }
 
-#percent span {
-    font-size: 1.3em;
-    margin-bottom: -0.2em;
+#percent {
+    font-size: 0.7em;
+
+    span {
+        font-size: 1.3em;
+        bottom: -0.2em;
+    }
 }
 
 #proteinChart, #key {
@@ -127,4 +136,27 @@ ion-chip {
 
 ion-icon {
     vertical-align: middle;
+}
+
+.pNote {
+    color: var(--color-purple);
+}
+
+.fNote {
+    color: var(--color-green);
+}
+
+.cNote {
+    color: var(--color-blue);
+}
+
+ion-card-subtitle {
+    ion-icon {
+        font-size: 1.1em;
+        margin-right: 0.2em;
+    }
+}
+
+ion-card-title {
+    text-transform: capitalize;
 }

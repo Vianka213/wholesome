@@ -459,13 +459,13 @@ export class AddFoodPage implements OnInit {
 
     let cals = food['nf_calories']
 
-    food['calsP'] = p
-    food['calsF'] = f
-    food['calsC'] = c
+    food['calsP'] = Math.floor(p).toFixed(0)
+    food['calsF'] = Math.floor(f).toFixed(0)
+    food['calsC'] = Math.floor(c).toFixed(0)
 
-    food['percentP'] = (p * 100 / cals).toFixed(2)
-    food['percentF'] = (f * 100 / cals).toFixed(2)
-    food['percentC'] = (c * 100 / cals).toFixed(2)
+    food['percentP'] = Math.floor((p * 100 / cals))
+    food['percentF'] = Math.floor(f * 100 / cals)
+    food['percentC'] = Math.floor(c * 100 / cals)
   }
 
   async openEditFoodModal(food) {
@@ -481,6 +481,9 @@ export class AddFoodPage implements OnInit {
       .then((data) => {
         const food = data['data']; // get food back
         console.log(food)
+        this.calcCalories(food)
+        if (food.edited == true)
+            this.addedFood.push(food)
     });
 
     return await modal.present();

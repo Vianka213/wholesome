@@ -65,18 +65,18 @@
           </div>
         </div>
         <div id="key" style="position: relative;">
-          <ion-note slot="start"><ion-icon name="ellipse"></ion-icon></ion-note>
+          <ion-note slot="start"><ion-icon class="pNote" name="ellipse"></ion-icon></ion-note>
           <ion-label>{{food.percentP}}% PROTEIN</ion-label><br>
-          <ion-note slot="start"><ion-icon name="ellipse"></ion-icon></ion-note>
+          <ion-note slot="start"><ion-icon class="fNote" name="ellipse"></ion-icon></ion-note>
           <ion-label>{{food.percentF}}% FAT</ion-label><br>
-          <ion-note slot="start"><ion-icon name="ellipse"></ion-icon></ion-note>
+          <ion-note slot="start"><ion-icon class="cNote" name="ellipse"></ion-icon></ion-note>
           <ion-label>{{food.percentC}}% CARBS</ion-label>
         </div>
         </div>
         <!-- nutritional info list -->
         <ion-list>
           <ion-item *ngFor="let n of nutrition">
-            <ion-note *ngIf="n.name == 'Protein' || n.name == 'Total Fat' || n.name == 'Total Carbohydrate'" slot="start"><ion-icon name="ellipse"></ion-icon></ion-note>
+            <ion-note *ngIf="n.name == 'Protein' || n.name == 'Total Fat' || n.name == 'Total Carbohydrate'" slot="start"><ion-icon [ngClass]="{'pNote': n.name == 'Protein', 'fNote': n.name == 'Total Fat', 'cNote': n.name == 'Total Carbohydrate' }" name="ellipse"></ion-icon></ion-note>
             <ion-label>{{n.name}}</ion-label>
             <ion-note slot="end">{{n.value}}{{n.unit}}</ion-note>
           </ion-item>

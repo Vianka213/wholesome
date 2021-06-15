@@ -164,6 +164,7 @@ export class EditFoodPage implements OnInit {
     this.food.serving_qty = this.quantity
     this.food.serving_unit = this.serving
     this.food.serving_weight_grams = this.servingWeight
+    this.food.edited = true
 
     // info
     this.food.full_nutrients.find(x => x.attr_id == 203).value = this.nutrition[0]['value']
