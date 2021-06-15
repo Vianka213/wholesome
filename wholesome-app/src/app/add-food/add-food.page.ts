@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonItemSliding, ModalController } from '@ionic/angular';
+import { IonItemSliding, ModalController, ToastController } from '@ionic/angular';
 import { EditFoodPage } from '../edit-food/edit-food.page';
 import { TrackerService } from '../shared/services/tracker.service';
 
@@ -416,7 +416,7 @@ export class AddFoodPage implements OnInit {
 
     segment : string = "all"
 
-  constructor(public viewCtrl: ModalController, public trackerService : TrackerService) { }
+  constructor(public viewCtrl: ModalController, public trackerService : TrackerService, public toastController : ToastController) { }
 
   ngOnInit() {
   }
@@ -466,6 +466,33 @@ export class AddFoodPage implements OnInit {
     food['percentP'] = Math.floor((p * 100 / cals))
     food['percentF'] = Math.floor(f * 100 / cals)
     food['percentC'] = Math.floor(c * 100 / cals)
+  }
+
+  addAll() {
+      this.searchResults.forEach(element => {
+          this.addedFood.push(element)
+      });
+      this.showToast('Added ' + this.searchResults.length + ' food items.')
+      this.searchResults = []
+      this.searchQuery = ''
+  }
+
+  logItems() {
+      console.log('add')
+    if (this.addedFood.length > 1)
+        this.showToast('Added ' + this.addedFood.length + ' food items successfully')
+    else 
+        this.showToast('Added ' + this.addedFood[0]['food_name'] + ' successfully')
+  }
+
+  async showToast(msg) {
+    const toast = await this.toastController.create({
+        color: 'success',
+        duration: 2000,
+        message: msg
+      });
+
+      await toast.present();
   }
 
   async openEditFoodModal(food) {

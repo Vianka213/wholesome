@@ -31,8 +31,9 @@
     <ion-label>{{a.food_name}}</ion-label>
     <ion-icon icon="close"></ion-icon>
   </ion-chip>
+  <img *ngIf="searchResults.length == 0" src="https://static.vecteezy.com/system/resources/previews/002/215/363/original/one-continuous-line-plate-knife-and-fork-food-symbol-sign-of-plate-knife-and-fork-minimalism-hand-drawn-one-line-art-minimalist-illustration-dinner-theme-with-creative-sketch-vector.jpg"/>
   <ion-list id="resultsList" *ngIf="searchResults.length > 0">
-    <h4>Search Results ({{searchResults.length}})</h4>
+    <p id="res">Search Results ({{searchResults.length}}) <ion-button (click)="addAll()" size="small" slot="end">ADD ALL</ion-button></p>
     <ion-item-sliding (click)="openEditFoodModal(r)" *ngFor="let r of searchResults" #slidingItem>
       <ion-item>
       <ion-label>
@@ -63,5 +64,5 @@
 
 
 <ion-footer>
-  <ion-button (click)="dismissModal()" expand="full" color="secondary">Done</ion-button>
+  <ion-button (click)="logItems(); dismissModal()" expand="full" color="secondary">Create Log</ion-button>
 </ion-footer>
