@@ -36,7 +36,8 @@ export class EditFoodPage implements OnInit {
     this.percentFat = ((this.food.calsF/this.food.nf_calories)*100).toFixed(0)
     this.percentCarbs = ((this.food.calsC/this.food.nf_calories)*100).toFixed(0)
     this.getNutritionalInfo()
-    this.setMeal()
+    if (!this.food.meal)
+      this.setMeal()
     this.createCharts()
   }
 

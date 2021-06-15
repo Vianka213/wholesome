@@ -444,6 +444,8 @@ export class AddFoodPage implements OnInit {
     let index = this.addedFood.indexOf(food)
     if (index == -1) {
         this.addedFood.push(food)
+        let index2 = this.searchResults.indexOf(food)
+        this.searchResults.splice(index2, 1)
     }
     else
         this.addedFood.splice(index, 1)
@@ -478,11 +480,30 @@ export class AddFoodPage implements OnInit {
   }
 
   logItems() {
-      console.log('add')
+    // set meals
+
     if (this.addedFood.length > 1)
-        this.showToast('Added ' + this.addedFood.length + ' food items successfully')
+        this.showToast('Logged ' + this.addedFood.length + ' food items successfully')
     else 
-        this.showToast('Added ' + this.addedFood[0]['food_name'] + ' successfully')
+        this.showToast('Logged ' + this.addedFood[0]['food_name'] + ' successfully')
+  }
+
+  setMeal(food) {
+    var time = new Date().getHours();
+    console.log(time)
+    if (time >= 5 && time <= 10) {
+      food.meal = 'Breakfast'
+    } else if (time >= 10 && time < 12) {
+      food.meal = 'Snack'
+    } else if (time >= 12 && time < 14) {
+      food.meal = 'Lunch'
+    } else if (time >= 14 && time < 18) {
+      food.meal = 'Snack'
+    } else if (time >= 18 && time < 20) {
+      food.meal = 'Dinner'
+    } else {
+      food.meal = 'Snack'
+    }
   }
 
   async showToast(msg) {

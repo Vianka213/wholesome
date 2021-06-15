@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { TrackerService } from '../shared/services/tracker.service';
 import { MbscEventcalendarOptions, Notifications, MbscCalendarEvent  } from '@mobiscroll/angular';
+import { ModalController } from '@ionic/angular';
+import { EditFoodPage } from '../edit-food/edit-food.page';
 
 
 
@@ -14,7 +16,7 @@ import { MbscEventcalendarOptions, Notifications, MbscCalendarEvent  } from '@mo
 export class DiaryPage implements OnInit {
   apiKey = '09030db3ec2a4ebf8220bcd0fa7c5944'
 
-  test = [{
+  test = {
     "food_name": "chicken noodle soup",
     "brand_name": null,
     "serving_qty": 1,
@@ -413,9 +415,9 @@ export class DiaryPage implements OnInit {
         "thumb": "https://d2xdmhkmkbyw75.cloudfront.net/256_thumb.jpg",
         "highres": "https://d2xdmhkmkbyw75.cloudfront.net/256_highres.jpg"
     }
-  }]
+  }
 
-  constructor(private http : HttpClient, public trackerService : TrackerService, private notify : Notifications) { }
+  constructor(public viewCtrl: ModalController, private http : HttpClient, public trackerService : TrackerService, private notify : Notifications) { }
 
   myEvents: MbscCalendarEvent[] = [];
   foodEntries : Object[] = []
@@ -426,12 +428,12 @@ export class DiaryPage implements OnInit {
     view: {
         calendar: { type: 'week' },
         agenda: { type: 'day' }
-    },
+    }/*,
     onEventClick: (event) => {
         this.notify.toast({
             message: event.event.title
         });
-    }
+    }*/
 };
 
   ngOnInit() {
@@ -441,7 +443,8 @@ export class DiaryPage implements OnInit {
     this.myEvents.push({"recurring":{"repeat":"daily"}, "title": "Dinner", "color": "#439BFF", "start": "18:00"})
     this.myEvents.push({"recurring":{"repeat":"daily"}, "title": "Snacks", "color": "#E6E2FF", "start": "19:00"})
     this.myEvents.push({"recurring":{"repeat":"daily"}, "title": "Exercise", "color": "#E6E2FF", "start": "20:00"})
-    this.foodEntries = this.test
+    this.foodEntries.push(this.test)
+    this.foodEntries.push(this.test)
     console.log(this.foodEntries)
     //this.http.get<any>('https://api.spoonacular.com/recipes/complexSearch?query=burger&apiKey=' + this.apiKey).subscribe(data => {
       //  console.log(data)
@@ -454,6 +457,42 @@ export class DiaryPage implements OnInit {
   //this.http.jsonp<MbscCalendarEvent[]>('https://trial.mobiscroll.com/events/?vers=5', 'callback').subscribe((resp) => {
   //          this.myEvents = resp;
   //      });
-}
+    }
+
+    calcCalories(food : Object) {
+        let p = food['nf_protein']*4
+        let f = food['nf_total_fat']*9
+        let c = food['nf_total_carbohydrate']*4
+    
+        let cals = food['nf_calories']
+    
+        food['calsP'] = Math.floor(p).toFixed(0)
+        food['calsF'] = Math.floor(f).toFixed(0)
+        food['calsC'] = Math.floor(c).toFixed(0)
+    
+        food['percentP'] = Math.floor((p * 100 / cals))
+        food['percentF'] = Math.floor(f * 100 / cals)
+        food['percentC'] = Math.floor(c * 100 / cals)
+      }
+
+    async openEditFoodModal(food) {
+        this.calcCalories(food)
+        const modal = await this.viewCtrl.create({
+        component: EditFoodPage,
+        swipeToClose: true,
+        componentProps: {
+            'food': food
+        }
+        });
+    
+        modal.onDidDismiss()
+          .then((data) => {
+            const food = data['data']; // get food back
+            console.log(food)
+            this.calcCalories(food)
+        });
+    
+        return await modal.present();
+       }
 
 }
