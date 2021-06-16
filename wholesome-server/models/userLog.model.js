@@ -14,7 +14,10 @@ var UserLogSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'FoodEntry'
         }
-    ]
+    ],
+    Water: {
+        type: Number
+    }
 });
 
 mongoose.model("UserLog", UserLogSchema);

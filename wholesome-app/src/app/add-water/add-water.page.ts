@@ -1,6 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import Chart from 'chart.js/auto';
+import { HeaderService } from '../shared/services/header.service';
+import { TrackerService } from '../shared/services/tracker.service';
 
 @Component({
   selector: 'app-add-water',
@@ -9,18 +11,17 @@ import Chart from 'chart.js/auto';
 })
 export class AddWaterPage implements OnInit {
 
-  constructor(public viewCtrl: ModalController) { }
+  constructor(public viewCtrl: ModalController, public trackerService : TrackerService, public headerService : HeaderService) { }
 
   private chart : Chart
   
-  amountWater : number = 2
-  maxWater : number = 8
+  amountWater : number = 0
+  maxWater : number = 1500
   percentWater : any = 0
   amountToAdd : number = 0
 
   ngOnInit() {    
-    this.createChart()
-    this.percentWater = ((this.amountWater/this.maxWater)*100).toFixed(0)
+    this.getLog()
   }
 
   dismissModal() {
@@ -51,6 +52,32 @@ export class AddWaterPage implements OnInit {
     });
   }
 
+  getLog() {
+    let dt = new Date()
+    let logDate
+    logDate = dt.getFullYear() + "/"
+    if (dt.getMonth() + 1 < 10) 
+        logDate += '0' 
+    logDate += dt.getMonth() + 1 + '/'
+    if (dt.getDate() < 10) 
+        logDate += '0' 
+        logDate += dt.getDate()
+
+    let values = {'logDate': logDate, 'ID': '60ab91b8158bd2145499e0cc'}
+      this.trackerService.getUserLog(localStorage.getItem('token'), values).subscribe(data => {
+        this.amountWater = data['log'].Water
+        this.createChart()
+        this.percentWater = ((this.amountWater/this.maxWater)*100).toFixed(0)
+      }, error => {
+        console.log(error)
+        let errorCode = error['status'];
+        if (errorCode == '403')
+        {   // kick user out
+            this.headerService.kickOut();
+        }
+    })
+  }
+
 
   addWater(amount) {
     this.amountToAdd += amount
@@ -58,6 +85,27 @@ export class AddWaterPage implements OnInit {
 
   logWater() {
     // create log for amountToAdd
-    console.log(this.amountToAdd)
+    this.amountWater += this.amountToAdd
+    let dt = new Date()
+    let logDate
+    logDate = dt.getFullYear() + "/"
+    if (dt.getMonth() + 1 < 10) 
+        logDate += '0' 
+    logDate += dt.getMonth() + 1 + '/'
+    if (dt.getDate() < 10) 
+        logDate += '0' 
+        logDate += dt.getDate()
+
+    let values = {'logDate': logDate, 'water': this.amountWater}
+        this.trackerService.logWater(localStorage.getItem('token'), values).subscribe(data => {
+          console.log(data)
+      }, error => {
+          console.log(error)
+          let errorCode = error['status'];
+          if (errorCode == '403')
+          {   // kick user out
+              this.headerService.kickOut();
+          }
+      })
   }
 }

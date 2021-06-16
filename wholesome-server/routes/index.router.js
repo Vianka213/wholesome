@@ -24,5 +24,6 @@ router.get("/userLog/getUserLog", jwtHelper.verifyJWTtoken, userLog.getUserLog);
 router.get("/userLog/getFoodEntry", jwtHelper.verifyJWTtoken, userLog.getFoodEntry);
 router.post("/userLog/updateFoodEntry", jwtHelper.verifyJWTtoken, userLog.updateFoodEntry);
 router.post("/userLog/deleteFoodEntry", jwtHelper.verifyJWTtoken, userLog.deleteFoodEntry);
+router.post("/userLog/logWater", jwtHelper.verifyJWTtoken, userLog.logWater);
 
 module.exports = router;

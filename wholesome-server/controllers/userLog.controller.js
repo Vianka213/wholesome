@@ -16,6 +16,7 @@ module.exports.addFoodEntry = (req, res) => {
                     var userLog = new UserLogModel();
                     userLog.UserID = req.body.ID;
                     userLog.FoodEntries = [foodEntryDoc]
+                    userLog.Water = 0
                     userLog.Date = req.body.logDate
                     userLog.save((err, doc) => {
                         if (!err)
@@ -104,6 +105,18 @@ module.exports.deleteFoodEntry = (req, res) => {
                     return res.status(200).json({message: 'Deleted successfully'});
                 }
             });
+        }
+    })
+}
+
+module.exports.logWater = (req, res) => {
+    UserLogModel.updateOne({UserID : req.ID, Date: req.body.logDate},{ Water : req.body.water}, function(err, result) {
+        if(err) {
+            return res.status(500).send({message: 'Internal Server Error: ' + err});
+        } else if (!result) {
+            return res.status(404).json({ message: 'No log' }); 
+        } else {
+            return res.status(200).json({message: 'Updated water successfully'});
         }
     })
 }
