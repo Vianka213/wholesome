@@ -8,19 +8,19 @@
   <ion-card>
     <ion-card-header>
       <ion-card-subtitle>200 calories remaining</ion-card-subtitle>
-      <ion-card-title>493/693 kcal</ion-card-title>
+      <ion-card-title>{{totals.totalCals - totals.exerciseCals}}/693 kcal</ion-card-title>
     </ion-card-header>
   
     <ion-card-content>
       <ion-item>
         <ion-icon name="fast-food-outline" slot="start"></ion-icon>
         <ion-label>Food</ion-label>
-        <ion-note slot="end" color="primary">500kcal</ion-note>
+        <ion-note slot="end" color="primary">{{totals.totalCals}}kcal</ion-note>
       </ion-item>
       <ion-item>
         <ion-icon name="barbell-outline" slot="start"></ion-icon>
         <ion-label>Exercise</ion-label>
-        <ion-note slot="end" color="primary">7kcal</ion-note>
+        <ion-note slot="end" color="primary">{{totals.exerciseCals}}kcal</ion-note>
       </ion-item>
       <ion-button id="nutri" slot="end" color="primary" size="small">View Nutrition</ion-button>
       <ion-button slot="end" color="success" size="small">Complete Log</ion-button>
