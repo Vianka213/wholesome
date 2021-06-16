@@ -72,18 +72,38 @@ module.exports.getFoodEntry = (req, res) => {
 }
 
 module.exports.updateFoodEntry = (req, res) => {
-    console.log('log')
     FoodEntryModel.updateOne({_id : req.body.foodEntryID}, {Food: req.body.food}, function(err, result) {
-        console.log('find')
         if(err) {
-            console.log('err')
             return res.status(500).send({message: 'Internal Server Error: ' + err});
         } else if (!result) {
-            console.log('here')
             return res.status(404).json({ message: 'No log' }); 
         } else {
-            console.log('success')
             return res.status(200).json({message: 'Updated successfully'});
+        }
+    })
+}
+
+module.exports.deleteFoodEntry = (req, res) => {
+    UserLogModel.updateOne({UserID : req.ID, Date: req.body.logDate},{ $pull: { 'FoodEntries': req.body.foodEntryID}},(err1, result1) => {
+        if (err1) 
+            return res.status(500).send({message: 'Internal Server Error: ' + err1});
+        else if (result1.n == 0)
+            return res.status(404).json({ message: 'No food entries for the given user were found' }); 
+        else
+        {        
+            FoodEntryModel.deleteOne({_id : req.body.foodEntryID}, function(err, result) {
+                console.log('find')
+                if(err) {
+                    console.log('err')
+                    return res.status(500).send({message: 'Internal Server Error: ' + err});
+                } else if (!result) {
+                    console.log('here')
+                    return res.status(404).json({ message: 'No log' }); 
+                } else {
+                    console.log('success')
+                    return res.status(200).json({message: 'Deleted successfully'});
+                }
+            });
         }
     })
 }

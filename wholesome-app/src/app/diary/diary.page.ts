@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { TrackerService } from '../shared/services/tracker.service';
 import { MbscEventcalendarOptions, Notifications, MbscCalendarEvent  } from '@mobiscroll/angular';
-import { ModalController } from '@ionic/angular';
+import { IonItemSliding, ModalController } from '@ionic/angular';
 import { EditFoodPage } from '../edit-food/edit-food.page';
 import { HeaderService } from '../shared/services/header.service';
 
@@ -525,11 +525,11 @@ export class DiaryPage implements OnInit {
                             break;
                         case 'Lunch':
                             this.lunch.push(food)
-                            this.totals['lunchCals'] += element['nf_calories']
+                            this.totals['lunchCals'] += food['nf_calories']
                             break;
                         case 'Dinner':
                             this.dinner.push(food)
-                            this.totals['dinnerCals'] += element['nf_calories']
+                            this.totals['dinnerCals'] += food['nf_calories']
                             break;
                         case 'Snack':
                             this.snacks.push(food)
@@ -563,6 +563,56 @@ export class DiaryPage implements OnInit {
               this.headerService.kickOut();
           }
       })
+      }
+
+      deleteFoodEntry(food, sliding?: IonItemSliding) {
+        let dt = this.myDate
+        let logDate
+        logDate = dt.getFullYear() + "/"
+        if (dt.getMonth() + 1 < 10) 
+            logDate += '0' 
+        logDate += dt.getMonth() + 1 + '/'
+        if (dt.getDate() < 10) 
+            logDate += '0' 
+            logDate += dt.getDate()
+
+        let values = {'foodEntryID': food.foodEntryID, 'logDate': logDate}
+        console.log(food)
+        this.trackerService.deleteFoodEntry(localStorage.getItem('token'), values).subscribe(data => {
+          console.log(data)
+      }, error => {
+          console.log(error)
+          let errorCode = error['status'];
+          if (errorCode == '403')
+          {   // kick user out
+              this.headerService.kickOut();
+          }
+      })
+
+      let index
+      switch (food.meal) {
+        case 'Breakfast':
+            index = this.breakfast.indexOf(food)
+            this.breakfast.splice(index, 1)
+            this.totals['breakfastCals'] -= food['nf_calories']
+            break;
+        case 'Lunch':
+            index = this.lunch.indexOf(food)
+            this.lunch.splice(index, 1)
+            this.totals['lunchCals'] -= food['nf_calories']
+            break;
+        case 'Dinner':
+            index = this.dinner.indexOf(food)
+            this.dinner.splice(index, 1)
+            this.totals['dinnerCals'] -= food['nf_calories']
+            break;
+        case 'Snack':
+            index = this.snacks.indexOf(food)
+            this.snacks.splice(index, 1)
+            this.totals['snacksCals'] -= food['nf_calories']
+            break;
+    }
+    this.totals['totalCals'] -= food['nf_calories']        
       }
 
     async openEditFoodModal(food) {

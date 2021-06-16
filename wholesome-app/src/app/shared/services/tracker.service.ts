@@ -50,6 +50,16 @@ export class TrackerService {
     });
   }
 
+  public deleteFoodEntry(token, values) {
+    console.log(JSON.stringify(values))
+    const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json').set( 'Authorization', "Bearer "+token);
+
+    return this.http.post(this.ROOT_URL+'userLog/deleteFoodEntry', JSON.stringify(values), {
+      headers: headers
+    });
+  }
+
   public getUserLog(token, values) {
     const headers = new HttpHeaders()
           .set('Content-Type', 'application/json').set( 'Authorization', "Bearer "+token);
