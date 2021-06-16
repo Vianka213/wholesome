@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import Chart from 'chart.js/auto';
+import { HeaderService } from '../shared/services/header.service';
+import { TrackerService } from '../shared/services/tracker.service';
 
 @Component({
   selector: 'app-edit-food',
@@ -23,7 +25,7 @@ export class EditFoodPage implements OnInit {
   private chartF : Chart
   private chartC : Chart
 
-  constructor(public viewCtrl: ModalController) { }
+  constructor(public viewCtrl: ModalController, public trackerService : TrackerService, public headerService: HeaderService) { }
 
   ngOnInit() {
     console.log(this.food)

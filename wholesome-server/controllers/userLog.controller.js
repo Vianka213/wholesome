@@ -52,7 +52,6 @@ module.exports.getUserLog = (req, res) => {
         if(err) {
             return res.status(500).send({message: 'Internal Server Error: ' + err});
         } else if (!result) {
-            console.log('here')
             return res.status(404).json({ message: 'No log' }); 
         } else {
             return res.status(200).json({log: result});
@@ -65,10 +64,26 @@ module.exports.getFoodEntry = (req, res) => {
         if(err) {
             return res.status(500).send({message: 'Internal Server Error: ' + err});
         } else if (!result) {
-            console.log('here')
             return res.status(404).json({ message: 'No log' }); 
         } else {
             return res.status(200).json({food: result});
+        }
+    })
+}
+
+module.exports.updateFoodEntry = (req, res) => {
+    console.log('log')
+    FoodEntryModel.updateOne({_id : req.body.foodEntryID}, {Food: req.body.food}, function(err, result) {
+        console.log('find')
+        if(err) {
+            console.log('err')
+            return res.status(500).send({message: 'Internal Server Error: ' + err});
+        } else if (!result) {
+            console.log('here')
+            return res.status(404).json({ message: 'No log' }); 
+        } else {
+            console.log('success')
+            return res.status(200).json({message: 'Updated successfully'});
         }
     })
 }

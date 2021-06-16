@@ -4,6 +4,7 @@ import { TrackerService } from '../shared/services/tracker.service';
 import { MbscEventcalendarOptions, Notifications, MbscCalendarEvent  } from '@mobiscroll/angular';
 import { ModalController } from '@ionic/angular';
 import { EditFoodPage } from '../edit-food/edit-food.page';
+import { HeaderService } from '../shared/services/header.service';
 
 
 
@@ -417,7 +418,7 @@ export class DiaryPage implements OnInit {
     }
   }
 
-  constructor(public viewCtrl: ModalController, private http : HttpClient, public trackerService : TrackerService, private notify : Notifications) { }
+  constructor(public viewCtrl: ModalController, private http : HttpClient, public trackerService : TrackerService, public headerService : HeaderService, private notify : Notifications) { }
 
   myEvents: MbscCalendarEvent[] = [];
   foodEntries : Object[] = []
@@ -513,8 +514,10 @@ export class DiaryPage implements OnInit {
             entries.forEach(element => {
                 let values1 = {'entryID' : element}
                 this.trackerService.getFoodEntry(localStorage.getItem('token'), values1).subscribe(data => {
-                    console.log(data['food'].Food.meal)
+                    console.log(data)
                     let food = data['food'].Food
+                    food.foodEntryID = data['food']._id
+                    console.log(food)
                     switch (food.meal) {
                         case 'Breakfast':
                             this.breakfast.push(food)
@@ -542,9 +545,24 @@ export class DiaryPage implements OnInit {
             let errorCode = error['status'];
             if (errorCode == '403')
             {   // kick user out
-                //this.headerService.kickOut();
+                this.headerService.kickOut();
             }
         })
+      }
+
+      updateFoodEntry(food) {
+        let values = {'foodEntryID': food.foodEntryID, 'food': food}
+        console.log(food)
+        this.trackerService.updateFoodEntry(localStorage.getItem('token'), values).subscribe(data => {
+          console.log(data)
+      }, error => {
+          console.log(error)
+          let errorCode = error['status'];
+          if (errorCode == '403')
+          {   // kick user out
+              this.headerService.kickOut();
+          }
+      })
       }
 
     async openEditFoodModal(food) {
@@ -562,6 +580,7 @@ export class DiaryPage implements OnInit {
             const food = data['data']; // get food back
             console.log(food)
             this.calcCalories(food)
+            this.updateFoodEntry(food)
         });
     
         return await modal.present();

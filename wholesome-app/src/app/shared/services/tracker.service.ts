@@ -40,6 +40,16 @@ export class TrackerService {
     });
   }
 
+  public updateFoodEntry(token, values) {
+    console.log(JSON.stringify(values))
+    const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json').set( 'Authorization', "Bearer "+token);
+
+    return this.http.post(this.ROOT_URL+'userLog/updateFoodEntry', JSON.stringify(values), {
+      headers: headers
+    });
+  }
+
   public getUserLog(token, values) {
     const headers = new HttpHeaders()
           .set('Content-Type', 'application/json').set( 'Authorization', "Bearer "+token);
