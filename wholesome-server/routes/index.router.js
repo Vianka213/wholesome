@@ -3,6 +3,7 @@ const asyncify = require('express-asyncify')
 const router = asyncify(express.Router());
 const user = require('../controllers/user.controller');
 const role = require('../controllers/role.controller');
+const userLog = require('../controllers/userLog.controller');
 const userHelper = require('../helpers/user.helper');
 const jwtHelper = require('../config/jwtHelper');
 
@@ -17,4 +18,6 @@ router.post("/user/verifyUser",jwtHelper.verifyJWTtoken, userHelper.isAdmin, use
 //role
 router.get("/role/getRole", jwtHelper.verifyJWTtoken, role.getRole);
 
+// user log
+router.post("/userLog/addFoodEntry", jwtHelper.verifyJWTtoken, userLog.addFoodEntry);
 module.exports = router;

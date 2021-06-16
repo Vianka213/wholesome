@@ -6,6 +6,10 @@ var UserLogSchema = new mongoose.Schema({
         required : "ID required.",
         unique: true
     },
+    Date : {
+        type: String,
+        required: "Required"
+    },
     FoodEntries: [
         {
             type: mongoose.Schema.Types.ObjectId,
