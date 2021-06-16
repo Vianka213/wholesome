@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonItemSliding, ModalController, ToastController } from '@ionic/angular';
 import { EditFoodPage } from '../edit-food/edit-food.page';
+import { HeaderService } from '../shared/services/header.service';
 import { TrackerService } from '../shared/services/tracker.service';
 
 @Component({
@@ -416,7 +417,7 @@ export class AddFoodPage implements OnInit {
 
     segment : string = "all"
 
-  constructor(public viewCtrl: ModalController, public trackerService : TrackerService, public toastController : ToastController) { }
+  constructor(public viewCtrl: ModalController, public trackerService : TrackerService, public headerService: HeaderService, public toastController : ToastController) { }
 
   ngOnInit() {
   }
@@ -481,6 +482,21 @@ export class AddFoodPage implements OnInit {
 
   logItems() {
     // set meals
+    console.log(this.addedFood)
+    this.addedFood.forEach(element => {
+        this.setMeal(element)
+        let values = {'food': element, 'date': new Date(), 'ID': '60ab91b8158bd2145499e0cc'}
+        this.trackerService.addFoodEntry(localStorage.getItem('token'), values).subscribe(data => {
+            console.log(data)
+        }, error => {
+            console.log(error)
+            let errorCode = error['status'];
+            if (errorCode == '403')
+            {   // kick user out
+                this.headerService.kickOut();
+            }
+        })
+    });
 
     if (this.addedFood.length > 1)
         this.showToast('Logged ' + this.addedFood.length + ' food items successfully')
