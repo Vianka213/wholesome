@@ -430,12 +430,14 @@ export class AddFoodPage implements OnInit {
     console.log(query)
     /*this.trackerService.naturalSearch(query).subscribe( data => {
       console.log(data)
-      this.searchResults = this.test
+      this.searchResults = data['foods']
+      this.searchResults.forEach(element => {
+        this.calcCalories(element)
+        });
       console.log(this.searchResults)
     })*/
 
     this.searchResults = this.test
-
     this.searchResults.forEach(element => {
         this.calcCalories(element)
     });
@@ -460,7 +462,8 @@ export class AddFoodPage implements OnInit {
     let f = food['nf_total_fat']*9
     let c = food['nf_total_carbohydrate']*4
 
-    let cals = food['nf_calories']
+    let cals = Math.floor(food['nf_calories'])
+    food['nf_calories'] = Math.floor(food['nf_calories'])
 
     food['calsP'] = Math.floor(p).toFixed(0)
     food['calsF'] = Math.floor(f).toFixed(0)
