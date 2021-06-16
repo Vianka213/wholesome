@@ -2,8 +2,7 @@ const mongoose = require("mongoose")
 
 var RecipeSchema = new mongoose.Schema({
     UserID: {
-        type: mongoose.Schema.Types.ObjectId,
-        required : "ID required."
+        type: mongoose.Schema.Types.ObjectId
     },
     Name: {
         type: String
@@ -16,8 +15,7 @@ var RecipeSchema = new mongoose.Schema({
     },
     Ingredients: [
         {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Ingredient'
+            type: Object
         }
     ],
     Calories: {
