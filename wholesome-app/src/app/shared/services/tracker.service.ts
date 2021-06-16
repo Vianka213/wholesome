@@ -23,7 +23,14 @@ export class TrackerService {
 
   public addFoodEntry(token, values) {
     var dt = new Date();
-    values.logDate = dt.getFullYear() + "/" + (dt.getMonth() + 1) + "/" + dt.getDate();
+    values.logDate = dt.getFullYear() + "/"
+    if (dt.getMonth() + 1 < 10) 
+      values.logDate += '0' 
+    values.logDate += dt.getMonth() + 1 + '/'
+    if (dt.getDate() < 10) 
+      values.logDate += '0' 
+    values.logDate += dt.getDate()
+
     console.log(JSON.stringify(values))
     const headers = new HttpHeaders()
           .set('Content-Type', 'application/json').set( 'Authorization', "Bearer "+token);
