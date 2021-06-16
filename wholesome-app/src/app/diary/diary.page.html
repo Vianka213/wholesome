@@ -34,7 +34,7 @@
   <div *ngIf="data.title == 'Breakfast'" class="md-full-event">
       <div class="md-full-event-details">
           <div class="md-full-event-title">{{data.title}}
-            <ion-note slot="end"><ion-icon name="flash-outline"></ion-icon> 234 calories</ion-note>
+            <ion-note slot="end"><ion-icon name="flash-outline"></ion-icon> {{totals.breakfastCals}} calories</ion-note>
           </div>
       </div>
       <ion-list id="resultsList" *ngIf="breakfast.length > 0">
@@ -60,7 +60,7 @@
   <div *ngIf="data.title == 'Lunch'" class="md-full-event">
     <div class="md-full-event-details">
         <div class="md-full-event-title">{{data.title}}
-          <ion-note slot="end"><ion-icon name="flash-outline"></ion-icon> 234 calories</ion-note>
+          <ion-note slot="end"><ion-icon name="flash-outline"></ion-icon> {{totals.lunchCals}} calories</ion-note>
         </div>
     </div>
     <ion-list id="resultsList" *ngIf="lunch.length > 0">
@@ -86,7 +86,7 @@
   <div *ngIf="data.title == 'Dinner'" class="md-full-event">
     <div class="md-full-event-details">
         <div class="md-full-event-title">{{data.title}}
-          <ion-note slot="end"><ion-icon name="flash-outline"></ion-icon> 234 calories</ion-note>
+          <ion-note slot="end"><ion-icon name="flash-outline"></ion-icon> {{totals.dinnerCals}} calories</ion-note>
         </div>
     </div>
     <ion-list id="resultsList" *ngIf="dinner.length > 0">
@@ -112,7 +112,7 @@
   <div *ngIf="data.title == 'Snacks'" class="md-full-event">
     <div class="md-full-event-details">
         <div class="md-full-event-title">{{data.title}}
-          <ion-note slot="end"><ion-icon name="flash-outline"></ion-icon> 234 calories</ion-note>
+          <ion-note slot="end"><ion-icon name="flash-outline"></ion-icon> {{totals.snacksCals}} calories</ion-note>
         </div>
     </div>
     <ion-list id="resultsList" *ngIf="snacks.length > 0">
@@ -138,7 +138,7 @@
   <div *ngIf="data.title == 'Exercise'" class="md-full-event">
     <div class="md-full-event-details">
         <div class="md-full-event-title">{{data.title}}
-          <ion-note slot="end"><ion-icon name="flash-outline"></ion-icon> 234 calories</ion-note>
+          <ion-note slot="end"><ion-icon name="flash-outline"></ion-icon> {{totals.exerciseCals}} calories</ion-note>
         </div>
     </div>
     <ion-list id="resultsList" *ngIf="exercise.length > 0">

@@ -426,6 +426,7 @@ export class DiaryPage implements OnInit {
   dinner : Object[] = []
   snacks : Object[] = []
   exercise : Object[] = []
+  totals : Object = {'breakfastCals' : 0, 'lunchCals' : 0, 'dinnerCals' : 0, 'snacksCals' : 0, 'exerciseCals' : 0, }
   myDate : Date = new Date()
 
   eventSettings: MbscEventcalendarOptions = {
@@ -499,6 +500,10 @@ export class DiaryPage implements OnInit {
         this.lunch = []
         this.dinner = []
         this.snacks = []
+        this.totals['breakfastCals'] = 0
+        this.totals['lunchCals'] = 0
+        this.totals['dinnerCals'] = 0
+        this.totals['snacksCals'] = 0
 
           let values = {'logDate': logDate, 'ID': '60ab91b8158bd2145499e0cc'}
           this.trackerService.getUserLog(localStorage.getItem('token'), values).subscribe(data => {
@@ -512,15 +517,19 @@ export class DiaryPage implements OnInit {
                     switch (food.meal) {
                         case 'Breakfast':
                             this.breakfast.push(food)
+                            this.totals['breakfastCals'] += food['nf_calories']
                             break;
                         case 'Lunch':
                             this.lunch.push(food)
+                            this.totals['lunchCals'] += element['nf_calories']
                             break;
                         case 'Dinner':
                             this.dinner.push(food)
+                            this.totals['dinnerCals'] += element['nf_calories']
                             break;
                         case 'Snack':
                             this.snacks.push(food)
+                            this.totals['snacksCals'] += food['nf_calories']
                             break;
                     }
                 })
