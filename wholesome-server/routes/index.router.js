@@ -20,4 +20,7 @@ router.get("/role/getRole", jwtHelper.verifyJWTtoken, role.getRole);
 
 // user log
 router.post("/userLog/addFoodEntry", jwtHelper.verifyJWTtoken, userLog.addFoodEntry);
+router.get("/userLog/getUserLog", jwtHelper.verifyJWTtoken, userLog.getUserLog);
+router.get("/userLog/getFoodEntry", jwtHelper.verifyJWTtoken, userLog.getFoodEntry);
+
 module.exports = router;

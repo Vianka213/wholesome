@@ -39,4 +39,27 @@ export class TrackerService {
       headers: headers
     });
   }
+
+  public getUserLog(token, values) {
+    const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json').set( 'Authorization', "Bearer "+token);
+    let parameters = new HttpParams();
+    parameters = parameters.append('ID', values.ID);
+    parameters = parameters.append('logDate', values.logDate);
+      return this.http.get(this.ROOT_URL+'userLog/getUserLog', {
+        params: parameters,
+        headers: headers
+      });
+  }
+
+  public getFoodEntry(token, values) {
+    const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json').set( 'Authorization', "Bearer "+token);
+    let parameters = new HttpParams();
+    parameters = parameters.append('entryID', values.entryID);
+      return this.http.get(this.ROOT_URL+'userLog/getFoodEntry', {
+        params: parameters,
+        headers: headers
+      });
+  }
 }

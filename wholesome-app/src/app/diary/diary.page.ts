@@ -421,6 +421,12 @@ export class DiaryPage implements OnInit {
 
   myEvents: MbscCalendarEvent[] = [];
   foodEntries : Object[] = []
+  breakfast : Object[] = []
+  lunch : Object[] = []
+  dinner : Object[] = []
+  snacks : Object[] = []
+  exercise : Object[] = []
+  myDate : Date = new Date()
 
   eventSettings: MbscEventcalendarOptions = {
     theme: 'ios',
@@ -428,6 +434,9 @@ export class DiaryPage implements OnInit {
     view: {
         calendar: { type: 'week' },
         agenda: { type: 'day' }
+    }, onSelectedDateChange: (event: any) => {
+        console.log(this.myDate)
+        this.getUserLog(this.myDate)
     }/*,
     onEventClick: (event) => {
         this.notify.toast({
@@ -446,6 +455,7 @@ export class DiaryPage implements OnInit {
     this.foodEntries.push(this.test)
     this.foodEntries.push(this.test)
     console.log(this.foodEntries)
+    this.getUserLog(new Date())
     //this.http.get<any>('https://api.spoonacular.com/recipes/complexSearch?query=burger&apiKey=' + this.apiKey).subscribe(data => {
       //  console.log(data)
   //})
@@ -473,6 +483,57 @@ export class DiaryPage implements OnInit {
         food['percentP'] = Math.floor((p * 100 / cals))
         food['percentF'] = Math.floor(f * 100 / cals)
         food['percentC'] = Math.floor(c * 100 / cals)
+      }
+
+      getUserLog(dt : Date) {
+        let logDate
+        logDate = dt.getFullYear() + "/"
+        if (dt.getMonth() + 1 < 10) 
+            logDate += '0' 
+        logDate += dt.getMonth() + 1 + '/'
+        if (dt.getDate() < 10) 
+            logDate += '0' 
+            logDate += dt.getDate()
+
+        this.breakfast = []
+        this.lunch = []
+        this.dinner = []
+        this.snacks = []
+
+          let values = {'logDate': logDate, 'ID': '60ab91b8158bd2145499e0cc'}
+          this.trackerService.getUserLog(localStorage.getItem('token'), values).subscribe(data => {
+            console.log(data['log'].FoodEntries)
+            let entries = data['log'].FoodEntries
+            entries.forEach(element => {
+                let values1 = {'entryID' : element}
+                this.trackerService.getFoodEntry(localStorage.getItem('token'), values1).subscribe(data => {
+                    console.log(data['food'].Food.meal)
+                    let food = data['food'].Food
+                    switch (food.meal) {
+                        case 'Breakfast':
+                            this.breakfast.push(food)
+                            break;
+                        case 'Lunch':
+                            this.lunch.push(food)
+                            break;
+                        case 'Dinner':
+                            this.dinner.push(food)
+                            break;
+                        case 'Snack':
+                            this.snacks.push(food)
+                            break;
+                    }
+                })
+            });
+        }, error => {
+            console.log(error)
+            console.log('hi')
+            let errorCode = error['status'];
+            if (errorCode == '403')
+            {   // kick user out
+                //this.headerService.kickOut();
+            }
+        })
       }
 
     async openEditFoodModal(food) {

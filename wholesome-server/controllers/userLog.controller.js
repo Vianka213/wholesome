@@ -46,3 +46,29 @@ module.exports.addFoodEntry = (req, res) => {
         }
     })
 }
+
+module.exports.getUserLog = (req, res) => {
+    UserLogModel.findOne({UserID : req.ID, Date : req.query.logDate}, function(err, result) {
+        if(err) {
+            return res.status(500).send({message: 'Internal Server Error: ' + err});
+        } else if (!result) {
+            console.log('here')
+            return res.status(404).json({ message: 'No log' }); 
+        } else {
+            return res.status(200).json({log: result});
+        }
+    })
+}
+
+module.exports.getFoodEntry = (req, res) => {
+    FoodEntryModel.findOne({_id : req.query.entryID}, function(err, result) {
+        if(err) {
+            return res.status(500).send({message: 'Internal Server Error: ' + err});
+        } else if (!result) {
+            console.log('here')
+            return res.status(404).json({ message: 'No log' }); 
+        } else {
+            return res.status(200).json({food: result});
+        }
+    })
+}
