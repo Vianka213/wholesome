@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { IonItemSliding, ModalController } from '@ionic/angular';
 import { AddRecipePage } from '../add-recipe/add-recipe.page';
 import { HeaderService } from '../shared/services/header.service';
 import { RecipeService } from '../shared/services/recipe.service';
@@ -31,6 +31,23 @@ export class MyRecipesPage implements OnInit {
             this.headerService.kickOut();
         }
     })
+  }
+
+  deleteRecipe(recipe, sliding?: IonItemSliding) {
+    let index = this.recipes.indexOf(recipe)
+    this.recipes.splice(index, 1)
+
+    let values = {'recipeID': recipe._id}
+    this.recipeService.deleteRecipe(localStorage.getItem('token'), values).subscribe(data => {
+      console.log(data['recipes'])
+    }, error => {
+        console.log(error)
+        let errorCode = error['status'];
+        if (errorCode == '403')
+        {   // kick user out
+            this.headerService.kickOut();
+        }
+    }) 
   }
 
   async openAddRecipeModal() {
