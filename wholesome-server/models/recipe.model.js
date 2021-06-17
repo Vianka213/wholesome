@@ -4,10 +4,16 @@ var RecipeSchema = new mongoose.Schema({
     UserID: {
         type: mongoose.Schema.Types.ObjectId
     },
-    Name: {
+    food_name: {
         type: String
     },
     Meal: {
+        type: String
+    },
+    serving_qty: {
+        type: Number
+    },
+    serving_unit: {
         type: String
     },
     Tags: {
@@ -18,7 +24,7 @@ var RecipeSchema = new mongoose.Schema({
             type: Object
         }
     ],
-    Calories: {
+    nf_calories: {
         type: Number
     },
     Protein: {
