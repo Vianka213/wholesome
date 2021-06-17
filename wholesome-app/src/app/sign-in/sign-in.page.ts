@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, NgForm } from "@angular/forms";
 import { Router } from '@angular/router';
 import { AccountManagementService } from '../shared/services/account-management.service';
+import { HeaderService } from '../shared/services/header.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -13,7 +14,7 @@ export class SignInPage implements OnInit {
   signInError : string
   isSubmitted = false;
 
-  constructor(public service : AccountManagementService, public router : Router, public formBuilder : FormBuilder) { }
+  constructor(public service : AccountManagementService, public headerService : HeaderService, public router : Router, public formBuilder : FormBuilder) { }
 
   ngOnInit() {
     // sign in form
@@ -41,11 +42,12 @@ export class SignInPage implements OnInit {
       });
       this.service.getName(localStorage.getItem('token')).subscribe(res => {
         //console.log(res['roles']);
+        console.log(res)
         localStorage.setItem('name', res['name']);
         localStorage.setItem('surname', res['surname']);
         localStorage.setItem('profilePic', res['profilePicture'])
         localStorage.setItem('email', form['email'])
-        //this.headerService.isUserLoggedIn.next(true);
+        this.headerService.isUserLoggedIn.next(true);
         //this.router.navigate(['main']);
       });
       this.router.navigate(['tabs/home']);

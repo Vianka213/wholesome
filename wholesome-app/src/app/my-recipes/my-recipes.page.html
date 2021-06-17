@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="profile"></ion-back-button>
+    </ion-buttons>
+    <ion-title>My Recipes</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="openAddRecipeModal()">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar [(ngModel)]="searchQuery" (ionChange)="searchRecipe()" animated placeholder="Search Recipes" autocorrect autocomplete></ion-searchbar>
+  
+  <ion-list *ngIf="recipes.length > 0">
+    <ion-item-sliding *ngFor="let r of recipes" #slidingItem>
+      <ion-item>
+        <ion-card>
+    <img [src]="r.Picture" />
+    <ion-card-header>
+      <ion-card-subtitle>{{r.nf_calories}} calories</ion-card-subtitle>
+      <ion-card-title>{{r.food_name}}</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <p>
+        Protein<ion-badge color="primary">{{r.Protein}}</ion-badge>
+        Fat<ion-badge color="secondary">{{r.Fat}}</ion-badge>
+        Carbs<ion-badge color="tertiary">{{r.Carbs}}</ion-badge>
+      </p><hr>
+      <ion-chip color="secondary">
+        <ion-label>{{r.Meal}}</ion-label>
+      </ion-chip>
+      <ion-chip color="tertiary">
+        <ion-label>{{r.Tags}}</ion-label>
+      </ion-chip>
+    </ion-card-content>
+  </ion-card>
+      </ion-item>
+  <ion-item-options (ionSwipe)="deleteRecipe(r, slidingItem)" side="end">
+    <ion-item-option expandable (click)="deleteRecipe(r, slidingItem)" color="danger">Delete</ion-item-option>
+  </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

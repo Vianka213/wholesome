@@ -2,6 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { TrackerService } from '../shared/services/tracker.service';
 import { MbscEventcalendarOptions, Notifications, MbscCalendarEvent  } from '@mobiscroll/angular';
+import { IonItemSliding, ModalController } from '@ionic/angular';
+import { EditFoodPage } from '../edit-food/edit-food.page';
+import { HeaderService } from '../shared/services/header.service';
 
 
 
@@ -14,7 +17,7 @@ import { MbscEventcalendarOptions, Notifications, MbscCalendarEvent  } from '@mo
 export class DiaryPage implements OnInit {
   apiKey = '09030db3ec2a4ebf8220bcd0fa7c5944'
 
-  test = [{
+  test = {
     "food_name": "chicken noodle soup",
     "brand_name": null,
     "serving_qty": 1,
@@ -413,12 +416,19 @@ export class DiaryPage implements OnInit {
         "thumb": "https://d2xdmhkmkbyw75.cloudfront.net/256_thumb.jpg",
         "highres": "https://d2xdmhkmkbyw75.cloudfront.net/256_highres.jpg"
     }
-  }]
+  }
 
-  constructor(private http : HttpClient, public trackerService : TrackerService, private notify : Notifications) { }
+  constructor(public viewCtrl: ModalController, private http : HttpClient, public trackerService : TrackerService, public headerService : HeaderService, private notify : Notifications) { }
 
   myEvents: MbscCalendarEvent[] = [];
   foodEntries : Object[] = []
+  breakfast : Object[] = []
+  lunch : Object[] = []
+  dinner : Object[] = []
+  snacks : Object[] = []
+  exercise : Object[] = []
+  totals : Object = {'breakfastCals' : 0, 'lunchCals' : 0, 'dinnerCals' : 0, 'snacksCals' : 0, 'exerciseCals' : 0, 'totalCals': 0, 'water': 0}
+  myDate : Date = new Date()
 
   eventSettings: MbscEventcalendarOptions = {
     theme: 'ios',
@@ -426,12 +436,15 @@ export class DiaryPage implements OnInit {
     view: {
         calendar: { type: 'week' },
         agenda: { type: 'day' }
-    },
+    }, onSelectedDateChange: (event: any) => {
+        console.log(this.myDate)
+        this.getUserLog(this.myDate)
+    }/*,
     onEventClick: (event) => {
         this.notify.toast({
             message: event.event.title
         });
-    }
+    }*/
 };
 
   ngOnInit() {
@@ -441,8 +454,10 @@ export class DiaryPage implements OnInit {
     this.myEvents.push({"recurring":{"repeat":"daily"}, "title": "Dinner", "color": "#439BFF", "start": "18:00"})
     this.myEvents.push({"recurring":{"repeat":"daily"}, "title": "Snacks", "color": "#E6E2FF", "start": "19:00"})
     this.myEvents.push({"recurring":{"repeat":"daily"}, "title": "Exercise", "color": "#E6E2FF", "start": "20:00"})
-    this.foodEntries = this.test
+    this.foodEntries.push(this.test)
+    this.foodEntries.push(this.test)
     console.log(this.foodEntries)
+    this.getUserLog(new Date())
     //this.http.get<any>('https://api.spoonacular.com/recipes/complexSearch?query=burger&apiKey=' + this.apiKey).subscribe(data => {
       //  console.log(data)
   //})
@@ -454,6 +469,176 @@ export class DiaryPage implements OnInit {
   //this.http.jsonp<MbscCalendarEvent[]>('https://trial.mobiscroll.com/events/?vers=5', 'callback').subscribe((resp) => {
   //          this.myEvents = resp;
   //      });
-}
+    }
+
+    calcCalories(food : Object) {
+        let p = food['nf_protein']*4
+        let f = food['nf_total_fat']*9
+        let c = food['nf_total_carbohydrate']*4
+    
+        let cals = food['nf_calories']
+    
+        food['calsP'] = Math.floor(p).toFixed(0)
+        food['calsF'] = Math.floor(f).toFixed(0)
+        food['calsC'] = Math.floor(c).toFixed(0)
+    
+        food['percentP'] = Math.floor((p * 100 / cals))
+        food['percentF'] = Math.floor(f * 100 / cals)
+        food['percentC'] = Math.floor(c * 100 / cals)
+      }
+
+      getUserLog(dt : Date) {
+        let logDate
+        logDate = dt.getFullYear() + "/"
+        if (dt.getMonth() + 1 < 10) 
+            logDate += '0' 
+        logDate += dt.getMonth() + 1 + '/'
+        if (dt.getDate() < 10) 
+            logDate += '0' 
+            logDate += dt.getDate()
+
+        this.breakfast = []
+        this.lunch = []
+        this.dinner = []
+        this.snacks = []
+        this.totals['breakfastCals'] = 0
+        this.totals['lunchCals'] = 0
+        this.totals['dinnerCals'] = 0
+        this.totals['snacksCals'] = 0
+        this.totals['totalCals'] = 0
+        this.totals['water'] = 0
+
+          let values = {'logDate': logDate, 'ID': '60ab91b8158bd2145499e0cc'}
+          this.trackerService.getUserLog(localStorage.getItem('token'), values).subscribe(data => {
+            this.totals['water'] = data['log'].Water
+            console.log(data['log'].FoodEntries)
+            let entries = data['log'].FoodEntries
+            entries.forEach(element => {
+                let values1 = {'entryID' : element}
+                this.trackerService.getFoodEntry(localStorage.getItem('token'), values1).subscribe(data => {
+                    console.log(data)
+                    let food = data['food'].Food
+                    food.foodEntryID = data['food']._id
+                    if (food.Picture) {
+                        food.photo = {'thumb' : food.Picture}
+                    }
+                    console.log(food)
+                    switch (food.meal) {
+                        case 'Breakfast':
+                            this.breakfast.push(food)
+                            this.totals['breakfastCals'] += food['nf_calories']
+                            break;
+                        case 'Lunch':
+                            this.lunch.push(food)
+                            this.totals['lunchCals'] += food['nf_calories']
+                            break;
+                        case 'Dinner':
+                            this.dinner.push(food)
+                            this.totals['dinnerCals'] += food['nf_calories']
+                            break;
+                        case 'Snack':
+                            this.snacks.push(food)
+                            this.totals['snacksCals'] += food['nf_calories']
+                            break;
+                    }
+                    this.totals['totalCals'] += food['nf_calories']
+                })
+            });
+        }, error => {
+            console.log(error)
+            console.log('hi')
+            let errorCode = error['status'];
+            if (errorCode == '403')
+            {   // kick user out
+                this.headerService.kickOut();
+            }
+        })
+      }
+
+      updateFoodEntry(food) {
+        let values = {'foodEntryID': food.foodEntryID, 'food': food}
+        console.log(food)
+        this.trackerService.updateFoodEntry(localStorage.getItem('token'), values).subscribe(data => {
+          console.log(data)
+      }, error => {
+          console.log(error)
+          let errorCode = error['status'];
+          if (errorCode == '403')
+          {   // kick user out
+              this.headerService.kickOut();
+          }
+      })
+      }
+
+      deleteFoodEntry(food, sliding?: IonItemSliding) {
+        let dt = this.myDate
+        let logDate
+        logDate = dt.getFullYear() + "/"
+        if (dt.getMonth() + 1 < 10) 
+            logDate += '0' 
+        logDate += dt.getMonth() + 1 + '/'
+        if (dt.getDate() < 10) 
+            logDate += '0' 
+            logDate += dt.getDate()
+
+        let values = {'foodEntryID': food.foodEntryID, 'logDate': logDate}
+        console.log(food)
+        this.trackerService.deleteFoodEntry(localStorage.getItem('token'), values).subscribe(data => {
+          console.log(data)
+      }, error => {
+          console.log(error)
+          let errorCode = error['status'];
+          if (errorCode == '403')
+          {   // kick user out
+              this.headerService.kickOut();
+          }
+      })
+
+      let index
+      switch (food.meal) {
+        case 'Breakfast':
+            index = this.breakfast.indexOf(food)
+            this.breakfast.splice(index, 1)
+            this.totals['breakfastCals'] -= food['nf_calories']
+            break;
+        case 'Lunch':
+            index = this.lunch.indexOf(food)
+            this.lunch.splice(index, 1)
+            this.totals['lunchCals'] -= food['nf_calories']
+            break;
+        case 'Dinner':
+            index = this.dinner.indexOf(food)
+            this.dinner.splice(index, 1)
+            this.totals['dinnerCals'] -= food['nf_calories']
+            break;
+        case 'Snack':
+            index = this.snacks.indexOf(food)
+            this.snacks.splice(index, 1)
+            this.totals['snacksCals'] -= food['nf_calories']
+            break;
+    }
+    this.totals['totalCals'] -= food['nf_calories']        
+      }
+
+    async openEditFoodModal(food) {
+        this.calcCalories(food)
+        const modal = await this.viewCtrl.create({
+        component: EditFoodPage,
+        swipeToClose: true,
+        componentProps: {
+            'food': food
+        }
+        });
+    
+        modal.onDidDismiss()
+          .then((data) => {
+            const food = data['data']; // get food back
+            console.log(food)
+            this.calcCalories(food)
+            this.updateFoodEntry(food)
+        });
+    
+        return await modal.present();
+       }
 
 }

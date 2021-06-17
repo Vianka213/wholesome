@@ -3,7 +3,9 @@ const asyncify = require('express-asyncify')
 const router = asyncify(express.Router());
 const user = require('../controllers/user.controller');
 const role = require('../controllers/role.controller');
+const userLog = require('../controllers/userLog.controller');
 const userHelper = require('../helpers/user.helper');
+const recipe = require('../controllers/recipe.controller');
 const jwtHelper = require('../config/jwtHelper');
 
 //user
@@ -16,5 +18,19 @@ router.post("/user/verifyUser",jwtHelper.verifyJWTtoken, userHelper.isAdmin, use
 
 //role
 router.get("/role/getRole", jwtHelper.verifyJWTtoken, role.getRole);
+
+// user log
+router.post("/userLog/addFoodEntry", jwtHelper.verifyJWTtoken, userLog.addFoodEntry);
+router.get("/userLog/getUserLog", jwtHelper.verifyJWTtoken, userLog.getUserLog);
+router.get("/userLog/getFoodEntry", jwtHelper.verifyJWTtoken, userLog.getFoodEntry);
+router.post("/userLog/updateFoodEntry", jwtHelper.verifyJWTtoken, userLog.updateFoodEntry);
+router.post("/userLog/deleteFoodEntry", jwtHelper.verifyJWTtoken, userLog.deleteFoodEntry);
+router.post("/userLog/logWater", jwtHelper.verifyJWTtoken, userLog.logWater);
+
+// recipe
+router.post("/recipe/addRecipe", jwtHelper.verifyJWTtoken, recipe.addRecipe);
+router.post("/recipe/updateRecipe", jwtHelper.verifyJWTtoken, recipe.updateRecipe);
+router.post("/recipe/deleteRecipe", jwtHelper.verifyJWTtoken, recipe.deleteRecipe);
+router.get("/recipe/getRecipes", jwtHelper.verifyJWTtoken, recipe.getRecipes);
 
 module.exports = router;

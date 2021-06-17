@@ -8,3 +8,7 @@ mongoose.connect(process.env.MONGODB_URI, (err) => {
 
 const User = require("./user.model")
 const Role = require("./role.model")
+const FoodEntry = require("./foodEntry.model")
+const UserLog = require("./userLog.model");
+const Ingredient = require("./ingredient.model");
+const Recipe = require("./recipe.model")

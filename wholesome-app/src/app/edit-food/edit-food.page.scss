@@ -22,12 +22,6 @@ ion-card-content {
     position: relative;
 }
 
-canvas {
-    width: 100% !important;
-    height: 100% !important;
-    border: 1px solid red
-}
-
 .absolute-center {
     position:absolute;
     top: 50%;
@@ -47,8 +41,8 @@ ion-select-option, ion-select, .alert-radio-label {
     text-transform: capitalize !important;
 }
 
-ion-header ion-label {
-    width: 30% !important;
+ion-label, ion-select {
+    font-size: 0.9em !important;
 }
 
 ion-input {
@@ -64,9 +58,31 @@ ion-input {
     visibility: hidden;
 }
 
+#nutri {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+}
+
+#key {
+    margin-left: 2em;
+    font-size: 0.9em;
+    vertical-align: middle;
+
+    ion-label {
+        padding-left: 0.2em;
+    }
+}
+
 #serving-input {
     width: 70%;
     display: inline-block;
+
+    ion-label {
+        margin-right: 0 !important;
+        display: inline-block !important;
+    }
 }
 
 #quantity-input {
@@ -91,4 +107,56 @@ ion-input {
     align-items: center;
     justify-content: center;
     vertical-align: middle;
+}
+
+p ion-item {
+    padding: 0;
+    margin-left: -1em;
+}
+
+ion-chip {
+    margin: auto 0.2em;
+    font-size: 0.85em;
+    padding-inline: 0.2em 0.4em;
+    padding: 0.2em 0.6em;
+}
+
+#percent {
+    font-size: 0.7em;
+
+    span {
+        font-size: 1.3em;
+        bottom: -0.2em;
+    }
+}
+
+#proteinChart, #key {
+    display: inline-block;
+}
+
+ion-icon {
+    vertical-align: middle;
+}
+
+.pNote {
+    color: var(--color-purple);
+}
+
+.fNote {
+    color: var(--color-green);
+}
+
+.cNote {
+    color: var(--color-blue);
+}
+
+ion-card-subtitle {
+    ion-icon {
+        font-size: 1.1em;
+        margin-right: 0.2em;
+    }
+}
+
+ion-card-title {
+    text-transform: capitalize;
 }

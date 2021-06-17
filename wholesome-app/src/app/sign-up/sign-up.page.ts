@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 import { Router } from '@angular/router';
 import { AccountManagementService } from '../shared/services/account-management.service';
+import { HeaderService } from '../shared/services/header.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,7 +14,7 @@ export class SignUpPage implements OnInit {
   signUpError : string
   isSubmitted = false;
 
-  constructor(public service : AccountManagementService, public router : Router, public formBuilder : FormBuilder) { }
+  constructor(public service : AccountManagementService, public headerService : HeaderService, public router : Router, public formBuilder : FormBuilder) { }
 
   ngOnInit() {
     // sign in form
@@ -57,6 +58,7 @@ export class SignUpPage implements OnInit {
     // submit sign up form
   signUp(form : any) {
     this.service.signUp(form).subscribe(data => {
+      console.log(data)
       localStorage.setItem('token', data['token']);
       localStorage.setItem('loggedIn', 'true');
 
@@ -69,7 +71,7 @@ export class SignUpPage implements OnInit {
         localStorage.setItem('name', res['name']);
         localStorage.setItem('surname', res['surname']);
         localStorage.setItem('profilePic', res['profilePicture'])
-        //this.headerService.isUserLoggedIn.next(true);
+        this.headerService.isUserLoggedIn.next(true);
         this.router.navigate(['tabs/home']);
       });
     },

@@ -27,20 +27,21 @@
 <ion-content [ngSwitch]="segment">
   <div *ngSwitchCase="'all'">
   <ion-searchbar [(ngModel)]="searchQuery" (search)="searchFood(searchQuery)" animated placeholder="What did you eat today?" autocorrect autocomplete></ion-searchbar>
-  <ion-chip (click)="addFood(a)" *ngFor="let a of addedFood">
+  <ion-chip color="primary" (click)="addFood(a)" *ngFor="let a of addedFood">
     <ion-label>{{a.food_name}}</ion-label>
     <ion-icon icon="close"></ion-icon>
   </ion-chip>
+  <img *ngIf="searchResults.length == 0" src="https://static.vecteezy.com/system/resources/previews/002/215/363/original/one-continuous-line-plate-knife-and-fork-food-symbol-sign-of-plate-knife-and-fork-minimalism-hand-drawn-one-line-art-minimalist-illustration-dinner-theme-with-creative-sketch-vector.jpg"/>
   <ion-list id="resultsList" *ngIf="searchResults.length > 0">
-    <h4>Search Results ({{searchResults.length}})</h4>
+    <p id="res">Search Results ({{searchResults.length}}) <ion-button (click)="addAll()" size="small" slot="end">ADD ALL</ion-button></p>
     <ion-item-sliding (click)="openEditFoodModal(r)" *ngFor="let r of searchResults" #slidingItem>
       <ion-item>
       <ion-label>
         <h2>{{r.food_name}} | {{r.serving_qty}} {{r.serving_unit}}</h2>
         <p>
-          Protein<ion-badge color="primary">{{r.nf_protein}}</ion-badge>
-          Fat<ion-badge color="secondary">{{r.nf_total_fat}}</ion-badge>
-          Carbs<ion-badge color="tertiary">{{r.nf_total_carbohydrate}}</ion-badge>
+          Protein<ion-badge color="primary">{{r.calsP}}</ion-badge>
+          Fat<ion-badge color="secondary">{{r.calsF}}</ion-badge>
+          Carbs<ion-badge color="tertiary">{{r.calsC}}</ion-badge>
         </p>
       </ion-label>
       <ion-avatar slot="start">
@@ -57,11 +58,46 @@
   </div>
 
   <div *ngSwitchCase="'recipes'">
-    <ion-searchbar [(ngModel)]="searchRecipe" (search)="searchRecipes(searchRecipes)" animated placeholder="What did you eat today?" autocorrect autocomplete></ion-searchbar>
+    <ion-searchbar [(ngModel)]="searchQuery" (ionChange)="searchRecipe()" animated placeholder="Search Recipes" autocorrect autocomplete></ion-searchbar>
+    <ion-chip color="primary" (click)="addFood(a)" *ngFor="let a of addedFood">
+      <ion-label>{{a.food_name}}</ion-label>
+      <ion-icon icon="close"></ion-icon>
+    </ion-chip>
+    
+    <ion-list *ngIf="recipes.length > 0">
+      <ion-item-sliding *ngFor="let r of recipes" #slidingItem>
+        <ion-item>
+          <ion-card>
+      <img [src]="r.Picture" />
+      <ion-card-header>
+        <ion-card-subtitle>{{r.nf_calories}} calories</ion-card-subtitle>
+        <ion-card-title>{{r.food_name}}</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <p>
+          Protein<ion-badge color="primary">{{r.Protein}}</ion-badge>
+          Fat<ion-badge color="secondary">{{r.Fat}}</ion-badge>
+          Carbs<ion-badge color="tertiary">{{r.Carbs}}</ion-badge>
+        </p><hr>
+        <ion-chip color="secondary">
+          <ion-label>{{r.Meal}}</ion-label>
+        </ion-chip>
+        <ion-chip color="tertiary">
+          <ion-label>{{r.Tags}}</ion-label>
+        </ion-chip>
+      </ion-card-content>
+    </ion-card>
+        </ion-item>
+        <ion-item-options (ionSwipe)="addFood(r, slidingItem)" side="start">
+          <ion-item-option expandable (click)="addFood(r, slidingItem)" color="success">Add</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>  
   </div>
 </ion-content>
 
 
 <ion-footer>
-  <ion-button (click)="dismissModal()" expand="full" color="secondary">Done</ion-button>
+  <ion-button (click)="logItems(); dismissModal()" expand="full" color="secondary">Add to Log</ion-button>
 </ion-footer>

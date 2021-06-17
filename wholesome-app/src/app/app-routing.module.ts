@@ -48,6 +48,34 @@ const routes: Routes = [
   {
     path: 'edit-food',
     loadChildren: () => import('./edit-food/edit-food.module').then( m => m.EditFoodPageModule)
+  },
+  {
+    path: 'my-recipes',
+    loadChildren: () => import('./my-recipes/my-recipes.module').then( m => m.MyRecipesPageModule)
+  },
+  {
+    path: 'add-recipe',
+    loadChildren: () => import('./add-recipe/add-recipe.module').then( m => m.AddRecipePageModule)
+  },
+  {
+    path: 'add-recipe',
+    loadChildren: () => import('./add-recipe/add-recipe.module').then( m => m.AddRecipePageModule)
+  },
+  {
+    path: 'my-workouts',
+    loadChildren: () => import('./my-workouts/my-workouts.module').then( m => m.MyWorkoutsPageModule)
+  },
+  {
+    path: 'my-info',
+    loadChildren: () => import('./my-info/my-info.module').then( m => m.MyInfoPageModule)
+  },
+  {
+    path: 'my-preferences',
+    loadChildren: () => import('./my-preferences/my-preferences.module').then( m => m.MyPreferencesPageModule)
+  },
+  {
+    path: 'my-goals',
+    loadChildren: () => import('./my-goals/my-goals.module').then( m => m.MyGoalsPageModule)
   }
 
 ];

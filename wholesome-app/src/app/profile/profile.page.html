@@ -14,30 +14,25 @@
   </ion-card>
 
   <ion-list>
-    <ion-item>
+    <ion-item [routerLink]="['info']">
       <ion-icon name="accessibility-outline" slot="start"></ion-icon>
       <ion-label>Personal Information</ion-label>
-      <ion-icon name="chevron-forward-outline"></ion-icon>
     </ion-item>
-    <ion-item>
+    <ion-item [routerLink]="['recipes']">
       <ion-icon name="fast-food-outline" slot="start"></ion-icon>
       <ion-label>My Recipes</ion-label>
-      <ion-icon name="chevron-forward-outline"></ion-icon>
     </ion-item>
-    <ion-item>
+    <ion-item [routerLink]="['workouts']">
       <ion-icon name="barbell-outline" slot="start"></ion-icon>
       <ion-label>My Workouts</ion-label>
-      <ion-icon name="chevron-forward-outline"></ion-icon>
     </ion-item>
-    <ion-item>
+    <ion-item [routerLink]="['preferences']">
       <ion-icon name="fitness-outline" slot="start"></ion-icon>
       <ion-label>Dietary Preferences</ion-label>
-      <ion-icon name="chevron-forward-outline"></ion-icon>
     </ion-item>
-    <ion-item>
+    <ion-item [routerLink]="['goals']">
       <ion-icon name="ribbon-outline" slot="start"></ion-icon>
       <ion-label>Goals</ion-label>
-      <ion-icon name="chevron-forward-outline"></ion-icon>
     </ion-item>
   </ion-list>
   <ion-button expand="block" color="success">Logout</ion-button>

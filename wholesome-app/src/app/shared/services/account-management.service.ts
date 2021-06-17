@@ -21,6 +21,7 @@ export class AccountManagementService {
 
   // sign in
   public signIn(values){
+    console.log(JSON.stringify(values))
     const headers = new HttpHeaders()
           .set('Content-Type', 'application/json');
     return this.http.post(this.ROOT_URL+'user/login', JSON.stringify(values), {

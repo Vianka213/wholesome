@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { IonItemSliding, ModalController } from '@ionic/angular';
+import { IonItemSliding, ModalController, ToastController } from '@ionic/angular';
 import { EditFoodPage } from '../edit-food/edit-food.page';
+import { HeaderService } from '../shared/services/header.service';
+import { RecipeService } from '../shared/services/recipe.service';
 import { TrackerService } from '../shared/services/tracker.service';
 
 @Component({
@@ -416,9 +418,12 @@ export class AddFoodPage implements OnInit {
 
     segment : string = "all"
 
-  constructor(public viewCtrl: ModalController, public trackerService : TrackerService) { }
+  constructor(public viewCtrl: ModalController, public trackerService : TrackerService, public recipeService: RecipeService, public headerService: HeaderService, public toastController : ToastController) { }
+    recipes: Object[] = []
+    allRecipes: Object[] = []
 
   ngOnInit() {
+      this.getRecipes()
   }
 
   dismissModal() {
@@ -429,23 +434,130 @@ export class AddFoodPage implements OnInit {
     console.log(query)
     /*this.trackerService.naturalSearch(query).subscribe( data => {
       console.log(data)
-      this.searchResults = this.test
+      this.searchResults = data['foods']
+      this.searchResults.forEach(element => {
+        this.calcCalories(element)
+        });
       console.log(this.searchResults)
     })*/
 
     this.searchResults = this.test
+    this.searchResults.forEach(element => {
+        this.calcCalories(element)
+    });
   }
 
   addFood(food, sliding?: IonItemSliding) {
     let index = this.addedFood.indexOf(food)
     if (index == -1) {
         this.addedFood.push(food)
+        let index2 = this.searchResults.indexOf(food)
+        this.searchResults.splice(index2, 1)
     }
     else
         this.addedFood.splice(index, 1)
 
     if (sliding)
         sliding.close()
+  }
+
+  calcCalories(food : Object) {
+    let p = food['nf_protein']*4
+    let f = food['nf_total_fat']*9
+    let c = food['nf_total_carbohydrate']*4
+
+    let cals = Math.floor(food['nf_calories'])
+    food['nf_calories'] = Math.floor(food['nf_calories'])
+
+    food['calsP'] = Math.floor(p).toFixed(0)
+    food['calsF'] = Math.floor(f).toFixed(0)
+    food['calsC'] = Math.floor(c).toFixed(0)
+
+    food['percentP'] = Math.floor((p * 100 / cals))
+    food['percentF'] = Math.floor(f * 100 / cals)
+    food['percentC'] = Math.floor(c * 100 / cals)
+  }
+
+  addAll() {
+      this.searchResults.forEach(element => {
+          this.addedFood.push(element)
+      });
+      this.showToast('Added ' + this.searchResults.length + ' food items.')
+      this.searchResults = []
+      this.searchQuery = ''
+  }
+
+  logItems() {
+    // set meals
+    console.log(this.addedFood)
+    this.addedFood.forEach(element => {
+        this.setMeal(element)
+        let values = {'food': element, 'date': new Date(), 'ID': '60ab91b8158bd2145499e0cc'}
+        this.trackerService.addFoodEntry(localStorage.getItem('token'), values).subscribe(data => {
+            console.log(data)
+        }, error => {
+            console.log(error)
+            let errorCode = error['status'];
+            if (errorCode == '403')
+            {   // kick user out
+                this.headerService.kickOut();
+            }
+        })
+    });
+
+    if (this.addedFood.length > 1)
+        this.showToast('Logged ' + this.addedFood.length + ' food items successfully')
+    else 
+        this.showToast('Logged ' + this.addedFood[0]['food_name'] + ' successfully')
+  }
+
+  setMeal(food) {
+    var time = new Date().getHours();
+    console.log(time)
+    if (time >= 5 && time <= 10) {
+      food.meal = 'Breakfast'
+    } else if (time >= 10 && time < 12) {
+      food.meal = 'Snack'
+    } else if (time >= 12 && time < 14) {
+      food.meal = 'Lunch'
+    } else if (time >= 14 && time < 18) {
+      food.meal = 'Snack'
+    } else if (time >= 18 && time < 20) {
+      food.meal = 'Dinner'
+    } else {
+      food.meal = 'Snack'
+    }
+  }
+
+  getRecipes() {
+    this.recipeService.getRecipe(localStorage.getItem('token')).subscribe(data => {
+      console.log(data['recipes'])
+      this.allRecipes = data['recipes']
+      this.recipes = this.allRecipes
+    }, error => {
+        console.log(error)
+        let errorCode = error['status'];
+        if (errorCode == '403')
+        {   // kick user out
+            this.headerService.kickOut();
+        }
+    })
+  }
+
+  searchRecipe() {
+    this.recipes = this.allRecipes.filter(recipe => 
+      recipe['food_name'].toLowerCase().indexOf(this.searchQuery.toLowerCase()) != -1
+    )
+  }
+
+  async showToast(msg) {
+    const toast = await this.toastController.create({
+        color: 'success',
+        duration: 2000,
+        message: msg
+      });
+
+      await toast.present();
   }
 
   async openEditFoodModal(food) {
@@ -461,6 +573,9 @@ export class AddFoodPage implements OnInit {
       .then((data) => {
         const food = data['data']; // get food back
         console.log(food)
+        this.calcCalories(food)
+        if (food.edited == true)
+            this.addedFood.push(food)
     });
 
     return await modal.present();

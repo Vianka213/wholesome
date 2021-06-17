@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import Chart from 'chart.js/auto';
+import { HeaderService } from '../shared/services/header.service';
+import { TrackerService } from '../shared/services/tracker.service';
 
 @Component({
   selector: 'app-edit-food',
@@ -23,7 +25,7 @@ export class EditFoodPage implements OnInit {
   private chartF : Chart
   private chartC : Chart
 
-  constructor(public viewCtrl: ModalController) { }
+  constructor(public viewCtrl: ModalController, public trackerService : TrackerService, public headerService: HeaderService) { }
 
   ngOnInit() {
     console.log(this.food)
@@ -32,10 +34,12 @@ export class EditFoodPage implements OnInit {
     this.serving = this.food.serving_unit
     this.servingWeight = this.food.serving_weight_grams
     console.log(this.serving)
-    this.percentProtein = ((this.food.nf_protein/this.food.nf_calories)*100).toFixed(0)
-    this.percentFat = ((this.food.nf_total_fat/this.food.nf_calories)*100).toFixed(0)
-    this.percentCarbs = ((this.food.nf_total_carbohydrate/this.food.nf_calories)*100).toFixed(0)
+    this.percentProtein = ((this.food.calsP/this.food.nf_calories)*100).toFixed(0)
+    this.percentFat = ((this.food.calsF/this.food.nf_calories)*100).toFixed(0)
+    this.percentCarbs = ((this.food.calsC/this.food.nf_calories)*100).toFixed(0)
     this.getNutritionalInfo()
+    if (!this.food.meal)
+      this.setMeal()
     this.createCharts()
   }
 
@@ -47,7 +51,10 @@ export class EditFoodPage implements OnInit {
     // protein
     let info1 : Object = {}
     info1['name'] = 'Protein'
-    info1['value'] = this.food.full_nutrients.find(x => x.attr_id == 203).value
+    if (this.food.full_nutrients.find(x => x.attr_id == 203)) 
+      info1['value'] = this.food.full_nutrients.find(x => x.attr_id == 203).value
+    else
+      info1['value'] = 0
     info1['unit'] = 'g'
     this.nutrition.push(info1)
     this.nutritionOriginal.push(info1)
@@ -55,7 +62,10 @@ export class EditFoodPage implements OnInit {
     // total fat
     let info2 : Object = {}
     info2['name'] = 'Total Fat'
-    info2['value'] = this.food.full_nutrients.find(x => x.attr_id == 204).value
+    if (this.food.full_nutrients.find(x => x.attr_id == 204)) 
+      info2['value'] = this.food.full_nutrients.find(x => x.attr_id == 204).value
+    else
+      info2['value'] = 0
     info2['unit'] = 'g'
     this.nutrition.push(info2)
     this.nutritionOriginal.push(info2)
@@ -63,7 +73,10 @@ export class EditFoodPage implements OnInit {
     // sat fat
     let info3 : Object = {}
     info3['name'] = 'Saturated Fat'
-    info3['value'] = this.food.full_nutrients.find(x => x.attr_id == 606).value
+    if (this.food.full_nutrients.find(x => x.attr_id == 606)) 
+      info3['value'] = this.food.full_nutrients.find(x => x.attr_id == 606).value
+    else
+      info3['value'] = 0
     info3['unit'] = 'g'
     this.nutrition.push(info3)
     this.nutritionOriginal.push(info3)
@@ -71,7 +84,10 @@ export class EditFoodPage implements OnInit {
     // trans fat
     let info4 : Object = {}
     info4['name'] = 'Trans Fat'
-    info4['value'] = this.food.full_nutrients.find(x => x.attr_id == 605).value
+    if (this.food.full_nutrients.find(x => x.attr_id == 605)) 
+      info4['value'] = this.food.full_nutrients.find(x => x.attr_id == 605).value
+    else
+      info4['value'] = 0
     info4['unit'] = 'g'
     this.nutrition.push(info4)
     this.nutritionOriginal.push(info4)
@@ -79,7 +95,10 @@ export class EditFoodPage implements OnInit {
     // total carbs
     var info5 : Object = {}
     info5['name'] = 'Total Carbohydrate'
-    info5['value'] = this.food.full_nutrients.find(x => x.attr_id == 205).value
+    if (this.food.full_nutrients.find(x => x.attr_id == 205)) 
+      info5['value'] = this.food.full_nutrients.find(x => x.attr_id == 205).value
+    else
+      info5['value'] = 0
     info5['unit'] = 'g'
     this.nutrition.push(info5)
     this.nutritionOriginal.push(info5)
@@ -87,7 +106,10 @@ export class EditFoodPage implements OnInit {
     // dietary fiber
     let info6 : Object = {}
     info6['name'] = 'Dietary Fiber'
-    info6['value'] = this.food.full_nutrients.find(x => x.attr_id == 291).value
+    if (this.food.full_nutrients.find(x => x.attr_id == 291)) 
+      info6['value'] = this.food.full_nutrients.find(x => x.attr_id == 291).value
+    else
+      info6['value'] = 0
     info6['unit'] = 'g'
     this.nutrition.push(info6)
     this.nutritionOriginal.push(info6)
@@ -95,7 +117,10 @@ export class EditFoodPage implements OnInit {
     // sugars
     let info7 : Object = {}
     info7['name'] = 'Sugars'
-    info7['value'] = this.food.full_nutrients.find(x => x.attr_id == 269).value
+    if (this.food.full_nutrients.find(x => x.attr_id == 269)) 
+      info7['value'] = this.food.full_nutrients.find(x => x.attr_id == 269).value
+    else
+      info7['value'] = 0
     info7['unit'] = 'g'
     this.nutrition.push(info7)
     this.nutritionOriginal.push(info7)
@@ -103,7 +128,10 @@ export class EditFoodPage implements OnInit {
     // chol
     let info8 : Object = {}
     info8['name'] = 'Cholesterol'
-    info8['value'] = this.food.full_nutrients.find(x => x.attr_id == 601).value
+    if (this.food.full_nutrients.find(x => x.attr_id == 601)) 
+      info8['value'] = this.food.full_nutrients.find(x => x.attr_id == 601).value
+    else
+      info8['value'] = 0
     info8['unit'] = 'mg'
     this.nutrition.push(info8)
     this.nutritionOriginal.push(info8)
@@ -111,7 +139,10 @@ export class EditFoodPage implements OnInit {
     // sodium
     let info9 : Object = {}
     info9['name'] = 'Sodium'
-    info9['value'] = this.food.full_nutrients.find(x => x.attr_id == 307).value
+    if (this.food.full_nutrients.find(x => x.attr_id == 307)) 
+      info9['value'] = this.food.full_nutrients.find(x => x.attr_id == 307).value
+    else
+      info9['value'] = 0
     info9['unit'] = 'mg'
     this.nutrition.push(info9)
     this.nutritionOriginal.push(info9)
@@ -136,11 +167,34 @@ export class EditFoodPage implements OnInit {
     this.quantity += quan
   }
 
+  setMeal() {
+    var time = new Date().getHours();
+    console.log(time)
+    if (time >= 5 && time <= 10) {
+      this.food.meal = 'Breakfast'
+    } else if (time >= 10 && time < 12) {
+      this.food.meal = 'Snack'
+    } else if (time >= 12 && time < 14) {
+      this.food.meal = 'Lunch'
+    } else if (time >= 14 && time < 18) {
+      this.food.meal = 'Snack'
+    } else if (time >= 18 && time < 20) {
+      this.food.meal = 'Dinner'
+    } else {
+      this.food.meal = 'Snack'
+    }
+  }
+
+  changeMeal(meal) {
+    this.food.meal = meal
+  }
+
   saveEdits() {
     this.food.nf_calories = this.cals
     this.food.serving_qty = this.quantity
     this.food.serving_unit = this.serving
     this.food.serving_weight_grams = this.servingWeight
+    this.food.edited = true
 
     // info
     this.food.full_nutrients.find(x => x.attr_id == 203).value = this.nutrition[0]['value']
@@ -164,12 +218,13 @@ export class EditFoodPage implements OnInit {
       data: {
         datasets: [
           {
-            data: [this.food.nf_protein, this.food.nf_calories],
+            data: [this.food.calsP, this.food.calsF, this.food.calsC],
             backgroundColor: [
-              "#439BFF",
-              "#F5F6FA",
+              "#988CFF",
+              "#8EE7A8",
+              "#439BFF"
             ],
-            hoverBackgroundColor: ["#439BFF", "#F5F6FA"]
+            hoverBackgroundColor: ["#988CFF", "#8EE7A8", "#439BFF"]
           }
         ]
       },
@@ -178,17 +233,17 @@ export class EditFoodPage implements OnInit {
         animation: true,
         responsive: true,
         maintainAspectRatio: true,
-        cutout : 70
+        cutout : 35
       }
     });
 
     // fat 
-    this.chartF = new Chart('fatCanvas', {
+    /*this.chartF = new Chart('fatCanvas', {
       type: "doughnut",
       data: {
         datasets: [
           {
-            data: [this.food.nf_total_fat, this.food.nf_calories],
+            data: [this.food.calsF, this.food.nf_calories],
             backgroundColor: [
               "#439BFF",
               "#F5F6FA",
@@ -211,7 +266,7 @@ export class EditFoodPage implements OnInit {
       data: {
         datasets: [
           {
-            data: [this.food.nf_total_carbohydrate, this.food.nf_calories],
+            data: [this.food.calsC, this.food.nf_calories],
             backgroundColor: [
               "#439BFF",
               "#F5F6FA",
@@ -226,7 +281,7 @@ export class EditFoodPage implements OnInit {
         responsive: true,
         cutout : 70
       }
-    });
+    });*/
   }
 
 }
