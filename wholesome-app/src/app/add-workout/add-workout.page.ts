@@ -50,10 +50,13 @@ export class AddWorkoutPage implements OnInit {
     values['exercises'] = this.exercises
 
     let dur = 0
+    let cals = 0
     this.exercises.forEach(element => {
       dur += element['duration_min']
+      cals += element['nf_calories']
     });
     values['duration'] = dur
+    values['calories'] = cals
 
     console.log(values)
 
