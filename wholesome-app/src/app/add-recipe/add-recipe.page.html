@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="end">
-      <ion-button (click)="dismissModal()">
+      <ion-button (click)="createRecipe()">
         <ion-icon name="checkmark-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -19,22 +19,81 @@
     <ion-label position="floating">Recipe Name</ion-label>
     <ion-input required="true" autocomplete autocorrect></ion-input>
   </ion-item>
-  <ion-item>
-    <ion-label position="floating">Tags (optional)</ion-label>
-    <ion-input autocomplete autocorrect></ion-input>
-  </ion-item>
+  <div id="inputs">
+    <ion-item id="serving-input">
+      <ion-label>Serving</ion-label>
+      <ion-input [(ngModel)]="unit" placeholder="Enter Unit"></ion-input>
+      <div id="quantity-input">
+        <ion-icon (click)="changeQuan(1)" name="add-circle-outline"></ion-icon>
+        <ion-input [(ngModel)]="qty" type="number" placeholder="Enter Quantity"></ion-input>
+        <ion-icon (click)="changeQuan(-1)" id="minus" name="remove-circle-outline" min="0" [ngClass]="{'no-minus': qty === 1}"></ion-icon>
+      </div>
+    </ion-item>
+    
+    </div>
   <p>
     <ion-item>
-    <ion-label>Meal</ion-label>
-    <ion-chip color="primary">
-      <ion-label>Breakfast</ion-label>
-    </ion-chip>
-    <ion-chip color="secondary">
-      <ion-label>Lunch</ion-label>
-    </ion-chip>
-    <ion-chip color="tertiary">
-      <ion-label>Dinner</ion-label>
-    </ion-chip>
-  </ion-item>
+      <ion-label>Meal</ion-label>
+      <ion-chip (click)="changeMeal('Breakfast')" color="primary">
+        <ion-label>Breakfast</ion-label>
+        <ion-icon *ngIf="meal == 'Breakfast'" name="checkmark-circle"></ion-icon>
+      </ion-chip>
+      <ion-chip (click)="changeMeal('Lunch')" color="secondary">
+        <ion-label>Lunch</ion-label>
+        <ion-icon *ngIf="meal == 'Lunch'" name="checkmark-circle"></ion-icon>
+      </ion-chip>
+      <ion-chip (click)="changeMeal('Dinner')" color="tertiary">
+        <ion-label>Dinner</ion-label>
+        <ion-icon *ngIf="meal == 'Dinner'" name="checkmark-circle"></ion-icon>
+      </ion-chip>
+      <ion-chip (click)="changeMeal('Snack')" color="success">
+        <ion-label>Snack</ion-label>
+        <ion-icon *ngIf="meal == 'Snack'" name="checkmark-circle"></ion-icon>
+      </ion-chip>
+    </ion-item>
   </p>
+  <ion-item>
+    <ion-label position="floating">Tags (optional)</ion-label>
+    <ion-input [(ngModel)]="tags" autocomplete autocorrect></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating>Picture</ion-label>
+    <!--<ion-input type="file" [id]="pic"></ion-input>
+  </ion-item>
+  <ion-item>-->
+    <ion-button color="secondary" expand="block" (click)="f.click()" id="image-input">
+      <ion-icon lazy="true" slot="start" name="image"></ion-icon>
+      <ion-label slot="end">Choose File</ion-label>
+    </ion-button>
+      <input class="ion-hide" #f type="file" (change)="loadImageFromDevice($event)" id="file-input"
+        accept="image/png, image/jpeg">
+ </ion-item>
+  <ion-item>
+    <ion-label position="floating">Ingredients</ion-label>
+    <ion-textarea [(ngModel)]="ings"></ion-textarea>
+    <ion-button *ngIf="ings" (click)="getIngredients()" size="small" slot="end">ADD ALL</ion-button>
+  </ion-item>
+
+  <ion-list id="resultsList" *ngIf="ingredients.length > 0">
+    <ion-item-sliding (click)="openEditFoodModal(r)" *ngFor="let r of ingredients" #slidingItem>
+      <ion-item>
+      <ion-label>
+        <h2>{{r.food_name}} | {{r.serving_qty}} {{r.serving_unit}}</h2>
+        <p>
+          Protein<ion-badge color="primary">{{r.calsP}}</ion-badge>
+          Fat<ion-badge color="secondary">{{r.calsF}}</ion-badge>
+          Carbs<ion-badge color="tertiary">{{r.calsC}}</ion-badge>
+        </p>
+      </ion-label>
+      <ion-avatar slot="start">
+        <img [src]="r.photo.thumb">
+      </ion-avatar>
+      <ion-note slot="end">{{r.nf_calories}}</ion-note>
+      </ion-item>
+
+      <ion-item-options (ionSwipe)="removeIngredient(r, slidingItem)" side="end">
+        <ion-item-option expandable (click)="removeIngredient(r, slidingItem)" color="danger">Remove</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>

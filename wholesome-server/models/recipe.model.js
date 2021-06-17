@@ -35,6 +35,9 @@ var RecipeSchema = new mongoose.Schema({
     },
     Carbs: {
         type: Number
+    },
+    Picture: {
+        type: String
     }
 });
 

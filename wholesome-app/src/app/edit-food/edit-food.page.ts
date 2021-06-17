@@ -51,7 +51,10 @@ export class EditFoodPage implements OnInit {
     // protein
     let info1 : Object = {}
     info1['name'] = 'Protein'
-    info1['value'] = this.food.full_nutrients.find(x => x.attr_id == 203).value
+    if (this.food.full_nutrients.find(x => x.attr_id == 203)) 
+      info1['value'] = this.food.full_nutrients.find(x => x.attr_id == 203).value
+    else
+      info1['value'] = 0
     info1['unit'] = 'g'
     this.nutrition.push(info1)
     this.nutritionOriginal.push(info1)
@@ -59,7 +62,10 @@ export class EditFoodPage implements OnInit {
     // total fat
     let info2 : Object = {}
     info2['name'] = 'Total Fat'
-    info2['value'] = this.food.full_nutrients.find(x => x.attr_id == 204).value
+    if (this.food.full_nutrients.find(x => x.attr_id == 204)) 
+      info2['value'] = this.food.full_nutrients.find(x => x.attr_id == 204).value
+    else
+      info2['value'] = 0
     info2['unit'] = 'g'
     this.nutrition.push(info2)
     this.nutritionOriginal.push(info2)
@@ -67,7 +73,10 @@ export class EditFoodPage implements OnInit {
     // sat fat
     let info3 : Object = {}
     info3['name'] = 'Saturated Fat'
-    info3['value'] = this.food.full_nutrients.find(x => x.attr_id == 606).value
+    if (this.food.full_nutrients.find(x => x.attr_id == 606)) 
+      info3['value'] = this.food.full_nutrients.find(x => x.attr_id == 606).value
+    else
+      info3['value'] = 0
     info3['unit'] = 'g'
     this.nutrition.push(info3)
     this.nutritionOriginal.push(info3)
@@ -75,7 +84,10 @@ export class EditFoodPage implements OnInit {
     // trans fat
     let info4 : Object = {}
     info4['name'] = 'Trans Fat'
-    info4['value'] = this.food.full_nutrients.find(x => x.attr_id == 605).value
+    if (this.food.full_nutrients.find(x => x.attr_id == 605)) 
+      info4['value'] = this.food.full_nutrients.find(x => x.attr_id == 605).value
+    else
+      info4['value'] = 0
     info4['unit'] = 'g'
     this.nutrition.push(info4)
     this.nutritionOriginal.push(info4)
@@ -83,7 +95,10 @@ export class EditFoodPage implements OnInit {
     // total carbs
     var info5 : Object = {}
     info5['name'] = 'Total Carbohydrate'
-    info5['value'] = this.food.full_nutrients.find(x => x.attr_id == 205).value
+    if (this.food.full_nutrients.find(x => x.attr_id == 205)) 
+      info5['value'] = this.food.full_nutrients.find(x => x.attr_id == 205).value
+    else
+      info5['value'] = 0
     info5['unit'] = 'g'
     this.nutrition.push(info5)
     this.nutritionOriginal.push(info5)
@@ -91,7 +106,10 @@ export class EditFoodPage implements OnInit {
     // dietary fiber
     let info6 : Object = {}
     info6['name'] = 'Dietary Fiber'
-    info6['value'] = this.food.full_nutrients.find(x => x.attr_id == 291).value
+    if (this.food.full_nutrients.find(x => x.attr_id == 291)) 
+      info6['value'] = this.food.full_nutrients.find(x => x.attr_id == 291).value
+    else
+      info6['value'] = 0
     info6['unit'] = 'g'
     this.nutrition.push(info6)
     this.nutritionOriginal.push(info6)
@@ -99,7 +117,10 @@ export class EditFoodPage implements OnInit {
     // sugars
     let info7 : Object = {}
     info7['name'] = 'Sugars'
-    info7['value'] = this.food.full_nutrients.find(x => x.attr_id == 269).value
+    if (this.food.full_nutrients.find(x => x.attr_id == 269)) 
+      info7['value'] = this.food.full_nutrients.find(x => x.attr_id == 269).value
+    else
+      info7['value'] = 0
     info7['unit'] = 'g'
     this.nutrition.push(info7)
     this.nutritionOriginal.push(info7)
@@ -107,7 +128,10 @@ export class EditFoodPage implements OnInit {
     // chol
     let info8 : Object = {}
     info8['name'] = 'Cholesterol'
-    info8['value'] = this.food.full_nutrients.find(x => x.attr_id == 601).value
+    if (this.food.full_nutrients.find(x => x.attr_id == 601)) 
+      info8['value'] = this.food.full_nutrients.find(x => x.attr_id == 601).value
+    else
+      info8['value'] = 0
     info8['unit'] = 'mg'
     this.nutrition.push(info8)
     this.nutritionOriginal.push(info8)
@@ -115,7 +139,10 @@ export class EditFoodPage implements OnInit {
     // sodium
     let info9 : Object = {}
     info9['name'] = 'Sodium'
-    info9['value'] = this.food.full_nutrients.find(x => x.attr_id == 307).value
+    if (this.food.full_nutrients.find(x => x.attr_id == 307)) 
+      info9['value'] = this.food.full_nutrients.find(x => x.attr_id == 307).value
+    else
+      info9['value'] = 0
     info9['unit'] = 'mg'
     this.nutrition.push(info9)
     this.nutritionOriginal.push(info9)

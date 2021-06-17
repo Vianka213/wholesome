@@ -15,6 +15,7 @@ module.exports.addRecipe = (req, res) => {
     recipe.Carbs = req.body.carbs;
     recipe.serving_qty = req.body.quantity;
     recipe.serving_unit = req.body.unit;
+    recipe.Picture = req.body.picture;
     recipe.save((err, doc) => {
         if (!err)
             return res.status(200).json({message: 'Recipe successfully created'});
@@ -30,7 +31,7 @@ module.exports.addRecipe = (req, res) => {
 module.exports.updateRecipe = (req, res) => {
     RecipeModel.updateOne({_id : req.body.recipeID}, {food_name: req.body.name, Meal: req.body.meal, Tags: req.body.tags,
     Ingredients: req.body.ingredients, nf_calories: req.body.calories, Protein: req.body.protein, Fat: req.body.fat, 
-    Carbs: req.body.carbs, serving_qty: req.body.quantity, serving_unit: req.body.unit
+    Carbs: req.body.carbs, serving_qty: req.body.quantity, serving_unit: req.body.unit, Picture: req.body.picture
     }, function(err, result) {
         if(err) {
             return res.status(500).send({message: 'Internal Server Error: ' + err});
