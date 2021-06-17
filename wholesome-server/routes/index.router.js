@@ -6,6 +6,8 @@ const role = require('../controllers/role.controller');
 const userLog = require('../controllers/userLog.controller');
 const userHelper = require('../helpers/user.helper');
 const recipe = require('../controllers/recipe.controller');
+const workout = require('../controllers/workout.controller');
+
 const jwtHelper = require('../config/jwtHelper');
 
 //user
@@ -35,5 +37,8 @@ router.post("/recipe/addRecipe", jwtHelper.verifyJWTtoken, recipe.addRecipe);
 router.post("/recipe/updateRecipe", jwtHelper.verifyJWTtoken, recipe.updateRecipe);
 router.post("/recipe/deleteRecipe", jwtHelper.verifyJWTtoken, recipe.deleteRecipe);
 router.get("/recipe/getRecipes", jwtHelper.verifyJWTtoken, recipe.getRecipes);
+
+// workout
+router.post("/workout/addWorkout", jwtHelper.verifyJWTtoken, workout.addWorkout);
 
 module.exports = router;

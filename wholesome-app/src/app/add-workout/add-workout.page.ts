@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IonItemSliding, ModalController } from '@ionic/angular';
+import { HeaderService } from '../shared/services/header.service';
 import { TrackerService } from '../shared/services/tracker.service';
+import { WorkoutService } from '../shared/services/workout.service';
 
 @Component({
   selector: 'app-add-workout',
@@ -9,7 +11,7 @@ import { TrackerService } from '../shared/services/tracker.service';
 })
 export class AddWorkoutPage implements OnInit {
 
-  constructor(public trackerService: TrackerService, public viewCtrl : ModalController) { }
+  constructor(public trackerService: TrackerService, public workoutService: WorkoutService, public headerService: HeaderService, public viewCtrl : ModalController) { }
 
   exs : String = ''
   exercises : Object[] = []
@@ -64,7 +66,7 @@ export class AddWorkoutPage implements OnInit {
   }
 
   addWorkout(values) {
-    /*this.recipeService.addRecipe(localStorage.getItem('token'), values).subscribe(data => {
+    this.workoutService.addWorkout(localStorage.getItem('token'), values).subscribe(data => {
       console.log(data)
     }, error => {
         console.log(error)
@@ -73,7 +75,7 @@ export class AddWorkoutPage implements OnInit {
         {   // kick user out
             this.headerService.kickOut();
         }
-    })*/
+    })
   }
 
   dismissModal() {
