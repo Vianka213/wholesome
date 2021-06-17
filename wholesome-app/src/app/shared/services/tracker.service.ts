@@ -115,6 +115,16 @@ export class TrackerService {
       });
   }
 
+  public deleteExerciseEntry(token, values) {
+    console.log(JSON.stringify(values))
+    const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json').set( 'Authorization', "Bearer "+token);
+
+    return this.http.post(this.ROOT_URL+'userLog/deleteExerciseEntry', JSON.stringify(values), {
+      headers: headers
+    });
+  }
+
   public logWater(token, values) {
     console.log(JSON.stringify(values))
     const headers = new HttpHeaders()

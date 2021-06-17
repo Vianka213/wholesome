@@ -184,3 +184,28 @@ module.exports.getExerciseEntry = (req, res) => {
         }
     })
 }
+
+module.exports.deleteExerciseEntry = (req, res) => {
+    UserLogModel.updateOne({UserID : req.ID, Date: req.body.logDate},{ $pull: { 'ExerciseEntries': req.body.exerciseEntryID}},(err1, result1) => {
+        if (err1) 
+            return res.status(500).send({message: 'Internal Server Error: ' + err1});
+        else if (result1.n == 0)
+            return res.status(404).json({ message: 'No exercise entries for the given user were found' }); 
+        else
+        {        
+            ExerciseEntryModel.deleteOne({_id : req.body.exerciseEntryID}, function(err, result) {
+                console.log('find')
+                if(err) {
+                    console.log('err')
+                    return res.status(500).send({message: 'Internal Server Error: ' + err});
+                } else if (!result) {
+                    console.log('here')
+                    return res.status(404).json({ message: 'No log' }); 
+                } else {
+                    console.log('success')
+                    return res.status(200).json({message: 'Deleted successfully'});
+                }
+            });
+        }
+    })
+}

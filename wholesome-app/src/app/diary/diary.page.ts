@@ -521,7 +521,7 @@ export class DiaryPage implements OnInit {
                 this.trackerService.getExerciseEntry(localStorage.getItem('token'), exs).subscribe(data => {
                     console.log(data)
                     let ex = data['exercise'].Exercise
-                    ex.foodEntryID = data['exercise']._id
+                    ex.exerciseEntryID = data['exercise']._id
                     this.totals['exerciseCals'] += ex['nf_calories']
                     this.exercise.push(ex)
                 })
@@ -634,6 +634,31 @@ export class DiaryPage implements OnInit {
     }
     this.totals['totalCals'] -= food['nf_calories']        
       }
+
+      deleteExerciseEntry(exercise, sliding?: IonItemSliding) {
+        let dt = this.myDate
+        let logDate
+        logDate = dt.getFullYear() + "/"
+        if (dt.getMonth() + 1 < 10) 
+            logDate += '0' 
+        logDate += dt.getMonth() + 1 + '/'
+        if (dt.getDate() < 10) 
+            logDate += '0' 
+            logDate += dt.getDate()
+
+        let values = {'exerciseEntryID': exercise.exerciseEntryID, 'logDate': logDate}
+        console.log(exercise)
+        this.trackerService.deleteExerciseEntry(localStorage.getItem('token'), values).subscribe(data => {
+          console.log(data)
+      }, error => {
+          console.log(error)
+          let errorCode = error['status'];
+          if (errorCode == '403')
+          {   // kick user out
+              this.headerService.kickOut();
+          }
+      })
+    }
 
     async openEditFoodModal(food) {
         this.calcCalories(food)
