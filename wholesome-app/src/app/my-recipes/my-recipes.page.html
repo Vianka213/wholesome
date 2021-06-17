@@ -15,27 +15,27 @@
 <ion-content>
   <ion-searchbar [(ngModel)]="searchQuery" (search)="searchFood(searchQuery)" animated placeholder="Search Recipes" autocorrect autocomplete></ion-searchbar>
   
-  <ion-list>
-    <ion-item-sliding>
+  <ion-list *ngIf="recipes.length > 0">
+    <ion-item-sliding *ngFor="let r of recipes" #slidingItem>
       <ion-item>
         <ion-card>
-    <img src="https://post.healthline.com/wp-content/uploads/2020/07/pizza-beer-1200x628-facebook-1200x628.jpg" />
+    <img [src]="r.Picture" />
     <ion-card-header>
-      <ion-card-subtitle>200 calories</ion-card-subtitle>
-      <ion-card-title>Cheese Pizza</ion-card-title>
+      <ion-card-subtitle>{{r.nf_calories}} calories</ion-card-subtitle>
+      <ion-card-title>{{r.food_name}}</ion-card-title>
     </ion-card-header>
   
     <ion-card-content>
       <p>
-        Protein<ion-badge color="primary">47</ion-badge>
-        Fat<ion-badge color="secondary">5</ion-badge>
-        Carbs<ion-badge color="tertiary">32</ion-badge>
+        Protein<ion-badge color="primary">{{r.Protein}}</ion-badge>
+        Fat<ion-badge color="secondary">{{r.Fat}}</ion-badge>
+        Carbs<ion-badge color="tertiary">{{r.Carbs}}</ion-badge>
       </p><hr>
       <ion-chip color="secondary">
-        <ion-label>Dinner</ion-label>
+        <ion-label>{{r.Meal}}</ion-label>
       </ion-chip>
       <ion-chip color="tertiary">
-        <ion-label>Cheat Meal</ion-label>
+        <ion-label>{{r.Tags}}</ion-label>
       </ion-chip>
     </ion-card-content>
   </ion-card>

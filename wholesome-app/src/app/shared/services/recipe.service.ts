@@ -42,7 +42,7 @@ export class RecipeService {
   public getRecipe(token) {
     const headers = new HttpHeaders()
           .set('Content-Type', 'application/json').set( 'Authorization', "Bearer "+token);
-      return this.http.get(this.ROOT_URL+'recipes/getRecipes', {
+      return this.http.get(this.ROOT_URL+'recipe/getRecipes', {
         headers: headers
       });
   }

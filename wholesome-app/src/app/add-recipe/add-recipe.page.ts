@@ -67,7 +67,7 @@ export class AddRecipePage implements OnInit {
 
   createRecipe() {
     let values = {}
-    values['food_name'] = this.name
+    values['name'] = this.name
     values['tags'] = this.tags
     values['meal'] = this.meal
     values['quantity'] = this.qty
@@ -98,14 +98,14 @@ export class AddRecipePage implements OnInit {
   addRecipe(values) {
     this.recipeService.addRecipe(localStorage.getItem('token'), values).subscribe(data => {
       console.log(data)
-  }, error => {
-      console.log(error)
-      let errorCode = error['status'];
-      if (errorCode == '403')
-      {   // kick user out
-          this.headerService.kickOut();
-      }
-  })
+    }, error => {
+        console.log(error)
+        let errorCode = error['status'];
+        if (errorCode == '403')
+        {   // kick user out
+            this.headerService.kickOut();
+        }
+    })
   }
 
   changeQuan(value) {

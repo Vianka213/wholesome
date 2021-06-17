@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AddRecipePage } from '../add-recipe/add-recipe.page';
+import { HeaderService } from '../shared/services/header.service';
+import { RecipeService } from '../shared/services/recipe.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-my-recipes',
@@ -8,10 +11,26 @@ import { AddRecipePage } from '../add-recipe/add-recipe.page';
   styleUrls: ['./my-recipes.page.scss'],
 })
 export class MyRecipesPage implements OnInit {
+  recipes : Object[] = []
 
-  constructor(public modalController: ModalController) { }
+  constructor(public modalController: ModalController, public recipeService : RecipeService, public headerService: HeaderService) { }
 
   ngOnInit() {
+    this.getRecipes()
+  }
+
+  getRecipes() {
+    this.recipeService.getRecipe(localStorage.getItem('token')).subscribe(data => {
+      console.log(data['recipes'])
+      this.recipes = data['recipes']
+    }, error => {
+        console.log(error)
+        let errorCode = error['status'];
+        if (errorCode == '403')
+        {   // kick user out
+            this.headerService.kickOut();
+        }
+    })
   }
 
   async openAddRecipeModal() {
