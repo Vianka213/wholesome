@@ -76,6 +76,10 @@ const routes: Routes = [
   {
     path: 'my-goals',
     loadChildren: () => import('./my-goals/my-goals.module').then( m => m.MyGoalsPageModule)
+  },
+  {
+    path: 'add-workout',
+    loadChildren: () => import('./add-workout/add-workout.module').then( m => m.AddWorkoutPageModule)
   }
 
 ];

@@ -83,6 +83,61 @@ export class TrackerService {
       });
   }
 
+  /* EXERCISE */
+
+  public naturalSearchEx(query, gender, weight, height, age) {
+    console.log(JSON.stringify(query))
+    const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json')
+          .set('x-app-id', 'd42ff232')
+          .set('x-app-key', '92da8dcdc435ec656964df1087b53005');
+    return this.http.post(this.nutritionix+'natural/exercise/', JSON.stringify(
+      {'query':query, 'gender':gender, 'weight_kg': weight, 'height_cm': height, 'age': age}
+      ), {
+      headers: headers
+    });
+  }
+
+  public addExerciseEntry(token, values) {
+    var dt = new Date();
+    values.logDate = dt.getFullYear() + "/"
+    if (dt.getMonth() + 1 < 10) 
+      values.logDate += '0' 
+    values.logDate += dt.getMonth() + 1 + '/'
+    if (dt.getDate() < 10) 
+      values.logDate += '0' 
+    values.logDate += dt.getDate()
+
+    console.log(JSON.stringify(values))
+    const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json').set( 'Authorization', "Bearer "+token);
+
+    return this.http.post(this.ROOT_URL+'userLog/addExerciseEntry', JSON.stringify(values), {
+      headers: headers
+    });
+  }
+
+  public getExerciseEntry(token, values) {
+    const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json').set( 'Authorization', "Bearer "+token);
+    let parameters = new HttpParams();
+    parameters = parameters.append('entryID', values.entryID);
+      return this.http.get(this.ROOT_URL+'userLog/getExerciseEntry', {
+        params: parameters,
+        headers: headers
+      });
+  }
+
+  public deleteExerciseEntry(token, values) {
+    console.log(JSON.stringify(values))
+    const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json').set( 'Authorization', "Bearer "+token);
+
+    return this.http.post(this.ROOT_URL+'userLog/deleteExerciseEntry', JSON.stringify(values), {
+      headers: headers
+    });
+  }
+
   public logWater(token, values) {
     console.log(JSON.stringify(values))
     const headers = new HttpHeaders()

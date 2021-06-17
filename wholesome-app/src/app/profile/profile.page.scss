@@ -1,9 +1,33 @@
-img {
-    height: 25vh !important;
-    width: 100%;
-        
+ion-col {
+    text-align: center;
+
+    div {
+        font-size: 0.8em;
+        margin-top: 0.2em;
+    }
+    ion-icon {
+        font-size: 1.2em !important;
+    }
 }
 
 ion-button {
     margin: 1em 0.8em;
+}
+
+ion-avatar {
+    margin-top: 0.2em;
+    width: 4em;
+    height: 4em;
+}
+
+ion-card {
+    padding-top: 0.3em;
+}
+
+ion-card-title {
+    ion-icon {
+        font-size: 1.2em;
+        vertical-align: text-bottom;
+        color: var(--color-green);
+    }
 }

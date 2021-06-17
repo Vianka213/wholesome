@@ -6,6 +6,8 @@ const role = require('../controllers/role.controller');
 const userLog = require('../controllers/userLog.controller');
 const userHelper = require('../helpers/user.helper');
 const recipe = require('../controllers/recipe.controller');
+const workout = require('../controllers/workout.controller');
+
 const jwtHelper = require('../config/jwtHelper');
 
 //user
@@ -25,6 +27,9 @@ router.get("/userLog/getUserLog", jwtHelper.verifyJWTtoken, userLog.getUserLog);
 router.get("/userLog/getFoodEntry", jwtHelper.verifyJWTtoken, userLog.getFoodEntry);
 router.post("/userLog/updateFoodEntry", jwtHelper.verifyJWTtoken, userLog.updateFoodEntry);
 router.post("/userLog/deleteFoodEntry", jwtHelper.verifyJWTtoken, userLog.deleteFoodEntry);
+router.post("/userLog/addExerciseEntry", jwtHelper.verifyJWTtoken, userLog.addExerciseEntry);
+router.get("/userLog/getExerciseEntry", jwtHelper.verifyJWTtoken, userLog.getExerciseEntry);
+router.post("/userLog/deleteExerciseEntry", jwtHelper.verifyJWTtoken, userLog.deleteExerciseEntry);
 router.post("/userLog/logWater", jwtHelper.verifyJWTtoken, userLog.logWater);
 
 // recipe
@@ -32,5 +37,10 @@ router.post("/recipe/addRecipe", jwtHelper.verifyJWTtoken, recipe.addRecipe);
 router.post("/recipe/updateRecipe", jwtHelper.verifyJWTtoken, recipe.updateRecipe);
 router.post("/recipe/deleteRecipe", jwtHelper.verifyJWTtoken, recipe.deleteRecipe);
 router.get("/recipe/getRecipes", jwtHelper.verifyJWTtoken, recipe.getRecipes);
+
+// workout
+router.post("/workout/addWorkout", jwtHelper.verifyJWTtoken, workout.addWorkout);
+router.post("/workout/deleteWorkout", jwtHelper.verifyJWTtoken, workout.deleteWorkout);
+router.get("/workout/getWorkouts", jwtHelper.verifyJWTtoken, workout.getWorkouts);
 
 module.exports = router;

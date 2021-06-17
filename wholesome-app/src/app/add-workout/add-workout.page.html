@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="createWorkout()">
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Create Workout</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismissModal()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="floating">Workout Name</ion-label>
+    <ion-input [(ngModel)]="name" required="true" autocomplete autocorrect></ion-input>
+  </ion-item>
+  <p>
+    <ion-item>
+      <ion-label>Type</ion-label>
+      <ion-chip (click)="changeType('Aerobic')" color="primary">
+        <ion-label>Aerobic</ion-label>
+        <ion-icon *ngIf="type == 'Aerobic'" name="checkmark-circle"></ion-icon>
+      </ion-chip>
+      <ion-chip (click)="changeType('Strength')" color="secondary">
+        <ion-label>Strength</ion-label>
+        <ion-icon *ngIf="type == 'Strength'" name="checkmark-circle"></ion-icon>
+      </ion-chip>
+      <ion-chip (click)="changeType('Flexibility')" color="tertiary">
+        <ion-label>Flexibility</ion-label>
+        <ion-icon *ngIf="type == 'Flexibility'" name="checkmark-circle"></ion-icon>
+      </ion-chip>
+      <ion-chip (click)="changeType('Balance')" color="success">
+        <ion-label>Balance</ion-label>
+        <ion-icon *ngIf="type == 'Balance'" name="checkmark-circle"></ion-icon>
+      </ion-chip>
+    </ion-item>
+  </p>
+  <ion-item>
+    <ion-label position="floating">Tags (optional)</ion-label>
+    <ion-input [(ngModel)]="tags" autocomplete autocorrect></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Exercises</ion-label>
+    <ion-textarea [(ngModel)]="exs"></ion-textarea>
+    <ion-button *ngIf="exs" (click)="getExercises()" size="small" slot="end">ADD ALL</ion-button>
+  </ion-item>
+
+  <ion-list id="resultsList" *ngIf="exercises.length > 0">
+    <ion-item-sliding (click)="openEditExerciseModal(r)" *ngFor="let r of exercises" #slidingItem>
+      <ion-item>
+      <ion-label>
+        <h2>{{r.name}} | {{r.duration_min}} <span>mins</span></h2>
+      </ion-label>
+      <ion-avatar slot="start">
+        <img [src]="r.photo.thumb">
+      </ion-avatar>
+      <ion-note slot="end">{{r.nf_calories}}</ion-note>
+      </ion-item>
+
+      <ion-item-options (ionSwipe)="removeExercise(r, slidingItem)" side="end">
+        <ion-item-option expandable (click)="removeExercise(r, slidingItem)" color="danger">Remove</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

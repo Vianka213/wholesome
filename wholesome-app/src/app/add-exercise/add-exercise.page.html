@@ -24,6 +24,75 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [ngSwitch]="segment">
+  <div *ngSwitchCase="'all'">
+  <ion-searchbar [(ngModel)]="searchQuery" (search)="searchExercise(searchQuery)" animated placeholder="What exercise did you do today?" autocorrect autocomplete></ion-searchbar>
+  <ion-chip color="primary" (click)="addExercise(a)" *ngFor="let a of addedExercise">
+    <ion-label>{{a.name}}</ion-label>
+    <ion-icon icon="close"></ion-icon>
+  </ion-chip>
+  <img *ngIf="searchResults.length == 0" src="https://sinimalism.com/wp-content/uploads/2018/02/plank-push-up-1024x724.jpg"/>
+  <ion-list id="resultsList" *ngIf="searchResults.length > 0">
+    <p id="res">Search Results ({{searchResults.length}}) <ion-button (click)="addAll()" size="small" slot="end">ADD ALL</ion-button></p>
+    <ion-item-sliding (click)="openEditExerciseModal(r)" *ngFor="let r of searchResults" #slidingItem>
+      <ion-item>
+      <ion-label>
+        <h2>{{r.name}} | {{r.duration_min}} mins</h2>
+        <!--<p>
+          Protein<ion-badge color="primary">{{r.calsP}}</ion-badge>
+          Fat<ion-badge color="secondary">{{r.calsF}}</ion-badge>
+          Carbs<ion-badge color="tertiary">{{r.calsC}}</ion-badge>
+        </p>-->
+      </ion-label>
+      <ion-avatar slot="start">
+        <img [src]="r.photo.thumb">
+      </ion-avatar>
+      <ion-note slot="end">{{r.nf_calories}}</ion-note>
+      </ion-item>
 
+      <ion-item-options (ionSwipe)="addExercise(r, slidingItem)" side="start">
+        <ion-item-option expandable (click)="addExercise(r, slidingItem)" color="success">Add</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  </div>
+
+  <div *ngSwitchCase="'workouts'">
+    <ion-searchbar [(ngModel)]="searchQuery" (ionChange)="searchWorkout()" animated placeholder="Search Workouts" autocorrect autocomplete></ion-searchbar>
+    <ion-chip color="primary" (click)="addExercise(a)" *ngFor="let a of addedExercise">
+      <ion-label>{{a.name}}</ion-label>
+      <ion-icon icon="close"></ion-icon>
+    </ion-chip>
+
+  <ion-list *ngIf="workouts.length > 0">
+    <ion-item-sliding *ngFor="let r of workouts" #slidingItem>
+      <ion-item>
+        <ion-card>
+    <img [src]="r.Picture" />
+    <ion-card-header>
+      <ion-card-subtitle>{{r.nf_calories}} calories</ion-card-subtitle>
+      <ion-card-title>{{r.name}}</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-chip color="secondary">
+        <ion-label>{{r.Type}}</ion-label>
+      </ion-chip>
+      <ion-chip color="tertiary">
+        <ion-label>{{r.Tags}}</ion-label>
+      </ion-chip>
+    </ion-card-content>
+  </ion-card>
+      </ion-item>
+        <ion-item-options (ionSwipe)="addExercise(r, slidingItem)" side="start">
+          <ion-item-option expandable (click)="addExercise(r, slidingItem)" color="success">Add</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list> 
+  </div>
 </ion-content>
+
+
+<ion-footer>
+  <ion-button (click)="logItems(); dismissModal()" expand="full" color="secondary">Add to Log</ion-button>
+</ion-footer>

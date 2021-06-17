@@ -501,17 +501,57 @@ export class DiaryPage implements OnInit {
         this.lunch = []
         this.dinner = []
         this.snacks = []
+        this.exercise = []
         this.totals['breakfastCals'] = 0
         this.totals['lunchCals'] = 0
         this.totals['dinnerCals'] = 0
         this.totals['snacksCals'] = 0
         this.totals['totalCals'] = 0
+        this.totals['exerciseCals'] = 0
         this.totals['water'] = 0
 
           let values = {'logDate': logDate, 'ID': '60ab91b8158bd2145499e0cc'}
           this.trackerService.getUserLog(localStorage.getItem('token'), values).subscribe(data => {
             this.totals['water'] = data['log'].Water
             console.log(data['log'].FoodEntries)
+
+            // exercise
+            let entriesEx = data['log'].ExerciseEntries
+            console.log(entriesEx)
+            entriesEx.forEach(element => {
+                let exs = {'entryID' : element}
+                this.trackerService.getExerciseEntry(localStorage.getItem('token'), exs).subscribe(data => {
+                    console.log(data)
+                    let ex = data['exercise'].Exercise
+                    ex.exerciseEntryID = data['exercise']._id
+                    this.totals['exerciseCals'] += ex['nf_calories']
+
+                    let type = ex['Type']
+                    switch (type) {
+                    case 'Aerobic':
+                        ex['Picture'] = 'https://img.freepik.com/free-vector/set-80s-years-woman-girl-aerobics-outfit-doing-workout-shaping_114579-807.jpg?size=626&ext=jpg'
+                        break;
+                    case 'Strength':
+                        ex['Picture'] = 'https://image.freepik.com/free-vector/set-strength-training-men-women-lifting-weights_1262-19930.jpg'
+                        break;
+                    case 'Flexibility':
+                        ex['Picture'] = 'https://img.freepik.com/free-vector/set-flexible-people-various-positions_1262-19331.jpg?size=626&ext=jpg'
+                        break;
+                    case 'Balance':
+                        ex['Picture'] = 'https://img.freepik.com/free-vector/set-people-practicing-yoga_1262-19347.jpg?size=626&ext=jpg'
+                        break;
+                    default:
+                        ex['Picture'] = 'https://media.istockphoto.com/vectors/sport-people-young-athletic-woman-fitness-activities-sports-man-and-vector-id1193484059?b=1&k=6&m=1193484059&s=612x612&w=0&h=t8fJOEoBWH3yXgshhuR23DWlnAW0eMu80sUNAKHgbq8='
+                        break;
+                    }
+                    if (ex.Picture) {
+                        ex.photo = {'thumb' : ex.Picture}
+                    }
+
+                    this.exercise.push(ex)
+                })
+            })
+            // food
             let entries = data['log'].FoodEntries
             entries.forEach(element => {
                 let values1 = {'entryID' : element}
@@ -619,6 +659,35 @@ export class DiaryPage implements OnInit {
     }
     this.totals['totalCals'] -= food['nf_calories']        
       }
+
+      deleteExerciseEntry(exercise, sliding?: IonItemSliding) {
+        let dt = this.myDate
+        let logDate
+        logDate = dt.getFullYear() + "/"
+        if (dt.getMonth() + 1 < 10) 
+            logDate += '0' 
+        logDate += dt.getMonth() + 1 + '/'
+        if (dt.getDate() < 10) 
+            logDate += '0' 
+            logDate += dt.getDate()
+
+        let index = this.exercise.indexOf(exercise)
+        this.exercise.splice(index, 1)
+        this.totals['exerciseCals'] -= exercise['nf_calories']
+
+        let values = {'exerciseEntryID': exercise.exerciseEntryID, 'logDate': logDate}
+        console.log(exercise)
+        this.trackerService.deleteExerciseEntry(localStorage.getItem('token'), values).subscribe(data => {
+          console.log(data)
+      }, error => {
+          console.log(error)
+          let errorCode = error['status'];
+          if (errorCode == '403')
+          {   // kick user out
+              this.headerService.kickOut();
+          }
+      })
+    }
 
     async openEditFoodModal(food) {
         this.calcCalories(food)
