@@ -12,3 +12,4 @@ const FoodEntry = require("./foodEntry.model")
 const UserLog = require("./userLog.model");
 const Ingredient = require("./ingredient.model");
 const Recipe = require("./recipe.model")
+const ExerciseEntry = require("./exerciseEntry.model");

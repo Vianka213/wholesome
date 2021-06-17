@@ -15,6 +15,12 @@ var UserLogSchema = new mongoose.Schema({
             ref: 'FoodEntry'
         }
     ],
+    ExerciseEntries: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'ExerciseEntry'
+        }
+    ],
     Water: {
         type: Number
     }

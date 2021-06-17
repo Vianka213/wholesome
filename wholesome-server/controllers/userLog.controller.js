@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const UserLogModel = mongoose.model("UserLog");
 const FoodEntryModel = mongoose.model("FoodEntry");
+const ExerciseEntryModel = mongoose.model("ExerciseEntry");
 
 module.exports.addFoodEntry = (req, res) => {
     var foodEntry = new FoodEntryModel();
@@ -16,6 +17,7 @@ module.exports.addFoodEntry = (req, res) => {
                     var userLog = new UserLogModel();
                     userLog.UserID = req.body.ID;
                     userLog.FoodEntries = [foodEntryDoc]
+                    userLog.ExerciseEntries = []
                     userLog.Water = 0
                     userLog.Date = req.body.logDate
                     userLog.save((err, doc) => {
@@ -105,6 +107,53 @@ module.exports.deleteFoodEntry = (req, res) => {
                     return res.status(200).json({message: 'Deleted successfully'});
                 }
             });
+        }
+    })
+}
+
+module.exports.addExerciseEntry = (req, res) => {
+    var exerciseEntry = new ExerciseEntryModel();
+    exerciseEntry.Date = req.body.date;
+    exerciseEntry.Food = req.body.exercise;
+    exerciseEntry.save((error, exerciseEntryDoc) => {
+        if (!error) {
+            UserLogModel.findOne({UserID : req.ID, Date : req.body.logDate}, function(err, result) {
+                if(err) {
+                    return res.status(500).send({message: 'Internal Server Error: ' + err});
+                } else if (!result) {
+                    // add to foodEntries
+                    var userLog = new UserLogModel();
+                    userLog.UserID = req.body.ID;
+                    userLog.ExerciseEntries = [exerciseEntryDoc]
+                    userLog.FoodEntries = []
+                    userLog.Water = 0
+                    userLog.Date = req.body.logDate
+                    userLog.save((err, doc) => {
+                        if (!err)
+                            return res.status(200).json({exerciseEntryID : exerciseEntryDoc._id, exercise : exerciseEntryDoc.Exercise, message: 'Exercise logged successfully'});
+                        else {
+                            if (err.code == 11000)
+                                res.status(409).send({message: 'Exercise entry already exists'});
+                            else
+                                return res.status(500).send({message: 'Internal Server Error: ' + err});
+                        }
+                    })
+                } else {
+                    result.ExerciseEntries.push(exerciseEntryDoc);
+                    result.save((err, doc) => {
+                        if(!err)
+                            return res.status(200).json({exerciseEntryID : exerciseEntryDoc._id, exercise : exerciseEntryDoc.Exercise, message: 'Exercise logged successfully'});
+                        else
+                            return res.status(500).send({message: 'Internal Server Error: ' + err});
+                    });
+                }
+            })
+        } else 
+        {
+            if (error.code == 11000)
+                res.status(409).send({message: 'Exercise entry already exists'});
+            else
+                return res.status(500).send({message: 'Internal Server Error: ' + error});
         }
     })
 }
