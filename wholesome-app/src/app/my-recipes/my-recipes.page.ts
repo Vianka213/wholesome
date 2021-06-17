@@ -11,7 +11,9 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./my-recipes.page.scss'],
 })
 export class MyRecipesPage implements OnInit {
+  allRecipes : Object[] = []
   recipes : Object[] = []
+  searchQuery : String = ''
 
   constructor(public modalController: ModalController, public recipeService : RecipeService, public headerService: HeaderService) { }
 
@@ -22,7 +24,8 @@ export class MyRecipesPage implements OnInit {
   getRecipes() {
     this.recipeService.getRecipe(localStorage.getItem('token')).subscribe(data => {
       console.log(data['recipes'])
-      this.recipes = data['recipes']
+      this.allRecipes = data['recipes']
+      this.recipes = this.allRecipes
     }, error => {
         console.log(error)
         let errorCode = error['status'];
@@ -48,6 +51,12 @@ export class MyRecipesPage implements OnInit {
             this.headerService.kickOut();
         }
     }) 
+  }
+
+  searchRecipe() {
+    this.recipes = this.allRecipes.filter(recipe => 
+      recipe['food_name'].toLowerCase().indexOf(this.searchQuery.toLowerCase()) != -1
+    )
   }
 
   async openAddRecipeModal() {
