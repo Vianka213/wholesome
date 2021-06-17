@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IonItemSliding, ModalController, ToastController } from '@ionic/angular';
 import { EditFoodPage } from '../edit-food/edit-food.page';
 import { HeaderService } from '../shared/services/header.service';
+import { RecipeService } from '../shared/services/recipe.service';
 import { TrackerService } from '../shared/services/tracker.service';
 
 @Component({
@@ -417,9 +418,12 @@ export class AddFoodPage implements OnInit {
 
     segment : string = "all"
 
-  constructor(public viewCtrl: ModalController, public trackerService : TrackerService, public headerService: HeaderService, public toastController : ToastController) { }
+  constructor(public viewCtrl: ModalController, public trackerService : TrackerService, public recipeService: RecipeService, public headerService: HeaderService, public toastController : ToastController) { }
+    recipes: Object[] = []
+    allRecipes: Object[] = []
 
   ngOnInit() {
+      this.getRecipes()
   }
 
   dismissModal() {
@@ -523,6 +527,27 @@ export class AddFoodPage implements OnInit {
     } else {
       food.meal = 'Snack'
     }
+  }
+
+  getRecipes() {
+    this.recipeService.getRecipe(localStorage.getItem('token')).subscribe(data => {
+      console.log(data['recipes'])
+      this.allRecipes = data['recipes']
+      this.recipes = this.allRecipes
+    }, error => {
+        console.log(error)
+        let errorCode = error['status'];
+        if (errorCode == '403')
+        {   // kick user out
+            this.headerService.kickOut();
+        }
+    })
+  }
+
+  searchRecipe() {
+    this.recipes = this.allRecipes.filter(recipe => 
+      recipe['food_name'].toLowerCase().indexOf(this.searchQuery.toLowerCase()) != -1
+    )
   }
 
   async showToast(msg) {

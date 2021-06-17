@@ -519,6 +519,9 @@ export class DiaryPage implements OnInit {
                     console.log(data)
                     let food = data['food'].Food
                     food.foodEntryID = data['food']._id
+                    if (food.Picture) {
+                        food.photo = {'thumb' : food.Picture}
+                    }
                     console.log(food)
                     switch (food.meal) {
                         case 'Breakfast':
