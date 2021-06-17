@@ -104,6 +104,17 @@ export class TrackerService {
     });
   }
 
+  public getExerciseEntry(token, values) {
+    const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json').set( 'Authorization', "Bearer "+token);
+    let parameters = new HttpParams();
+    parameters = parameters.append('entryID', values.entryID);
+      return this.http.get(this.ROOT_URL+'userLog/getExerciseEntry', {
+        params: parameters,
+        headers: headers
+      });
+  }
+
   public logWater(token, values) {
     console.log(JSON.stringify(values))
     const headers = new HttpHeaders()

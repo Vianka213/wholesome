@@ -512,6 +512,21 @@ export class DiaryPage implements OnInit {
           this.trackerService.getUserLog(localStorage.getItem('token'), values).subscribe(data => {
             this.totals['water'] = data['log'].Water
             console.log(data['log'].FoodEntries)
+
+            // exercise
+            let entriesEx = data['log'].ExerciseEntries
+            console.log(entriesEx)
+            entriesEx.forEach(element => {
+                let exs = {'entryID' : element}
+                this.trackerService.getExerciseEntry(localStorage.getItem('token'), exs).subscribe(data => {
+                    console.log(data)
+                    let ex = data['exercise'].Exercise
+                    ex.foodEntryID = data['exercise']._id
+                    this.totals['exerciseCals'] += ex['nf_calories']
+                    this.exercise.push(ex)
+                })
+            })
+            // food
             let entries = data['log'].FoodEntries
             entries.forEach(element => {
                 let values1 = {'entryID' : element}

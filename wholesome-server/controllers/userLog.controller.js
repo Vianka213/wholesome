@@ -172,3 +172,15 @@ module.exports.logWater = (req, res) => {
         }
     })
 }
+
+module.exports.getExerciseEntry = (req, res) => {
+    ExerciseEntryModel.findOne({_id : req.query.entryID}, function(err, result) {
+        if(err) {
+            return res.status(500).send({message: 'Internal Server Error: ' + err});
+        } else if (!result) {
+            return res.status(404).json({ message: 'No log' }); 
+        } else {
+            return res.status(200).json({exercise: result});
+        }
+    })
+}

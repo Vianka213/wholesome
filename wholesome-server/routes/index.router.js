@@ -26,6 +26,7 @@ router.get("/userLog/getFoodEntry", jwtHelper.verifyJWTtoken, userLog.getFoodEnt
 router.post("/userLog/updateFoodEntry", jwtHelper.verifyJWTtoken, userLog.updateFoodEntry);
 router.post("/userLog/deleteFoodEntry", jwtHelper.verifyJWTtoken, userLog.deleteFoodEntry);
 router.post("/userLog/addExerciseEntry", jwtHelper.verifyJWTtoken, userLog.addExerciseEntry);
+router.get("/userLog/getExerciseEntry", jwtHelper.verifyJWTtoken, userLog.getExerciseEntry);
 router.post("/userLog/logWater", jwtHelper.verifyJWTtoken, userLog.logWater);
 
 // recipe

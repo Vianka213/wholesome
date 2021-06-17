@@ -150,7 +150,7 @@
       <ion-item-sliding (click)="openEditFoodModal(r)" *ngFor="let r of exercise" #slidingItem>
         <ion-item>
         <ion-label>
-          <h2>{{r.food_name}} | {{r.serving_qty}} {{r.serving_unit}}</h2>
+          <h2>{{r.name}} | {{r.duration_min}}mins</h2>
         </ion-label>
         <ion-avatar slot="start">
           <img [src]="r.photo.thumb">
