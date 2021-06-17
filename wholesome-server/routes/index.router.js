@@ -40,5 +40,7 @@ router.get("/recipe/getRecipes", jwtHelper.verifyJWTtoken, recipe.getRecipes);
 
 // workout
 router.post("/workout/addWorkout", jwtHelper.verifyJWTtoken, workout.addWorkout);
+router.post("/workout/deleteWorkout", jwtHelper.verifyJWTtoken, workout.deleteWorkout);
+router.get("/workout/getWorkouts", jwtHelper.verifyJWTtoken, workout.getWorkouts);
 
 module.exports = router;

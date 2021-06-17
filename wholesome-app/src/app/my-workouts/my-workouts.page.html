@@ -13,5 +13,31 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-searchbar [(ngModel)]="searchQuery" (ionChange)="searchWorkout()" animated placeholder="Search Workouts" autocorrect autocomplete></ion-searchbar>
+  
+  <ion-list *ngIf="workouts.length > 0">
+    <ion-item-sliding *ngFor="let r of workouts" #slidingItem>
+      <ion-item>
+        <ion-card>
+    <img [src]="r.Picture" />
+    <ion-card-header>
+      <ion-card-subtitle>{{r.nf_calories}} calories</ion-card-subtitle>
+      <ion-card-title>{{r.name}}</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-chip color="secondary">
+        <ion-label>{{r.Type}}</ion-label>
+      </ion-chip>
+      <ion-chip color="tertiary">
+        <ion-label>{{r.Tags}}</ion-label>
+      </ion-chip>
+    </ion-card-content>
+  </ion-card>
+      </ion-item>
+  <ion-item-options (ionSwipe)="deleteWorkout(r, slidingItem)" side="end">
+    <ion-item-option expandable (click)="deleteWorkout(r, slidingItem)" color="danger">Delete</ion-item-option>
+  </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>
