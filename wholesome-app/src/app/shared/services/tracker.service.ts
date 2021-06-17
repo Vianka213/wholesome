@@ -83,6 +83,27 @@ export class TrackerService {
       });
   }
 
+  /* EXERCISE */
+
+  public addExerciseEntry(token, values) {
+    var dt = new Date();
+    values.logDate = dt.getFullYear() + "/"
+    if (dt.getMonth() + 1 < 10) 
+      values.logDate += '0' 
+    values.logDate += dt.getMonth() + 1 + '/'
+    if (dt.getDate() < 10) 
+      values.logDate += '0' 
+    values.logDate += dt.getDate()
+
+    console.log(JSON.stringify(values))
+    const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json').set( 'Authorization', "Bearer "+token);
+
+    return this.http.post(this.ROOT_URL+'userLog/addExerciseEntry', JSON.stringify(values), {
+      headers: headers
+    });
+  }
+
   public logWater(token, values) {
     console.log(JSON.stringify(values))
     const headers = new HttpHeaders()

@@ -113,13 +113,13 @@ module.exports.deleteFoodEntry = (req, res) => {
 
 module.exports.addExerciseEntry = (req, res) => {
     var exerciseEntry = new ExerciseEntryModel();
-    exerciseEntry.Date = req.body.date;
-    exerciseEntry.Food = req.body.exercise;
+    exerciseEntry.Date = req.body.logDate;
+    exerciseEntry.Exercise = req.body.exercise;
     exerciseEntry.save((error, exerciseEntryDoc) => {
         if (!error) {
             UserLogModel.findOne({UserID : req.ID, Date : req.body.logDate}, function(err, result) {
                 if(err) {
-                    return res.status(500).send({message: 'Internal Server Error: ' + err});
+                    return res.status(500).send({message: 'Internal Server Error1: ' + err});
                 } else if (!result) {
                     // add to foodEntries
                     var userLog = new UserLogModel();
@@ -135,16 +135,19 @@ module.exports.addExerciseEntry = (req, res) => {
                             if (err.code == 11000)
                                 res.status(409).send({message: 'Exercise entry already exists'});
                             else
-                                return res.status(500).send({message: 'Internal Server Error: ' + err});
+                                return res.status(500).send({message: 'Internal Server Error2: ' + err});
                         }
                     })
                 } else {
-                    result.ExerciseEntries.push(exerciseEntryDoc);
+                    if (result.ExerciseEntries.length > 0)
+                        result.ExerciseEntries.push(exerciseEntryDoc);
+                    else
+                        result.ExerciseEntries = [exerciseEntryDoc]
                     result.save((err, doc) => {
                         if(!err)
                             return res.status(200).json({exerciseEntryID : exerciseEntryDoc._id, exercise : exerciseEntryDoc.Exercise, message: 'Exercise logged successfully'});
                         else
-                            return res.status(500).send({message: 'Internal Server Error: ' + err});
+                            return res.status(500).send({message: 'Internal Server Error3: ' + err});
                     });
                 }
             })

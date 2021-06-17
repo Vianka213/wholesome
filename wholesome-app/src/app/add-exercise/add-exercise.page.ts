@@ -75,13 +75,13 @@ export class AddExercisePage implements OnInit {
     // set meals
     console.log(this.addedExercise)
     this.addedExercise.forEach(element => {
-        let values = {'exercise': element, 'date': new Date()}
-        this.trackerService.addFoodEntry(localStorage.getItem('token'), values).subscribe(data => {
+        let values = {'exercise': element, 'logDate': new Date()}
+        this.trackerService.addExerciseEntry(localStorage.getItem('token'), values).subscribe(data => {
             console.log(data)
             if (this.addedExercise.length > 1)
-                this.showToast('Logged ' + this.addedExercise.length + ' food items successfully')
+                this.showToast('Logged ' + this.addedExercise.length + ' exercises successfully')
             else 
-                this.showToast('Logged ' + this.addedExercise[0]['food_name'] + ' successfully')
+                this.showToast('Logged ' + this.addedExercise[0]['name'] + ' successfully')
         }, error => {
             console.log(error)
             let errorCode = error['status'];
