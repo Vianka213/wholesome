@@ -495,6 +495,10 @@ export class AddFoodPage implements OnInit {
         let values = {'food': element, 'date': new Date(), 'ID': '60ab91b8158bd2145499e0cc'}
         this.trackerService.addFoodEntry(localStorage.getItem('token'), values).subscribe(data => {
             console.log(data)
+            if (this.addedFood.length > 1)
+                this.showToast('Logged ' + this.addedFood.length + ' food items successfully')
+            else 
+                this.showToast('Logged ' + this.addedFood[0]['food_name'] + ' successfully')
         }, error => {
             console.log(error)
             let errorCode = error['status'];
@@ -504,11 +508,6 @@ export class AddFoodPage implements OnInit {
             }
         })
     });
-
-    if (this.addedFood.length > 1)
-        this.showToast('Logged ' + this.addedFood.length + ' food items successfully')
-    else 
-        this.showToast('Logged ' + this.addedFood[0]['food_name'] + ' successfully')
   }
 
   setMeal(food) {

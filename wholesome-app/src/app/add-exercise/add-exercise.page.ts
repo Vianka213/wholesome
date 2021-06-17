@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { IonItemSliding, ModalController, ToastController } from '@ionic/angular';
+import { HeaderService } from '../shared/services/header.service';
+import { TrackerService } from '../shared/services/tracker.service';
 
 @Component({
   selector: 'app-add-exercise',
@@ -8,7 +10,7 @@ import { ModalController } from '@ionic/angular';
 })
 export class AddExercisePage implements OnInit {
 
-  constructor(public viewCtrl: ModalController) { }
+  constructor(public trackerService : TrackerService, public headerService : HeaderService, public viewCtrl: ModalController, public toastController : ToastController) { }
 
   test = {
     "exercises": [
@@ -44,6 +46,61 @@ export class AddExercisePage implements OnInit {
     })*/
 
     this.searchResults = this.test['exercises']
+  }
+
+  addExercise(exercise, sliding?: IonItemSliding) {
+    let index = this.addedExercise.indexOf(exercise)
+    if (index == -1) {
+        this.addedExercise.push(exercise)
+        let index2 = this.searchResults.indexOf(exercise)
+        this.searchResults.splice(index2, 1)
+    }
+    else
+        this.addedExercise.splice(index, 1)
+
+    if (sliding)
+        sliding.close()
+  }
+
+  addAll() {
+    this.searchResults.forEach(element => {
+        this.addedExercise.push(element)
+    });
+    this.showToast('Added ' + this.searchResults.length + ' exercises.')
+    this.searchResults = []
+    this.searchQuery = ''
+  }
+
+  logItems() {
+    // set meals
+    console.log(this.addedExercise)
+    this.addedExercise.forEach(element => {
+        let values = {'exercise': element, 'date': new Date()}
+        this.trackerService.addFoodEntry(localStorage.getItem('token'), values).subscribe(data => {
+            console.log(data)
+            if (this.addedExercise.length > 1)
+                this.showToast('Logged ' + this.addedExercise.length + ' food items successfully')
+            else 
+                this.showToast('Logged ' + this.addedExercise[0]['food_name'] + ' successfully')
+        }, error => {
+            console.log(error)
+            let errorCode = error['status'];
+            if (errorCode == '403')
+            {   // kick user out
+                this.headerService.kickOut();
+            }
+        })
+    });
+  }
+
+  async showToast(msg) {
+    const toast = await this.toastController.create({
+        color: 'success',
+        duration: 2000,
+        message: msg
+      });
+
+      await toast.present();
   }
 
   dismissModal() {
