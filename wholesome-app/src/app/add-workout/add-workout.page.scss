@@ -1,0 +1,18 @@
+h2 {
+    text-transform: capitalize;
+
+    span {
+        text-transform: lowercase;
+    }
+}
+
+#resultsList {
+    margin-top: 1em;
+}
+
+ion-chip {
+    margin: auto 0.15em;
+    font-size: 0.8em;
+    padding-inline: 0.2em 0.3em;
+    padding: 0.2em 0.5em;
+}
