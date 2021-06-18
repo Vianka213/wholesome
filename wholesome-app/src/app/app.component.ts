@@ -4,6 +4,7 @@ import { AddFoodPageModule } from '../app/add-food/add-food.module';
 import { AddFoodPage } from '../app/add-food/add-food.page';
 import { AddExercisePage } from './add-exercise/add-exercise.page';
 import { AddWaterPage } from './add-water/add-water.page';
+import { HeaderService } from './shared/services/header.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,9 @@ import { AddWaterPage } from './add-water/add-water.page';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(public modalController: ModalController) {}
+  fab : Boolean = false
+
+  constructor(public headerService: HeaderService, public modalController: ModalController) {}
 
   async openAddFoodModal() {
     const modal = await this.modalController.create({

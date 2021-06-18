@@ -13,10 +13,22 @@ export class SignUpPage implements OnInit {
   signUpForm: FormGroup;
   signUpError : string
   isSubmitted = false;
+  chips : Object[] = [
+    {'name': 'Vegetarian', 'selected': false, 'color': 'success'},
+    {'name': 'Vegan', 'selected': false, 'color': 'success'},
+    {'name': 'Dairy Free', 'selected': false, 'color': 'tertiary'},
+    {'name': 'Nut Free', 'selected': false, 'color': 'tertiary'},
+    {'name': 'Gluten Free', 'selected': false, 'color': 'tertiary'},
+    {'name': 'Paleo', 'selected': false, 'color': 'primary'},
+    {'name': 'Keto', 'selected': false, 'color': 'primary'},
+    {'name': 'Low Carb', 'selected': false, 'color': 'primary'},
+    {'name': 'Shellfish Allergy', 'selected': false, 'color': 'danger'},
+  ]
 
   constructor(public service : AccountManagementService, public headerService : HeaderService, public router : Router, public formBuilder : FormBuilder) { }
 
   ngOnInit() {
+    localStorage.setItem('fab', 'false')
     // sign in form
     this.signUpForm = this.formBuilder.group({
       name : new FormControl('', [Validators.required]),
@@ -80,5 +92,10 @@ export class SignUpPage implements OnInit {
       localStorage.setItem('loggedIn', 'false');
       this.signUpError = error.error.message;
     }); 
+  }
+
+  changeReq(chip) {
+    let index = this.chips.indexOf(chip)
+    this.chips[index]['selected'] = !this.chips[index]['selected']
   }
 }

@@ -1,10 +1,12 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>sign-up</ion-title>
+    <ion-title>Get Started</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-slides>
+    <ion-slide>
   <form [formGroup]="signUpForm" (ngSubmit)="signUp(signUpForm.value)">
     <span class="error ion-padding" *ngIf="signUpError">
       {{signUpError}}
@@ -70,5 +72,72 @@
       </ion-col>
     </ion-row>
   </form>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="slide">
+        <img src="https://thumbs.dreamstime.com/b/communicating-people-chat-dialog-communication-smartphone-call-talking-speaking-group-vector-illustration-person-conversation-154419385.jpg"/>
+        <h2>Tell Us More</h2>
+        <p>Help us get a better understanding of your lifestyle by filling in the following fields.</p>
+        <ion-item>
+          <ion-label position="fixed">Age</ion-label>
+          <ion-input type="number"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="fixed">Height (cm)</ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="fixed">Weight (kg)</ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Gender</ion-label>
+          <ion-select placeholder="Select One">
+            <ion-select-option value="f">Female</ion-select-option>
+            <ion-select-option value="m">Male</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-button color="secondary" fill="outline" slot="end">
+          Next 
+          <ion-icon size="large" name="arrow-forward-circle-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="slide">
+        <img src="https://image.freepik.com/free-vector/people-keeping-healthy-diet_74855-5912.jpg"/>
+        <h2>Dietary Requirements</h2>
+        <p>Select any dietary requirements you may have to get better recommendations.</p>
+        <p>
+          <ion-chip (click)="changeReq(c)" *ngFor="let c of chips" [color]="c.color">{{c.name}}
+            <ion-icon *ngIf="c.selected == true" name="checkmark-circle"></ion-icon>
+          </ion-chip>
+        </p>
+        <ion-button color="secondary" fill="outline" slot="end">
+          Next 
+          <ion-icon size="large" name="arrow-forward-circle-outline"></ion-icon>
+        </ion-button>  
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="slide">
+        <img src="https://www.truepush.com/blog/wp-content/uploads/2020/09/healthy-people-carrying-different-icons_53876-43069.jpg"/>
+        <h2>Your Goals</h2>
+        <p>The <b>ionic conference app</b> is a practical preview of the ionic framework in action, and a demonstration of proper code use.</p>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="slide">
+        <img src="https://static.vecteezy.com/system/resources/previews/002/076/516/non_2x/done-illustration-concept-vector.jpg"/>
+        <h2>All Done!</h2>
+        <p>The <b>ionic conference app</b> is a practical preview of the ionic framework in action, and a demonstration of proper code use.</p>
+      </div>
+    </ion-slide>
+  </ion-slides>
+
 </ion-content>
 
