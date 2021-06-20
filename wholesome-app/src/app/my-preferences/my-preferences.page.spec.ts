@@ -1,4 +1,6 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { MyPreferencesPage } from './my-preferences.page';
@@ -10,7 +12,7 @@ describe('MyPreferencesPage', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MyPreferencesPage ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot(), HttpClientTestingModule, RouterTestingModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(MyPreferencesPage);

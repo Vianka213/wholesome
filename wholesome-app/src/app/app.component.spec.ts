@@ -1,5 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
+import { AngularDelegate, ModalController } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 
@@ -9,6 +10,13 @@ describe('AppComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [AppComponent],
+      providers: [
+        ModalController,
+        AngularDelegate
+      ],
+      imports: [
+        //ModalController
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
