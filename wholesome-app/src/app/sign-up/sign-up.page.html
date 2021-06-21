@@ -68,7 +68,9 @@
       Passwords do not match.
     </span>
     
-        <ion-button [disabled]="signUpForm.invalid" type="submit" color="secondary" expand="block">Submit</ion-button>
+        <ion-button [disabled]="signUpForm.invalid" type="submit" fill="outline" color="secondary" expand="block">Next
+          <ion-icon size="large" name="arrow-forward-circle-outline"></ion-icon>
+        </ion-button>
 
   </form>
       </div>
@@ -111,7 +113,7 @@
         <h2>Dietary Requirements</h2>
         <p>Select any dietary requirements you may have to get better recommendations.</p>
         <p>
-          <ion-chip (click)="changeReq(c)" *ngFor="let c of chips" [color]="c.color">{{c.name}}
+          <ion-chip (click)="changeReq(c); changeMacros()" *ngFor="let c of chips" [color]="c.color">{{c.name}}
             <ion-icon *ngIf="c.selected == true" name="checkmark-circle"></ion-icon>
           </ion-chip>
         </p>

@@ -12,7 +12,7 @@ import { HeaderService } from './shared/services/header.service';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  fab : Boolean = true
+  fab : Boolean = false
 
   constructor(public headerService: HeaderService, public modalController: ModalController) {}
 

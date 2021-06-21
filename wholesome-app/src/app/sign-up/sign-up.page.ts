@@ -72,6 +72,12 @@ export class SignUpPage implements OnInit {
     }
   }
 
+  changeMacros() {
+    this.macros['p'] = 45
+    this.macros['f'] = 30
+    this.macros['c'] = 25
+  }
+
     // submit sign up form
   signUp(form : any) {
     this.service.signUp(form).subscribe(data => {

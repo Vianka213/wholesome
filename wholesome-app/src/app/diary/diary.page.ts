@@ -691,6 +691,21 @@ export class DiaryPage implements OnInit {
 
     async openEditFoodModal(food) {
         this.calcCalories(food)
+        switch (food.meal) {
+            case 'Breakfast':
+                this.totals['breakfastCals'] -= food['nf_calories']
+                break;
+            case 'Lunch':
+                this.totals['lunchCals'] -= food['nf_calories']
+                break;
+            case 'Dinner':
+                this.totals['dinnerCals'] -= food['nf_calories']
+                break;
+            case 'Snack':
+                this.totals['snacksCals'] -= food['nf_calories']
+                break;
+        }
+        this.totals['totalCals'] -= food['nf_calories']
         const modal = await this.viewCtrl.create({
         component: EditFoodPage,
         swipeToClose: true,
@@ -703,6 +718,21 @@ export class DiaryPage implements OnInit {
           .then((data) => {
             const food = data['data']; // get food back
             console.log(food)
+            switch (food.meal) {
+                case 'Breakfast':
+                    this.totals['breakfastCals'] += food['nf_calories']
+                    break;
+                case 'Lunch':
+                    this.totals['lunchCals'] += food['nf_calories']
+                    break;
+                case 'Dinner':
+                    this.totals['dinnerCals'] += food['nf_calories']
+                    break;
+                case 'Snack':
+                    this.totals['snacksCals'] += food['nf_calories']
+                    break;
+            }
+            this.totals['totalCals'] += food['nf_calories']
             this.calcCalories(food)
             this.updateFoodEntry(food)
         });

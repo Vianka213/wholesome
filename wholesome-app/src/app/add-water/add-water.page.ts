@@ -34,7 +34,7 @@ export class AddWaterPage implements OnInit {
       data: {
         datasets: [
           {
-            data: [this.amountWater, this.maxWater],
+            data: [this.percentWater, (100 - this.percentWater)],
             backgroundColor: [
               "#439BFF",
               "#F5F6FA",
@@ -66,8 +66,9 @@ export class AddWaterPage implements OnInit {
     let values = {'logDate': logDate, 'ID': '60ab91b8158bd2145499e0cc'}
       this.trackerService.getUserLog(localStorage.getItem('token'), values).subscribe(data => {
         this.amountWater = data['log'].Water
-        this.createChart()
         this.percentWater = ((this.amountWater/this.maxWater)*100).toFixed(0)
+        this.createChart()
+        
       }, error => {
         console.log(error)
         let errorCode = error['status'];

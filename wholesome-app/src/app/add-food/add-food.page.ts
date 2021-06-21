@@ -432,19 +432,19 @@ export class AddFoodPage implements OnInit {
 
   searchFood(query) {
     console.log(query)
-    /*this.trackerService.naturalSearch(query).subscribe( data => {
+    this.trackerService.naturalSearch(query).subscribe( data => {
       console.log(data)
       this.searchResults = data['foods']
       this.searchResults.forEach(element => {
         this.calcCalories(element)
         });
       console.log(this.searchResults)
-    })*/
+    })
 
-    this.searchResults = this.test
+    /*this.searchResults = this.test
     this.searchResults.forEach(element => {
         this.calcCalories(element)
-    });
+    });*/
   }
 
   addFood(food, sliding?: IonItemSliding) {

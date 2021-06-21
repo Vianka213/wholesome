@@ -44,13 +44,13 @@ export class AddExercisePage implements OnInit {
 
   searchExercise(query) {
     console.log(query)
-    /*this.trackerService.naturalSearchEx(query, 'female', 72.5, 167.64, 30).subscribe( data => {
+    this.trackerService.naturalSearchEx(query, 'female', 72.5, 167.64, 30).subscribe( data => {
       console.log(data)
       this.searchResults = data['exercises']
       console.log(this.searchResults)
-    })*/
+    })
 
-    this.searchResults = this.test['exercises']
+    //this.searchResults = this.test['exercises']
   }
 
   addExercise(exercise, sliding?: IonItemSliding) {

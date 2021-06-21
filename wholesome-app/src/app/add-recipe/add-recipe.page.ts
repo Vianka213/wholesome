@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonItemSliding, ModalController } from '@ionic/angular';
+import { IonItemSliding, ModalController, ToastController } from '@ionic/angular';
 import { EditFoodPage } from '../edit-food/edit-food.page';
 import { HeaderService } from '../shared/services/header.service';
 import { RecipeService } from '../shared/services/recipe.service';
@@ -12,7 +12,7 @@ import { TrackerService } from '../shared/services/tracker.service';
 })
 export class AddRecipePage implements OnInit {
 
-  constructor(public viewCtrl: ModalController, public trackerService : TrackerService, public recipeService : RecipeService, public headerService : HeaderService) { }
+  constructor(public toastController : ToastController, public viewCtrl: ModalController, public trackerService : TrackerService, public recipeService : RecipeService, public headerService : HeaderService) { }
 
   name: String = ''
   tags: String = ''
@@ -98,6 +98,8 @@ export class AddRecipePage implements OnInit {
   addRecipe(values) {
     this.recipeService.addRecipe(localStorage.getItem('token'), values).subscribe(data => {
       console.log(data)
+      this.showToast('Berry Smoothie recipe successfully created')
+      this.dismissModal()
     }, error => {
         console.log(error)
         let errorCode = error['status'];
@@ -110,6 +112,16 @@ export class AddRecipePage implements OnInit {
 
   changeQuan(value) {
     this.qty += value
+  }
+
+  async showToast(msg) {
+    const toast = await this.toastController.create({
+        color: 'success',
+        duration: 2000,
+        message: msg
+      });
+
+      await toast.present();
   }
 
   async openEditFoodModal(food) {
