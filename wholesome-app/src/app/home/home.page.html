@@ -2,56 +2,367 @@
   <ion-toolbar>
     <ion-title>Wholesome</ion-title>
   </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="segment">
+      <ion-segment-button value="feed">
+        <ion-label>My Feed</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="explore">
+        <ion-label>Explore</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header> 
 
-<ion-content>
-  <ion-card>
+<ion-content [ngSwitch]="segment">
+  <div *ngSwitchCase="'feed'">
+  <ion-card color="tertiary">
     <ion-card-header>
-      <ion-card-subtitle>200 calories remaining</ion-card-subtitle>
-      <ion-card-title>493/693 kcal</ion-card-title>
+      <ion-card-subtitle>1000 calories remaining
+      </ion-card-subtitle>
+      <ion-card-title>200/1200 kcal
+      </ion-card-title>
     </ion-card-header>
   
     <ion-card-content>
-      <ion-item>
+      <ion-item color="tertiary">
         <ion-icon name="fast-food-outline" slot="start"></ion-icon>
         <ion-label>Food</ion-label>
-        <ion-note slot="end" color="primary">500kcal</ion-note>
+        <ion-note slot="end" color="light">350kcal</ion-note>
       </ion-item>
-      <ion-item>
+      <ion-item color="tertiary">
         <ion-icon name="barbell-outline" slot="start"></ion-icon>
         <ion-label>Exercise</ion-label>
-        <ion-note slot="end" color="primary">7kcal</ion-note>
+        <ion-note slot="end" color="light">150kcal</ion-note>
       </ion-item>
     </ion-card-content>
   </ion-card>
 
+  <!-- brit + co -->
   <ion-card>
     <ion-item>
       <ion-avatar slot="start">
-        <img src="https://miro.medium.com/max/1200/1*Qo5--bvM7oPS_vil2vLZYA.jpeg">
+        <img src="https://images.squarespace-cdn.com/content/v1/5abac9aa50a54feaf6b7c77e/1552404270100-7H1OKXGX9KAP5ELEAEGJ/ke17ZwdGBToddI8pDm48kOyctPanBqSdf7WQMpY1FsRZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpwwQIrqN0bcqL_6-iJCOAA0qwytzcs0JTq1XS2aqVbyK6GtMIM7F0DGeOwCXa63_4k/B-C_condensed.png">
       </ion-avatar>
       <ion-label>
-        <h3>John Doe</h3>
-        <p>Dec 10, 2019</p>
+        <h3>Brit+Co.</h3>
+        <p>June 21, 2021</p>
       </ion-label>
+      <ion-button slot="end" color="success" (click)="presentActionSheet('Brit+Co')">Following</ion-button>
     </ion-item>
   
-    <img src="https://miro.medium.com/max/1200/1*Qo5--bvM7oPS_vil2vLZYA.jpeg" alt="ion">
+    <img src="https://www.brit.co/media-library/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbWFnZSI6Imh0dHBzOi8vYXNzZXRzLnJibC5tcy8yMjEwODQ3Mi9vcmlnaW4uanBnIiwiZXhwaXJlc19hdCI6MTYyODgwMTA4NH0.EidUSSkOQEii-IvRKwRRoSxNxk9P6UoELGp1rkqWCmc/image.jpg?quality=80&width=800" alt="ion">
     <ion-card-header>
-      <ion-card-title>Hotel Panama Garden</ion-card-title>
+      <ion-card-subtitle>
+        <ion-chip color="secondary">
+          <ion-label>Low carb</ion-label>
+        </ion-chip>
+        <ion-chip color="tertiary">
+          <ion-label>Quick meal</ion-label>
+        </ion-chip>
+      </ion-card-subtitle>
+      <ion-card-title>Blackened Chicken and Avocado Salad
+        <a href="https://www.brit.co/whole30-chicken-and-avocado-salad/"><ion-icon name="navigate-outline"></ion-icon></a>
+      </ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.
+      This Pinterest-popular salad gained fame for many reasons, but the tender 20-minute chicken on top might be the most compelling.
     </ion-card-content>
   
     <ion-footer>
       <ion-item>
         <ion-avatar slot="start">
-          <img src="https://miro.medium.com/max/1200/1*Qo5--bvM7oPS_vil2vLZYA.jpeg">
+          <img src="https://i.pinimg.com/originals/bd/70/22/bd702201a2b6d8960734f60f34a22754.jpg">
         </ion-avatar>
         <ion-note slot="end" color=""><ion-icon name="send-outline"></ion-icon></ion-note>
         <ion-input placeholder="Comment"></ion-input>
       </ion-item>
     </ion-footer>
+    <br>
   </ion-card>
+
+  <!-- shape -->
+  <ion-card>
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://wellnessinthecity.co.za/wp-content/uploads/2016/03/wh.png">
+      </ion-avatar>
+      <ion-label>
+        <h3>Women's Health Magazine</h3>
+        <p>June 21, 2021</p>
+      </ion-label>
+      <ion-button slot="end" color="success" (click)="presentActionSheet('Brit+Co')">Following</ion-button>
+    </ion-item>
+  
+    <img src="https://i.ytimg.com/vi/8soywvU3l0w/maxresdefault.jpg" alt="ion">
+    <ion-card-header>
+      <ion-card-subtitle>
+        <ion-chip color="tertiary">
+          <ion-label>HIIT</ion-label>
+        </ion-chip>
+      </ion-card-subtitle>
+      <ion-card-title>15-minute cardio HIIT workout
+        <a href="https://www.brit.co/whole30-chicken-and-avocado-salad/"><ion-icon name="navigate-outline"></ion-icon></a>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      This workout is a mix of bodyweight strength exercises and cardio exercises. You'll work hard while building strength – just note, there's no rest between exercises so go at your own pace.
+    </ion-card-content>
+  
+    <ion-footer>
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://i.pinimg.com/originals/bd/70/22/bd702201a2b6d8960734f60f34a22754.jpg">
+        </ion-avatar>
+        <ion-note slot="end" color=""><ion-icon name="send-outline"></ion-icon></ion-note>
+        <ion-input placeholder="Comment"></ion-input>
+      </ion-item>
+    </ion-footer>
+    <br>
+  </ion-card>
+
+  <!-- delish -->
+  <ion-card *ngIf="delish == true">
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://res.cloudinary.com/spokenlayer/image/upload/ar_1:1,c_fill/c_scale,w_500,dpr_auto,fl_lossy,f_auto/d_SpokenLayer_Logo_Verticle_fb9a1b.png/v1/cover_art/delish-daily.png">
+      </ion-avatar>
+      <ion-label>
+        <h3>Delish</h3>
+        <p>June 21, 2021</p>
+      </ion-label>
+      <ion-button slot="end" color="success" (click)="presentActionSheet('Delish')">Following</ion-button>
+    </ion-item>
+  
+    <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-loaded-cauliflower-bake-horizontal-1-1535729326.png?crop=1xw:1xh;center,top&resize=768:*" alt="ion">
+    <ion-card-header>
+      <ion-card-subtitle>
+        <ion-chip color="secondary">
+          <ion-label>Low carb</ion-label>
+        </ion-chip>
+      </ion-card-subtitle>
+      <ion-card-title>Loaded Cauliflower Bake
+        <a href="https://www.brit.co/whole30-chicken-and-avocado-salad/"><ion-icon name="navigate-outline"></ion-icon></a>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      If you are sick of mac and cheese or potatoes but still want a hearty side, then this is the perfect alternative for you.
+    </ion-card-content>
+  
+    <ion-footer>
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://i.pinimg.com/originals/bd/70/22/bd702201a2b6d8960734f60f34a22754.jpg">
+        </ion-avatar>
+        <ion-note slot="end" color=""><ion-icon name="send-outline"></ion-icon></ion-note>
+        <ion-input placeholder="Comment"></ion-input>
+      </ion-item>
+    </ion-footer>
+    <br>
+  </ion-card>
+
+  <!-- brit + co -->
+  <ion-card>
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://images.squarespace-cdn.com/content/v1/5abac9aa50a54feaf6b7c77e/1552404270100-7H1OKXGX9KAP5ELEAEGJ/ke17ZwdGBToddI8pDm48kOyctPanBqSdf7WQMpY1FsRZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpwwQIrqN0bcqL_6-iJCOAA0qwytzcs0JTq1XS2aqVbyK6GtMIM7F0DGeOwCXa63_4k/B-C_condensed.png">
+      </ion-avatar>
+      <ion-label>
+        <h3>Brit+Co.</h3>
+        <p>June 21, 2021</p>
+      </ion-label>
+      <ion-button slot="end" color="success" (click)="presentActionSheet('Brit+Co')">Following</ion-button>
+    </ion-item>
+  
+    <img src="http://chateaulala.com/wp-content/uploads/2014/12/fergalicious-chocolate-cake-blackberry-coulis-recipes.jpg" alt="ion">
+    <ion-card-header>
+      <ion-card-subtitle>
+        <ion-chip color="secondary">
+          <ion-label>Low carb</ion-label>
+        </ion-chip>
+        <ion-chip color="tertiary">
+          <ion-label>Dessert</ion-label>
+        </ion-chip>
+      </ion-card-subtitle>
+      <ion-card-title>Chocolate Cake With Blackberry Coulis
+        <a href="https://www.brit.co/whole30-chicken-and-avocado-salad/"><ion-icon name="navigate-outline"></ion-icon></a>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Free of refined sugar and flour, this rich chocolate cake gets its sweetness from coconut sugar, blackberries and a red wine reduction. Can you say, “yum”?
+    </ion-card-content>
+  
+    <ion-footer>
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://i.pinimg.com/originals/bd/70/22/bd702201a2b6d8960734f60f34a22754.jpg">
+        </ion-avatar>
+        <ion-note slot="end" color=""><ion-icon name="send-outline"></ion-icon></ion-note>
+        <ion-input placeholder="Comment"></ion-input>
+      </ion-item>
+    </ion-footer>
+    <br>
+  </ion-card>
+  </div>
+
+  <div *ngSwitchCase="'explore'">
+
+    <ion-card>
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://media.spokenlayer.com/cover-art/2019/09/25/gh-logo-3000px-1400x1400.png">
+        </ion-avatar>
+        <ion-label>
+          <h3>Good Housekeeping</h3>
+          <p>June 21, 2021</p>
+        </ion-label>
+        <ion-button slot="end" color="success" fill="outline">Follow</ion-button>
+      </ion-item>
+    
+      <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/1200-calorie-diet-index-1545406236.png?crop=1.00xw:1.00xh;0,0&resize=980:*">
+      <ion-card-header>
+        <ion-card-subtitle>
+          <ion-chip color="secondary">
+            <ion-label>Meal plan</ion-label>
+          </ion-chip>
+          <ion-chip color="tertiary">
+            <ion-label>Tips</ion-label>
+          </ion-chip>
+        </ion-card-subtitle>
+        <ion-card-title>A 7-Day, 1,200-Calorie Meal Plan
+          <a href="https://www.brit.co/whole30-chicken-and-avocado-salad/"><ion-icon name="navigate-outline"></ion-icon></a>
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        Follow this, and you'll slim down and still feel satisfied.
+      </ion-card-content>
+    
+      <ion-footer>
+        <ion-item>
+          <ion-avatar slot="start">
+            <img src="https://i.pinimg.com/originals/bd/70/22/bd702201a2b6d8960734f60f34a22754.jpg">
+          </ion-avatar>
+          <ion-note slot="end" color=""><ion-icon name="send-outline"></ion-icon></ion-note>
+          <ion-input placeholder="Comment"></ion-input>
+        </ion-item>
+      </ion-footer>
+      <br>
+    </ion-card>
+
+    <!-- meal prep -->
+  <ion-card>
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2019/08/low-sugar-smoothies-19.jpg">
+      </ion-avatar>
+      <ion-label>
+        <h3>Jane Doe</h3>
+        <p>June 21, 2021</p>
+      </ion-label>
+      <ion-button slot="end" color="success" fill="outline">Follow</ion-button>
+    </ion-item>
+  
+    <img src="https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2018/08/Meal-Prep-Summer-5.jpg">
+    <ion-card-header>
+      <ion-card-subtitle>
+        <ion-chip color="secondary">
+          <ion-label>Tips</ion-label>
+        </ion-chip>
+      </ion-card-subtitle>
+      <ion-card-title>Meal Prepping
+        <a href="https://www.brit.co/whole30-chicken-and-avocado-salad/"><ion-icon name="navigate-outline"></ion-icon></a>
+      </ion-card-title>
+    </ion-card-header>
+  
+    <ion-footer>
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://i.pinimg.com/originals/bd/70/22/bd702201a2b6d8960734f60f34a22754.jpg">
+        </ion-avatar>
+        <ion-note slot="end" color=""><ion-icon name="send-outline"></ion-icon></ion-note>
+        <ion-input placeholder="Comment"></ion-input>
+      </ion-item>
+    </ion-footer>
+    <br>
+  </ion-card>
+
+    <!-- shape -->
+  <ion-card>
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://pyxis.nymag.com/v1/imgs/6fa/373/26aaed6b79a77d124815e67298d6bb4863-down-to-earth.rsquare.w700.jpg">
+      </ion-avatar>
+      <ion-label>
+        <h3>Zac Efron</h3>
+        <p>June 21, 2021</p>
+      </ion-label>
+      <ion-button slot="end" color="success" fill="outline">Follow</ion-button>
+    </ion-item>
+  
+    <img src="https://jumpropedudes.com/wp-content/uploads/2020/05/Untitled-design-5.png" alt="ion">
+    <ion-card-header>
+      <ion-card-title>Progress Report
+        <a href="https://www.brit.co/whole30-chicken-and-avocado-salad/"><ion-icon name="navigate-outline"></ion-icon></a>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      5 Years of hard work. Never give up!
+    </ion-card-content>
+  
+    <ion-footer>
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://i.pinimg.com/originals/bd/70/22/bd702201a2b6d8960734f60f34a22754.jpg">
+        </ion-avatar>
+        <ion-note slot="end" color=""><ion-icon name="send-outline"></ion-icon></ion-note>
+        <ion-input placeholder="Comment"></ion-input>
+      </ion-item>
+    </ion-footer>
+    <br>
+  </ion-card>
+
+  <!-- healthline -->
+  <ion-card>
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://assets.medicalnewstoday.com/content/hl_sharing_v2.jpg">
+      </ion-avatar>
+      <ion-label>
+        <h3>Healthline</h3>
+        <p>June 21, 2021</p>
+      </ion-label>
+      <ion-button *ngIf="follow == false" slot="end" color="success" fill="outline" (click)="followAcc()">Follow</ion-button>
+      <ion-button *ngIf="follow == true" slot="end" color="success" (click)="presentActionSheet('Brit+Co')">Following</ion-button>
+    </ion-item>
+  
+    <ion-card-header>
+      <ion-card-subtitle>
+        <ion-chip color="secondary">
+          <ion-label>Weight loss</ion-label>
+        </ion-chip>
+        <ion-chip color="tertiary">
+          <ion-label>Tips</ion-label>
+        </ion-chip>
+      </ion-card-subtitle>
+      <ion-card-title>The 8 Best Diets
+        <a href="https://www.brit.co/whole30-chicken-and-avocado-salad/"><ion-icon name="navigate-outline"></ion-icon></a>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Sustainability, Weight Loss, and More
+    </ion-card-content>
+  
+    <ion-footer>
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://i.pinimg.com/originals/bd/70/22/bd702201a2b6d8960734f60f34a22754.jpg">
+        </ion-avatar>
+        <ion-note slot="end" color=""><ion-icon name="send-outline"></ion-icon></ion-note>
+        <ion-input placeholder="Comment"></ion-input>
+      </ion-item>
+    </ion-footer>
+    <br>
+  </ion-card>
+  
+  </div>
 </ion-content>

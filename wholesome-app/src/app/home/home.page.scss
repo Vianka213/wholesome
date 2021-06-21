@@ -5,3 +5,15 @@ ion-thumbnail {
 ion-title {
     vertical-align: middle;
 }
+
+ion-card-title {
+    ion-icon {
+        vertical-align: text-top;
+    }
+}
+
+ion-card-subtitle {
+    ion-chip {
+    font-size: 0.8em !important;
+    }
+}
