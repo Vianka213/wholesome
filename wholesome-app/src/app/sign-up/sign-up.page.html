@@ -1,10 +1,14 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>sign-up</ion-title>
+    <ion-title>Get Started</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-slides pager="true">
+    <ion-slide>
+      <div class="slide">
+      <img src="https://img.freepik.com/free-vector/adding-contacts-phone-metaphor-illustration_82574-8975.jpg?size=626&ext=jpg">
   <form [formGroup]="signUpForm" (ngSubmit)="signUp(signUpForm.value)">
     <span class="error ion-padding" *ngIf="signUpError">
       {{signUpError}}
@@ -15,7 +19,7 @@
       <ion-label position="floating">Name</ion-label>
       <ion-input formControlName="name" type="text"></ion-input>
     </ion-item>
-    <span class="error ion-padding" *ngIf="errorControl.name.errors?.required">
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
       Name is required.
     </span>
 
@@ -24,7 +28,7 @@
       <ion-label position="floating">Surname</ion-label>
       <ion-input formControlName="surname" type="text"></ion-input>
     </ion-item>
-    <span class="error ion-padding" *ngIf="errorControl.surname.errors?.required">
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.surname.errors?.required">
       Surname is required.
     </span>
     
@@ -57,18 +61,117 @@
       <ion-label position="floating">Confirm Password</ion-label>
       <ion-input formControlName="passwordConf" type="password"></ion-input>
     </ion-item>
-    <span class="error ion-padding" *ngIf="errorControl.passwordConf.errors?.required">
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.passwordConf.errors?.required">
       Password confirmation is required.
     </span>
     <span class="error ion-padding" *ngIf="errorControl.passwordConf.errors?.mustMatch">
       Passwords do not match.
     </span>
+    
+        <ion-button [disabled]="signUpForm.invalid" type="submit" color="secondary" expand="block">Submit</ion-button>
 
-    <ion-row>
-      <ion-col>
-        <ion-button [disabled]="signUpForm.invalid" type="submit" color="danger" expand="block">Submit</ion-button>
-      </ion-col>
-    </ion-row>
   </form>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="slide">
+        <img src="https://thumbs.dreamstime.com/b/communicating-people-chat-dialog-communication-smartphone-call-talking-speaking-group-vector-illustration-person-conversation-154419385.jpg"/>
+        <h2>Tell Us More</h2>
+        <p>Help us get a better understanding of your lifestyle by filling in the following fields.</p>
+        <ion-item>
+          <ion-label position="fixed">Age</ion-label>
+          <ion-input type="number"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="fixed">Height (cm)</ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="fixed">Weight (kg)</ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Gender</ion-label>
+          <ion-select placeholder="Select One">
+            <ion-select-option value="f">Female</ion-select-option>
+            <ion-select-option value="m">Male</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-button color="secondary" fill="outline" slot="end">
+          Next 
+          <ion-icon size="large" name="arrow-forward-circle-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="slide">
+        <img src="https://image.freepik.com/free-vector/people-keeping-healthy-diet_74855-5912.jpg"/>
+        <h2>Dietary Requirements</h2>
+        <p>Select any dietary requirements you may have to get better recommendations.</p>
+        <p>
+          <ion-chip (click)="changeReq(c)" *ngFor="let c of chips" [color]="c.color">{{c.name}}
+            <ion-icon *ngIf="c.selected == true" name="checkmark-circle"></ion-icon>
+          </ion-chip>
+        </p>
+        <ion-button color="secondary" fill="outline" slot="end">
+          Next 
+          <ion-icon size="large" name="arrow-forward-circle-outline"></ion-icon>
+        </ion-button>  
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="slide">
+        <img src="https://image.freepik.com/free-vector/goals-concept-vector-illustration_107173-16692.jpg"/>
+        <h2>Your Goals</h2>
+        <p>We'll provide you with the best tips and tricks to reach your goals.</p>
+        <ion-item>
+          <ion-label>Weight</ion-label>
+          <ion-select placeholder="Select One">
+            <ion-select-option value="l">Lose</ion-select-option>
+            <ion-select-option value="m">Maintain</ion-select-option>
+            <ion-select-option value="g">Gain</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-range [value]="macros.p" [(ngModel)]="macros.p" min="0" max="100" pin="true" color="secondary">
+            <ion-label slot="start">Protein</ion-label>
+            <ion-label slot="end">{{macros.p}}</ion-label>
+          </ion-range>
+        </ion-item>
+        <ion-item>
+          <ion-range [value]="macros.f" [(ngModel)]="macros.f" min="0" max="100" pin="true" color="secondary">
+            <ion-label slot="start">Fat</ion-label>
+            <ion-label slot="end">{{macros.f}}</ion-label>
+          </ion-range>
+        </ion-item>
+        <ion-item>
+          <ion-range [value]="macros.c" [(ngModel)]="macros.c" min="0" max="100" pin="true" color="secondary">
+            <ion-label slot="start">Carbs</ion-label>
+            <ion-label slot="end">{{macros.c}}</ion-label>
+          </ion-range>
+        </ion-item>
+        <ion-button color="secondary" fill="outline" slot="end">
+          Next 
+          <ion-icon size="large" name="arrow-forward-circle-outline"></ion-icon>
+        </ion-button>  
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="slide">
+        <img src="https://static.vecteezy.com/system/resources/previews/002/076/516/non_2x/done-illustration-concept-vector.jpg"/>
+        <h2>All Done!</h2>
+        <p>Let's get your health and fitness journey started.</p>
+        <ion-button [routerLink]="['home']" color="sucess" fill="outline" slot="end">
+          Done 
+          <ion-icon size="large" name="checkmark-circle"></ion-icon>
+        </ion-button>  
+      </div>
+    </ion-slide>
+  </ion-slides>
+
 </ion-content>
 
