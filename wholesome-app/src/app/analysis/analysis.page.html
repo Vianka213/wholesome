@@ -1,9 +1,87 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>analysis</ion-title>
+    <ion-title>Analysis</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <h4>June 15, 2021 - June 21, 2021</h4>
+  <ion-card color="primary">
+
+    <ion-card-header>
+      <ion-card-subtitle><ion-icon name="alert-circle-outline"></ion-icon> 2 days over goal</ion-card-subtitle>
+      <ion-card-title>Calories</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div id="Chart" class="charts" style="position: relative;">
+        <canvas id="calsCanvas"></canvas>
+      </div>
+    </ion-card-content>
+
+    <ion-footer>
+    </ion-footer>
+  </ion-card>
+
+  <ion-card color="medium">
+
+    <ion-card-header>
+      <ion-card-title>Macros</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div id="proteinChart" class="charts" style="position: relative; height:30vh; width:60vw">
+        <canvas id="macroCanvas"></canvas>
+        <div class="absolute-center text-center">
+          <p id="percent"><span>8400</span><br> kcal</p>
+        </div>
+      </div>
+    </ion-card-content>
+
+    <ion-footer>
+      <ion-list>
+        <ion-item>
+          <ion-note class="protein" slot="start"><ion-icon name="ellipse"></ion-icon></ion-note>
+          <ion-label>Protein</ion-label>
+          <ion-note slot="end">16% | 1344kcals</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-note class="fat" slot="start"><ion-icon name="ellipse"></ion-icon></ion-note>
+          <ion-label>Fat</ion-label>
+          <ion-note slot="end">28% | 2352kcals</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-note class="carbs" slot="start"><ion-icon name="ellipse"></ion-icon></ion-note>
+          <ion-label>Carbs</ion-label>
+          <ion-note slot="end">56% | 4704kcals</ion-note>
+        </ion-item>
+        <ion-item id="predict">
+          <ion-icon slot="start" name="pizza-outline"></ion-icon>
+          This week's macros are almost in line with your goals! Cut down on the carbs a little and you're all set.
+        </ion-item>
+      </ion-list>
+    </ion-footer>
+  </ion-card>
+
+  <ion-card color="secondary">
+
+    <ion-card-header>
+      <ion-card-subtitle>*Predications for the next 4 weeks</ion-card-subtitle>
+      <ion-card-title>Estimated Weight</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div id="Chart" class="charts" style="position: relative;">
+        <canvas id="weightCanvas"></canvas>
+      </div>
+    </ion-card-content>
+
+    <ion-footer>
+      <ion-item id="predict">
+        <ion-icon slot="start" name="medal-outline"></ion-icon>
+        According to your exercise and eating habits for the past 28 days, you will lose 0.9kg this month!
+      </ion-item>
+    </ion-footer>
+  </ion-card>
 
 </ion-content>

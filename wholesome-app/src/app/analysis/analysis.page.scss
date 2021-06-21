@@ -1,0 +1,48 @@
+.absolute-center {
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.charts {
+    margin: 0 auto;
+}
+
+.protein {
+    color: #988CFF;
+}
+
+.fat {
+    color: #8EE7A8;
+}
+
+.carbs {
+    color: #439BFF;
+}
+
+ion-card-subtitle {
+    ion-icon {
+        font-size: 1.5em;
+        font-weight: bold;
+        vertical-align: sub;
+    }
+}
+
+#percent {
+    text-align: center;
+}
+
+#predict {
+    --padding-top: 0.5em;
+    --padding-bottom: 0.5em;
+}
+
+h4{
+     text-transform: uppercase;
+     font-size: 1em;
+     font-weight: bold;
+     font-stretch: semi-expanded;
+     color: var(--color-dark);
+     text-align: center;
+}
