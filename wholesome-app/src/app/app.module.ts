@@ -15,7 +15,7 @@ import { AppComponent } from './app.component';
   declarations: [AppComponent],
   entryComponents: [],
   imports: [ 
-    MbscModule, 
+    MbscModule,  
     BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule, 

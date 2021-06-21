@@ -24,6 +24,11 @@ export class SignUpPage implements OnInit {
     {'name': 'Low Carb', 'selected': false, 'color': 'primary'},
     {'name': 'Shellfish Allergy', 'selected': false, 'color': 'danger'},
   ]
+  macros : Object = {
+    'p': 20,
+    'f': 30,
+    'c': 50,
+  }
 
   constructor(public service : AccountManagementService, public headerService : HeaderService, public router : Router, public formBuilder : FormBuilder) { }
 

@@ -5,8 +5,10 @@
 </ion-header>
 
 <ion-content>
-  <ion-slides>
+  <ion-slides pager="true">
     <ion-slide>
+      <div class="slide">
+      <img src="https://img.freepik.com/free-vector/adding-contacts-phone-metaphor-illustration_82574-8975.jpg?size=626&ext=jpg">
   <form [formGroup]="signUpForm" (ngSubmit)="signUp(signUpForm.value)">
     <span class="error ion-padding" *ngIf="signUpError">
       {{signUpError}}
@@ -17,7 +19,7 @@
       <ion-label position="floating">Name</ion-label>
       <ion-input formControlName="name" type="text"></ion-input>
     </ion-item>
-    <span class="error ion-padding" *ngIf="errorControl.name.errors?.required">
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
       Name is required.
     </span>
 
@@ -26,7 +28,7 @@
       <ion-label position="floating">Surname</ion-label>
       <ion-input formControlName="surname" type="text"></ion-input>
     </ion-item>
-    <span class="error ion-padding" *ngIf="errorControl.surname.errors?.required">
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.surname.errors?.required">
       Surname is required.
     </span>
     
@@ -59,19 +61,17 @@
       <ion-label position="floating">Confirm Password</ion-label>
       <ion-input formControlName="passwordConf" type="password"></ion-input>
     </ion-item>
-    <span class="error ion-padding" *ngIf="errorControl.passwordConf.errors?.required">
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.passwordConf.errors?.required">
       Password confirmation is required.
     </span>
     <span class="error ion-padding" *ngIf="errorControl.passwordConf.errors?.mustMatch">
       Passwords do not match.
     </span>
+    
+        <ion-button [disabled]="signUpForm.invalid" type="submit" color="secondary" expand="block">Submit</ion-button>
 
-    <ion-row>
-      <ion-col>
-        <ion-button [disabled]="signUpForm.invalid" type="submit" color="danger" expand="block">Submit</ion-button>
-      </ion-col>
-    </ion-row>
   </form>
+      </div>
     </ion-slide>
 
     <ion-slide>
@@ -124,9 +124,39 @@
 
     <ion-slide>
       <div class="slide">
-        <img src="https://www.truepush.com/blog/wp-content/uploads/2020/09/healthy-people-carrying-different-icons_53876-43069.jpg"/>
+        <img src="https://image.freepik.com/free-vector/goals-concept-vector-illustration_107173-16692.jpg"/>
         <h2>Your Goals</h2>
-        <p>The <b>ionic conference app</b> is a practical preview of the ionic framework in action, and a demonstration of proper code use.</p>
+        <p>We'll provide you with the best tips and tricks to reach your goals.</p>
+        <ion-item>
+          <ion-label>Weight</ion-label>
+          <ion-select placeholder="Select One">
+            <ion-select-option value="l">Lose</ion-select-option>
+            <ion-select-option value="m">Maintain</ion-select-option>
+            <ion-select-option value="g">Gain</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-range [value]="macros.p" [(ngModel)]="macros.p" min="0" max="100" pin="true" color="secondary">
+            <ion-label slot="start">Protein</ion-label>
+            <ion-label slot="end">{{macros.p}}</ion-label>
+          </ion-range>
+        </ion-item>
+        <ion-item>
+          <ion-range [value]="macros.f" [(ngModel)]="macros.f" min="0" max="100" pin="true" color="secondary">
+            <ion-label slot="start">Fat</ion-label>
+            <ion-label slot="end">{{macros.f}}</ion-label>
+          </ion-range>
+        </ion-item>
+        <ion-item>
+          <ion-range [value]="macros.c" [(ngModel)]="macros.c" min="0" max="100" pin="true" color="secondary">
+            <ion-label slot="start">Carbs</ion-label>
+            <ion-label slot="end">{{macros.c}}</ion-label>
+          </ion-range>
+        </ion-item>
+        <ion-button color="secondary" fill="outline" slot="end">
+          Next 
+          <ion-icon size="large" name="arrow-forward-circle-outline"></ion-icon>
+        </ion-button>  
       </div>
     </ion-slide>
 
@@ -134,7 +164,11 @@
       <div class="slide">
         <img src="https://static.vecteezy.com/system/resources/previews/002/076/516/non_2x/done-illustration-concept-vector.jpg"/>
         <h2>All Done!</h2>
-        <p>The <b>ionic conference app</b> is a practical preview of the ionic framework in action, and a demonstration of proper code use.</p>
+        <p>Let's get your health and fitness journey started.</p>
+        <ion-button [routerLink]="['home']" color="sucess" fill="outline" slot="end">
+          Done 
+          <ion-icon size="large" name="checkmark-circle"></ion-icon>
+        </ion-button>  
       </div>
     </ion-slide>
   </ion-slides>
