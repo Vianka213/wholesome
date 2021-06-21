@@ -17,11 +17,11 @@
 - [Connect with Me](#connect-with-me)
 
 ## Introduction
-Wholesome is a system intended to assist individuals in tracking various health and fitness data with ease. By provding a way for users to easily log and analyse their health and fitness data, Wholesome aims to help users identify the patterns in their diet and workouts and encourage users to modify them to ensure a holistic, well-balanced lifestyle. The system also makes users more accountable for their choices and provides the means for them to make the necessary changes and motivate them to achieve their goals.
+Wholesome is a system intended to assist individuals in tracking various health and fitness data with ease. By providing a way for users to easily log and analyse their health and fitness data, Wholesome aims to help users identify the patterns in their diet and workouts and encourage users to modify them to ensure a holistic, well-balanced lifestyle. The system also makes users more accountable for their choices and provides the means for them to make the necessary changes and motivate them to achieve their goals.
 
 
 ## Documentation
-- User Manual: 
+- User Manual: https://drive.google.com/file/d/1vM5dokxKnIq3eqW8B6LlIeGjSYU1RbPF/view?usp=sharing
 
 ## Project Management Tools
 - ClickUp: https://sharing.clickup.com/b/h/4-3499625-2/1fe63d1349807cc
